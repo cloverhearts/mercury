@@ -1,6 +1,7 @@
 const {app, remote, ipcMain, ipcRenderer, BrowserWindow} = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
+const platform = require('./platform/app')
 let mainWindow;
 
 async function createWindow() {
@@ -11,7 +12,6 @@ async function createWindow() {
       preload: __dirname + `/preload.js`,
     },
   });
-  console.log(__dirname + `/preload.js`)
   mainWindow.loadURL(isDev ?
     'http://localhost:3000' :
     `file://${path.join(__dirname, '../build/index.html')}`);
@@ -24,6 +24,7 @@ async function createWindow() {
   // console.log(response)
 }
 
+app.on('ready', platform.receiver)
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
