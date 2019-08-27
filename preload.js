@@ -1,5 +1,4 @@
-const {clientListener, tasks} = require('./platform/app');
-
-// console.log(sender)
-clientListener();
-window.d2 = tasks;
+const {remoteClient} = require('d2note-core');
+window.d2 = {
+  remoteClient
+};

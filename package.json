@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "d2note-core": "file:d2note-core",
+    "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

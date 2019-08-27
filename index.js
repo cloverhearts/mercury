@@ -1,7 +1,7 @@
-const {app, remote, ipcMain, ipcRenderer, BrowserWindow} = require('electron');
+const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
-const platform = require('./platform/app')
+const core = require('d2note-core');
 let mainWindow;
 
 async function createWindow() {
@@ -19,12 +19,9 @@ async function createWindow() {
     mainWindow.webContents.openDevTools();
   }
   mainWindow.on('closed', () => mainWindow = null);
-
-  // const response = await test({url: 'https://www.naver.com'})
-  // console.log(response)
 }
 
-app.on('ready', platform.receiver)
+app.on('ready', core.initializeServer);
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
