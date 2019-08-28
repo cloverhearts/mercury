@@ -13,15 +13,18 @@ class Task {
   }
 
   send() {
-    const requestMeta = {...this._taskMeta, requestAt: moment().toISOString()};
-    const _resListener = (event, response) => {
-      ipcRenderer.removeListener(requestMeta.cChannel, _resListener);
-      if (this._onRender) {
-        const result = this._onRender(response);
-      }
-    };
-    ipcRenderer.on(requestMeta.cChannel, _resListener);
-    ipcRenderer.send(requestMeta.sChannel, requestMeta);
+    return new Promise((resolve, reject) => {
+      const requestMeta = {...this._taskMeta, requestAt: moment().toISOString()};
+      const _resListener = (event, response) => {
+        ipcRenderer.removeListener(requestMeta.cChannel, _resListener);
+        if (this._onRender) {
+          const result = this._onRender(response);
+          resolve(result)
+        }
+      };
+      ipcRenderer.on(requestMeta.cChannel, _resListener);
+      ipcRenderer.send(requestMeta.sChannel, requestMeta);
+    })
   }
 }
 
