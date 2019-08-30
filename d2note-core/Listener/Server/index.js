@@ -5,6 +5,7 @@ const moment = require('moment');
 const {ipcMain} = require('electron');
 
 function initialize() {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   fs.readdirSync(taskPaths).forEach(path => {
     const stat = fs.lstatSync(`${taskPaths}/${path}`);
     if (stat.isDirectory()) {

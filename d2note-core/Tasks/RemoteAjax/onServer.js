@@ -16,12 +16,12 @@ async function onServer(request) {
     const response = await axios({
       ...request,
       method: _method,
-      url: 'https://www.example.com',
+      url: _url,
       data: _data,
     });
     return response;
-  } catch (e) {
-    return e;
+  } catch (error) {
+    return error;
   }
 };
 
