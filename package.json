@@ -24,6 +24,7 @@
     "extends": "react-app"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.18.0",
     "axios": "^0.19.0",
     "d2note-core": "file:d2note-core",
     "moment": "^2.24.0",
