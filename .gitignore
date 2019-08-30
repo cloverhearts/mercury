@@ -62,3 +62,4 @@ typings/
 
 build
 .idea
+.sass-cache
