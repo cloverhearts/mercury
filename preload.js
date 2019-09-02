@@ -1,4 +1,5 @@
-const {RemoteClient} = require('mercury');
-window.mercury = {
-  RemoteClient
+const {RemoteClient, ReportConsole} = require('mercury');
+window._mercury = {
+  RemoteClient,
+  ReportConsole
 };

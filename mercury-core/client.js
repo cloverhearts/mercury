@@ -1,3 +1,3 @@
-const Reporter = require('./Reporter');
+const {Reporter, LANG, ReportConsole} = require('./Reporter');
 // const {RemoteClient} = require('./Listener/Client');
-module.exports = {Reporter};
+module.exports = {Reporter, LANG, ReportConsole};

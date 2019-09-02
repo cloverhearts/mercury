@@ -1,13 +1,10 @@
 .editor-container {
-
   .editor {
+    width: 100%;
     min-height: 200px;
     .monaco-editor {
-      background: yellow;
+      width: 100% !important;
       min-height: 100%;
-      .view-lines {
-        background: yellowgreen;
-      }
     }
   }
 }

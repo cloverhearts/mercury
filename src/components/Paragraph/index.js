@@ -1,12 +1,16 @@
 import React from 'react';
-import Editor from '../Editor/CodeEditor'
-import { Reporter } from 'mercury/client'
+import Editor from '../Editor/CodeEditor';
+import {Reporter, LANG} from 'mercury/client';
+
 export default (props) => {
-  const reporter = new Reporter({code: 'this is a code'})
+  const reporter = new Reporter({
+    language: LANG.JAVASCRIPT,
+    code: `const r = await mercury.RemoteClient.RemoteAjax.build('1111', { url: 'https://www.naver.com'}).send();\nconsole.log(r)`,
+  });
   return (
     <div>
       Paragraph
-      <Editor />
+      <Editor Reporter={reporter}/>
     </div>
-  )
+  );
 }

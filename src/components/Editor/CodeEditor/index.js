@@ -1,21 +1,37 @@
 import React from 'react';
-import * as monaco from 'monaco-editor'
-import './index.scss'
+import * as monaco from 'monaco-editor';
+import './index.scss';
 
-const assignEditor = (_element) => {
+let editor = null;
+const assignEditor = (_element, editorOption) => {
   setTimeout(() => {
-    monaco.editor.create(_element, {
-      value: "function hello() {\n\talert('Hello world!');\n}",
-      language: "javascript"
-    });
-  }, 100)
+    editor = monaco.editor.create(_element, editorOption);
+  }, 0);
+};
 
-}
+const execute = (reporter, code) => {
+  if (reporter) {
+    reporter.code = code;
+    const command = reporter.getCommand();
+    console.log(command)
+    // eslint-disable-next-line no-eval
+    eval(command);
+  }
+};
 
 export default (props) => {
+  const {
+    Reporter,
+  } = props;
+  const editorOption = {
+    value: Reporter.code,
+    language: Reporter.language,
+  };
   return (
     <div className={`editor-container`}>
-      <div className={`editor`} ref={assignEditor} />
+      <div className={`editor`}
+           ref={(_editor) => assignEditor(_editor, editorOption)}/>
+      <button onClick={_ => execute(Reporter, editor.getValue())}>Run</button>
     </div>
   );
 }
