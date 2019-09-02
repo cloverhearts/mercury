@@ -1,5 +1,7 @@
 @import url(~normalize.css);
 @import url(~@blueprintjs/core/lib/css/blueprint.css);
 @import url(~@blueprintjs/icons/lib/css/blueprint-icons.css);
+html body *:focus {
+  outline: none; }
 
 /*# sourceMappingURL=App.css.map */

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const taskPaths = path.join(__dirname, '../../Tasks');
-const remoteClient = {};
+const RemoteClient = {};
 
 function initialize() {
   fs.readdirSync(taskPaths).forEach(path => {
@@ -12,7 +12,7 @@ function initialize() {
         if (onServerStat.isFile()) {
           const {meta, task} = require(`${taskPaths}/${path}/index.js`);
           if (meta && meta.type && task) {
-            remoteClient[meta.type] = task;
+            RemoteClient[meta.type] = task;
           }
         }
       } catch (e) {
@@ -22,4 +22,4 @@ function initialize() {
 }
 initialize();
 
-module.exports = {remoteClient};
+module.exports = {RemoteClient};

@@ -1,0 +1,9 @@
+.editor-container .editor {
+  min-height: 200px; }
+  .editor-container .editor .monaco-editor {
+    background: yellow;
+    min-height: 100%; }
+    .editor-container .editor .monaco-editor .view-lines {
+      background: yellowgreen; }
+
+/*# sourceMappingURL=index.css.map */
