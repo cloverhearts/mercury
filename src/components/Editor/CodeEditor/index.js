@@ -12,10 +12,10 @@ const assignEditor = (_element, editorOption) => {
 const execute = (reporter, code) => {
   if (reporter) {
     reporter.code = code;
-    const command = reporter.getCommand();
-    console.log(command)
-    // eslint-disable-next-line no-eval
-    eval(command);
+    const executor = reporter.getCommandFunction();
+    if (executor) {
+      executor();
+    }
   }
 };
 
@@ -23,15 +23,23 @@ export default (props) => {
   const {
     Reporter,
   } = props;
+
   const editorOption = {
     value: Reporter.code,
     language: Reporter.language,
   };
+
   return (
     <div className={`editor-container`}>
       <div className={`editor`}
            ref={(_editor) => assignEditor(_editor, editorOption)}/>
-      <button onClick={_ => execute(Reporter, editor.getValue())}>Run</button>
+      <button onClick={_ => {
+        execute(Reporter, editor.getValue());
+      }}>Run
+      </button>
+      <div className={`console`}>
+        {Reporter.logs ? Reporter.logs.map((e, index) => (<div key={index}>{e}</div>)) : null}
+      </div>
     </div>
   );
 }

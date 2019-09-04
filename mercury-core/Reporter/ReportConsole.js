@@ -1,28 +1,40 @@
+const moment = require('moment');
+const LOG_LEVELS = {
+  WARN: 'warn',
+  LOG: 'log',
+  ERROR: 'error',
+};
+
 class ReportConsole {
-  constructor(_id, _console) {
-    this._id = _id
-    this._console = Object.assign({}, _console)
+  constructor(_logs, builtInConsole = null) {
+    this._logs = _logs;
+    this._console = builtInConsole || { log: () => {}, warn: () => {}, error: () => {}}
   }
 
-  get id() {
-    return this._id
+  get logs() {
+    return this._logs;
+  }
+
+  _pushLog(_level, _time = moment().utc().unix(), _data = 'tick') {
+    this._logs.unshift({level: _level, time: _time, data: _data});
+    this._logs.length > 1000 ? this._logs.pop() : null;
   }
 
   log(...args) {
-    console.log('reportconsole l', ...args)
-    this._console.log(...args)
+    this._pushLog(LOG_LEVELS.LOG, moment().utc().unix(), ...args);
+    this._console.log(...args);
   }
 
   warn(...args) {
-    console.log('reportconsole w', ...args)
-    this._console.warn(...args)
+    this._pushLog(LOG_LEVELS.WARN, moment().utc().unix(), ...args);
+    this._console.warn(...args);
   }
 
   error(...args) {
-    console.log('reportconsole e', ...args)
-    this._console.error(...args)
+    this._pushLog(LOG_LEVELS.ERROR, moment().utc().unix(), ...args);
+    this._console.error(...args);
   }
 
 }
 
-module.exports = ReportConsole
+module.exports = ReportConsole;
