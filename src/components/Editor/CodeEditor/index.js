@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import * as monaco from 'monaco-editor';
 import './index.scss';
 
@@ -19,6 +19,26 @@ const execute = (reporter, code) => {
   }
 };
 
+function LogView ({ Reporter }) {
+  const [logs, setLogs] = useState(Reporter.logs);
+
+  function onReporterEvent( _ , event) {
+    if (event.type === '_console') {
+      setLogs([...logs, event.data]);
+    }
+  }
+  Reporter.on(onReporterEvent);
+
+  useEffect(() => {
+    return function cleanUp() {
+      console.log('log cleanUp');
+      Reporter.removeEventListener(onReporterEvent);
+    };
+  },[Reporter]);
+
+  return logs.map((log, index) => <div key={index}>1 {JSON.stringify(log)}</div>)
+}
+
 export default (props) => {
   const {
     Reporter,
@@ -38,7 +58,7 @@ export default (props) => {
       }}>Run
       </button>
       <div className={`console`}>
-        {Reporter.logs ? Reporter.logs.map((e, index) => (<div key={index}>{e}</div>)) : null}
+        <LogView Reporter={Reporter} />
       </div>
     </div>
   );

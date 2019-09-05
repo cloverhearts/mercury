@@ -1,9 +1,11 @@
 const uuidGenerator = require('uuid/v4');
 const LANG = require('./SupportLang');
+const Observer = require('observeable-object-js')
 const ReportConsole = require('./ReportConsole');
 
 class Reporter {
   constructor({uuid, code, language, logs}) {
+    this._observer = new Observer()
     this._code = code || '';
     this._uuid = uuid || uuidGenerator();
     this._language = language || LANG.JAVASCRIPT;
@@ -13,6 +15,9 @@ class Reporter {
     } else {
       this._console = new ReportConsole(this._logs);
     }
+    this._console.addEventListener('_console', (event, data) => {
+      this._observer.notify('_broadcast', { type: '_console', data})
+    })
   }
 
   get uuid() {
@@ -37,6 +42,14 @@ class Reporter {
 
   getConsole() {
     return this._console;
+  }
+
+  on(listener) {
+    this._observer.addEventListener('_broadcast', listener)
+  }
+
+  removeEventListener(listener) {
+    this._observer.removeEventListener('_broadcast', listener)
   }
 
   /*

@@ -1,4 +1,5 @@
 const moment = require('moment');
+const Observer = require('observeable-object-js')
 const LOG_LEVELS = {
   WARN: 'warn',
   LOG: 'log',
@@ -7,17 +8,34 @@ const LOG_LEVELS = {
 
 class ReportConsole {
   constructor(_logs, builtInConsole = null) {
+    this._observer = new Observer()
     this._logs = _logs;
-    this._console = builtInConsole || { log: () => {}, warn: () => {}, error: () => {}}
+    this._console = builtInConsole || {
+      log: () => {
+      }, warn: () => {
+      }, error: () => {
+      },
+    };
   }
 
   get logs() {
     return this._logs;
   }
 
-  _pushLog(_level, _time = moment().utc().unix(), _data = 'tick') {
-    this._logs.unshift({level: _level, time: _time, data: _data});
-    this._logs.length > 1000 ? this._logs.pop() : null;
+  addEventListener(...events) {
+    this._observer.addEventListener(...events)
+  }
+
+  removeEventListener(...events) {
+    this._observer.removeEventListener(...events)
+  }
+
+  _pushLog(_level, _time = moment().utc().unix(), _data) {
+    this._observer.notify('_console', {level: _level, time: _time, data: _data});
+    this._logs.push({level: _level, time: _time, data: _data});
+    if (this._logs.length > 1000) {
+      this._logs.shift();
+    }
   }
 
   log(...args) {

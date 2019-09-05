@@ -1,7 +1,7 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
-const core = require('mercury');
+const core = require('mercury-core');
 let mainWindow;
 
 async function createWindow() {
