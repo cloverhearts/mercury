@@ -1,6 +1,9 @@
-const {RemoteClient, ReportConsole} = require('mercury-core');
+const { RemoteClient, ReportConsole, jsdom } = require("mercury-core");
 
 window._mercury = {
   RemoteClient,
-  ReportConsole
+  ReportConsole,
+  utils: {
+    jsdom
+  }
 };

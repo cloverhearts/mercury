@@ -1,12 +1,12 @@
-const uuidGenerator = require('uuid/v4');
-const LANG = require('./SupportLang');
-const Observer = require('observeable-object-js')
-const ReportConsole = require('./ReportConsole');
+const uuidGenerator = require("uuid/v4");
+const LANG = require("./SupportLang");
+const Observer = require("observeable-object-js");
+const ReportConsole = require("./ReportConsole");
 
 class Reporter {
-  constructor({uuid, code, language, logs}) {
-    this._observer = new Observer()
-    this._code = code || '';
+  constructor({ uuid, code, language, logs }) {
+    this._observer = new Observer();
+    this._code = code || "";
     this._uuid = uuid || uuidGenerator();
     this._language = language || LANG.JAVASCRIPT;
     this._logs = logs || [];
@@ -15,9 +15,9 @@ class Reporter {
     } else {
       this._console = new ReportConsole(this._logs);
     }
-    this._console.addEventListener('_console', (event, data) => {
-      this._observer.notify('_broadcast', { type: '_console', data})
-    })
+    this._console.addEventListener("_console", (event, data) => {
+      this._observer.notify("_broadcast", { type: "_console", data });
+    });
   }
 
   get uuid() {
@@ -45,31 +45,15 @@ class Reporter {
   }
 
   on(listener) {
-    this._observer.addEventListener('_broadcast', listener)
+    this._observer.addEventListener("_broadcast", listener);
   }
 
   removeEventListener(listener) {
-    this._observer.removeEventListener('_broadcast', listener)
+    this._observer.removeEventListener("_broadcast", listener);
   }
 
-  /*
-
-  () => (async function ( { _mercury } ) {
-              console.log('this? ', this)
-              this.console.setConsole(window.console);
-              console.log('fff', this.console)
-              const console = this.console;
-              const Reporter = this;
-              try {
-                  // ${code}
-              } catch(error) {
-                  window.console.error(error)
-              }
-          })(window)
-   */
-
   _getCodeWrap(language, code) {
-    let template = '';
+    let template = "";
     switch (language) {
       case LANG.JAVASCRIPT:
       default:
@@ -91,8 +75,8 @@ class Reporter {
     const executeCode = code || this.code;
     // eslint-disable-next-line no-eval
     const command = eval(this._getCodeWrap(this.language, executeCode));
-    return command.bind(this)
+    return command.bind(this);
   }
 }
 
-module.exports = {Reporter, LANG, ReportConsole};
+module.exports = { Reporter, LANG, ReportConsole };
