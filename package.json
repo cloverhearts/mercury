@@ -1,7 +1,7 @@
 {
-  "name": "chaesu",
-  "version": "1.0.0",
-  "description": "Chaesu - Javascript data driven discovery note",
+  "name": "mercury",
+  "version": "0.1.0",
+  "description": "Mercury - Data discovery and definition  with note system",
   "main": "index.js",
   "scripts": {
     "electron": "electron ./index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloverhearts/chaesu.git"
+    "url": "git+https://github.com/cloverhearts/mercury.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/cloverhearts/chaesu/issues"
+    "url": "https://github.com/cloverhearts/mercury/issues"
   },
-  "homepage": "https://github.com/cloverhearts/chaesu#readme",
+  "homepage": "https://github.com/cloverhearts/mercury#readme",
   "eslintConfig": {
     "extends": "react-app"
   },

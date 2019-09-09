@@ -44,7 +44,8 @@ export default props => {
 
   const editorOption = {
     value: Reporter.code,
-    language: Reporter.language
+    language: Reporter.language,
+    automaticLayout: true
   };
 
   return (
