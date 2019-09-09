@@ -7,7 +7,10 @@ function App() {
   return (
     <div>
       Hello Mercury
-      <Paragraph />
+      <div className={`container`}>
+        <Paragraph />
+      </div>
+
     </div>
   );
 }

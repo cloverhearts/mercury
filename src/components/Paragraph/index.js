@@ -1,6 +1,8 @@
 import React from "react";
+import { Card } from '@blueprintjs/core'
 import Editor from "../Editor/CodeEditor";
 import { Reporter, LANG } from "mercury-core/client";
+
 
 export default props => {
   const reporter = new Reporter({
@@ -15,9 +17,8 @@ export default props => {
           `
   });
   return (
-    <div>
-      Paragraph
+    <Card interactive>
       <Editor Reporter={reporter} />
-    </div>
+    </Card>
   );
 };

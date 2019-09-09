@@ -1,4 +1,11 @@
 .editor-container {
+  .editor-controller-box {
+    text-align: right;
+    margin-bottom: 10px;
+    button {
+      min-width: 100px;
+    }
+  }
   .editor {
     width: 100%;
     .monaco-editor {
