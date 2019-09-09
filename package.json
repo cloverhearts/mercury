@@ -7,7 +7,14 @@
     "electron": "electron ./index.js",
     "dev": "concurrently \"BROWSER=none\" \"wait-on http://localhost:3000 && electron ./index.js\"",
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js"
+    "build-script": "node scripts/build.js",
+    "build:osx": "electron-builder --mac",
+    "build:linux": "npm run build:linux32 && npm run build:linux64",
+    "build:linux32": "electron-builder --linux --ia32",
+    "build:linux64": "electron-builder --linux --x64",
+    "build:win": "npm run build:win32 && npm run build:win64",
+    "build:win32": "electron-builder --win --ia32",
+    "build:win64": "electron-builder --win --x64"
   },
   "repository": {
     "type": "git",
@@ -159,5 +166,52 @@
     "presets": [
       "react-app"
     ]
+  },
+  "build": {
+    "productName": "mercury",
+    "appId": "com.cloverhearts.mercury",
+    "asar": true,
+    "protocols": {
+      "name": "mercury",
+      "schemes": [
+        "mercury"
+      ]
+    },
+    "mac": {
+      "target": [
+        "default"
+      ],
+      "icon": "./resources/installer/Icon.icns"
+    },
+    "dmg": {
+      "title": "mercury",
+      "icon": "./resources/installer/Icon.icns"
+    },
+    "win": {
+      "target": [
+        "zip",
+        "nsis"
+      ],
+      "icon": "./resources/installer/Icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm",
+        "zip",
+        "tar.gz"
+      ],
+      "icon": "./resources/linuxicon"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "directories": {
+      "buildResources": "resources/installer/",
+      "output": "dist/",
+      "app": "."
+    }
   }
 }

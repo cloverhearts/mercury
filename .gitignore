@@ -63,3 +63,4 @@ typings/
 build
 .idea
 */**/.sass-cache
+dist
