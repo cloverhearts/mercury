@@ -13,4 +13,22 @@
       min-height: 150px;
     }
   }
+  .console {
+    background: red;
+    .log-viewer {
+      background: red;
+      .log-row {
+        &.level-log {
+        }
+        &.level-warn {
+          background: orange;
+          color: white;
+        }
+        &.level-error {
+          background: red;
+          color: white;
+        }
+      }
+    }
+  }
 }

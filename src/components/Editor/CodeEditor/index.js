@@ -3,6 +3,7 @@ import { Inspector } from "react-inspector";
 import { Button, ButtonGroup } from "@blueprintjs/core";
 import * as monaco from "monaco-editor";
 import "./index.scss";
+import { chromeLight } from "react-inspector";
 
 const assignEditor = (_element, editorOption) => {
   setTimeout(() => {
@@ -44,13 +45,25 @@ function LogView({ Reporter }) {
       Reporter.removeEventListener(onReporterEvent);
     };
   }, [Reporter]);
-
-  return logs.map((log, index) => (
-    <div key={index}>
-      {/* <ReactJson src={log.data} /> */}
-      <Inspector data={log.data} />
+  console.log(chromeLight);
+  return (
+    <div className={`log-viewer`}>
+      {logs.map((log, index) => (
+        <div key={index} className={`log-row level-${log.level}`}>
+          <Inspector
+            theme={{
+              ...chromeLight,
+              BASE_FONT_FAMILY: "Bell MT",
+              BASE_FONT_SIZE: "14px",
+              TREENODE_FONT_FAMILY: "Bell MT",
+              TREENODE_FONT_SIZE: "14px"
+            }}
+            data={log.data}
+          />
+        </div>
+      ))}
     </div>
-  ));
+  );
 }
 
 function EditorControllerBox({ onRun }) {
@@ -58,7 +71,9 @@ function EditorControllerBox({ onRun }) {
   async function onClickRunButton() {
     setIsRunning(true);
     await onRun();
-    setIsRunning(false);
+    setTimeout(() => {
+      setIsRunning(false);
+    }, 200);
   }
   return (
     <div className={`editor-controller-box`}>
