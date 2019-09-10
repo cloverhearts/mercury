@@ -1,10 +1,14 @@
 @import "~normalize.css";
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+@import "~source-code-pro/source-code-variable.css";
+@import "~source-code-pro/source-code-pro.css";
 
 html {
   body {
     * {
+      font-family: 'Source Code Pro', 'monospace', 'Arial' !important;
+      font-weight: 400;
       &:focus {
         outline: none;
       }
