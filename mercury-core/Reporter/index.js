@@ -1,12 +1,12 @@
-const uuidGenerator = require("uuid/v4");
-const LANG = require("./SupportLang");
-const Observer = require("observeable-object-js");
-const ReportConsole = require("./ReportConsole");
+const uuidGenerator = require('uuid/v4');
+const LANG = require('./SupportLang');
+const Observer = require('observeable-object-js');
+const ReportConsole = require('./ReportConsole');
 
 class Reporter {
-  constructor({ uuid, code, language, logs }) {
+  constructor({uuid, code, language, logs}) {
     this._observer = new Observer();
-    this._code = code || "";
+    this._code = code || '';
     this._uuid = uuid || uuidGenerator();
     this._language = language || LANG.JAVASCRIPT;
     this._logs = logs || [];
@@ -15,8 +15,8 @@ class Reporter {
     } else {
       this._console = new ReportConsole(this._logs);
     }
-    this._console.addEventListener("_console", (event, data) => {
-      this._observer.notify("_broadcast", { type: "_console", data });
+    this._console.addEventListener('_console', (event, data) => {
+      this._observer.notify('_broadcast', {type: '_console', data});
     });
   }
 
@@ -40,20 +40,25 @@ class Reporter {
     return this._logs;
   }
 
+  clearLogs() {
+    return this.getConsole().clear()
+  }
+
   getConsole() {
     return this._console;
   }
 
   on(listener) {
-    this._observer.addEventListener("_broadcast", listener);
+    this._observer.addEventListener('_broadcast', listener);
   }
 
   removeEventListener(listener) {
-    this._observer.removeEventListener("_broadcast", listener);
+    this._observer.removeEventListener('_broadcast', listener);
+    console.log(this._observer)
   }
 
   _getCodeWrap(language, code) {
-    let template = "";
+    let template = '';
     switch (language) {
       case LANG.JAVASCRIPT:
       default:
@@ -63,7 +68,7 @@ class Reporter {
               try {
                   ${code}
               } catch(error) {
-                  window.console.error(error)
+                  console.error(error.toString())
               }
           }).bind(this)(window) }
         `;
@@ -79,4 +84,4 @@ class Reporter {
   }
 }
 
-module.exports = { Reporter, LANG, ReportConsole };
+module.exports = {Reporter, LANG, ReportConsole};
