@@ -2,7 +2,6 @@ const axios = require('axios');
 const meta = require('./meta');
 
 async function onServer(request) {
-  // return await axios.get('https://www.example.com')
   const _url = request.url;
   if (!_url) {
     return new Error('url is undefined');

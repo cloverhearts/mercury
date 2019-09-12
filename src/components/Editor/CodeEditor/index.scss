@@ -2,33 +2,44 @@
   .editor-controller-box {
     text-align: right;
     margin-bottom: 10px;
+
     button {
       min-width: 100px;
     }
   }
+
   .editor {
     width: 100%;
+
     .monaco-editor {
       width: 100%;
       min-height: 150px;
     }
   }
+
   .console {
-    background: red;
     .log-viewer {
-      background: red;
-      .log-row {
-        &.level-log {
-        }
-        &.level-warn {
-          background: orange;
-          color: white;
-        }
-        &.level-error {
-          background: red;
-          color: white;
+      word-break: break-all;
+
+      .log-controller-box {
+        text-align: right;
+      }
+
+      .log-list {
+        .log-row {
+          border-bottom: 1px solid #f0f0f0;
+
+          &.level-log {
+          }
+
+          &.level-warn {
+          }
+
+          &.level-error {
+          }
         }
       }
+
     }
   }
 }
