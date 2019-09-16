@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {chromeLight, Inspector} from 'react-inspector';
-import {Button, ButtonGroup, Position, Tooltip} from '@blueprintjs/core';
-import moment from 'moment';
-import * as monaco from 'monaco-editor';
-import './index.scss';
+import React, { useEffect, useState } from "react";
+import { chromeLight, Inspector } from "react-inspector";
+import { Button, ButtonGroup, Position, Tooltip } from "@blueprintjs/core";
+import moment from "moment";
+import * as monaco from "monaco-editor";
+import "./index.scss";
 
 const assignEditor = (_element, editorOption) => {
   setTimeout(() => {
@@ -28,13 +28,13 @@ const execute = (reporter, code) => {
   });
 };
 
-function LogView({Reporter}) {
+function LogView({ Reporter }) {
   const [logs, setLogs] = useState(Reporter.logs);
   const [themes] = useState(Reporter.getConsole().themes);
 
   useEffect(() => {
     const eventListener = (_, event) => {
-      if (event.type === '_console') {
+      if (event.type === "_console") {
         setTimeout(() => setLogs([...Reporter.logs]), 0);
       }
     };
@@ -54,25 +54,15 @@ function LogView({Reporter}) {
       <div className={`log-controller-box`}>
         <ButtonGroup>
           <Tooltip content="Clear console" position={Position.TOP}>
-            <Button
-              icon={`delete`}
-              onClick={onClearLog}
-              className={`clear-log-button`}
-            >
-            </Button>
+            <Button icon={`delete`} onClick={onClearLog} className={`clear-log-button`}></Button>
           </Tooltip>
         </ButtonGroup>
       </div>
       <div className="log-list">
         {logs.map((log, index) => (
           <div key={index} className={`log-row level-${log.level}`}>
-            <div className={`log-time`}>
-              {moment(log.time * 1000).calendar()}
-            </div>
-            <Inspector
-              theme={{...chromeLight, ...themes[log.level]}}
-              data={log.data}
-            />
+            <div className={`log-time`}>{moment(log.time * 1000).calendar()}</div>
+            <Inspector theme={{ ...chromeLight, ...themes[log.level] }} data={log.data} />
           </div>
         ))}
       </div>
@@ -80,7 +70,7 @@ function LogView({Reporter}) {
   );
 }
 
-function EditorControllerBox({onRun}) {
+function EditorControllerBox({ onRun }) {
   const [isRunning, setIsRunning] = useState(false);
 
   async function onClickRunButton() {
@@ -109,17 +99,17 @@ function EditorControllerBox({onRun}) {
 
 let editor = null;
 export default props => {
-  const {Reporter} = props;
+  const { Reporter } = props;
 
   const editorOption = {
     value: Reporter.code,
     language: Reporter.language,
     automaticLayout: true,
-    minimap: {enabled: false},
+    minimap: { enabled: false },
     scrollbar: {
       verticalScrollbarSize: 5,
-      horizontalScrollbarSize: 5,
-    },
+      horizontalScrollbarSize: 5
+    }
   };
 
   function onRun() {
@@ -135,12 +125,12 @@ export default props => {
 
   return (
     <div className={`editor-container`}>
-      <EditorControllerBox onRun={onRun}/>
-      <div className={`editor`}
-           ref={_editor => assignEditor(_editor, editorOption)}/>
+      <EditorControllerBox onRun={onRun} />
+      <div className={`editor`} ref={_editor => assignEditor(_editor, editorOption)} />
       <div className={`console`}>
-        <LogView Reporter={Reporter}/>
+        <LogView Reporter={Reporter} />
       </div>
+      <div id="test-html">Test-HTML</div>
     </div>
   );
 };
