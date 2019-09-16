@@ -1,0 +1,62 @@
+{
+  "name": "javascript-module-boilerplate",
+  "version": "0.0.2",
+  "description": "Javascript Module boilerplate",
+  "main": "dist/htmldoc2json.js",
+  "scripts": {
+    "clean": "node_modules/.bin/rimraf ./dist",
+    "build": "node_modules/.bin/npm-run-all clean build:*",
+    "build:module": "node_modules/.bin/webpack --config webpack.config.js",
+    "test": "node_modules/.bin/npm-run-all test:*",
+    "test:unit-test": "node_modules/.bin/jest --config jest.config.js",
+    "test:checkstyle": "node_modules/.bin/standard --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloverhearts/javascript-module-boilerplate.git"
+  },
+  "keywords": [
+    "html",
+    "json",
+    "document",
+    "convert",
+    "javascript",
+    "webpack",
+    "library",
+    "stater"
+  ],
+  "author": "CloverHearts",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cloverhearts/javascript-module-boilerplate/issues"
+  },
+  "homepage": "https://github.com/cloverhearts/javascript-module-boilerplate#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/register": "^7.6.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
+    "jest": "^24.9.0",
+    "jsdoc": "^3.6.3",
+    "npm-run-all": "^4.1.5",
+    "regenerator-runtime": "^0.13.3",
+    "rimraf": "^3.0.0",
+    "snazzy": "^8.0.0",
+    "standard": "^14.3.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8"
+  },
+  "standard": {
+    "ignore": [
+      "tests/**",
+      "package.json",
+      "jest.config.js",
+      "webpack.**",
+      "doc/**"
+    ]
+  },
+  "dependencies": {}
+}
