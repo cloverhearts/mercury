@@ -1,3 +1,1 @@
-import doc from './src/Htmldoc2Json'
-
-export default doc
+export default console;

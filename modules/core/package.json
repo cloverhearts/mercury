@@ -1,8 +1,8 @@
 {
-  "name": "javascript-module-boilerplate",
-  "version": "0.0.2",
-  "description": "Javascript Module boilerplate",
-  "main": "dist/htmldoc2json.js",
+  "name": "mercury-core",
+  "version": "0.1.0",
+  "description": "mercury javascript notebook core",
+  "main": "dist/mercury-core.js",
   "scripts": {
     "clean": "node_modules/.bin/rimraf ./dist",
     "build": "node_modules/.bin/npm-run-all clean build:*",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloverhearts/javascript-module-boilerplate.git"
+    "url": "git+https://github.com/cloverhearts/mercury.git"
   },
   "keywords": [
     "html",
@@ -28,11 +28,12 @@
   "author": "CloverHearts",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cloverhearts/javascript-module-boilerplate/issues"
+    "url": "https://github.com/cloverhearts/mercury/issues"
   },
-  "homepage": "https://github.com/cloverhearts/javascript-module-boilerplate#readme",
+  "homepage": "https://github.com/cloverhearts/mercury#readme",
   "devDependencies": {
     "@babel/core": "^7.6.0",
+    "@babel/plugin-transform-modules-umd": "^7.2.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/register": "^7.6.0",
     "babel-core": "^7.0.0-bridge.0",
