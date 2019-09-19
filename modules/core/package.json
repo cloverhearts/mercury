@@ -59,5 +59,11 @@
       "doc/**"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "jsdom": "^15.1.1",
+    "lit-html": "^1.1.2",
+    "moment": "^2.24.0",
+    "observeable-object-js": "^1.0.1",
+    "uuid": "^3.3.3"
+  }
 }
