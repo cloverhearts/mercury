@@ -1,4 +1,4 @@
-const LANG = { JAVASCRIPT: "javascript" };
-Object.freeze(LANG);
+const LANG = { JAVASCRIPT: 'javascript' }
+Object.freeze(LANG)
 
-export default LANG;
+export default LANG
