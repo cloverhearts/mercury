@@ -6,7 +6,6 @@ import Logger from "./Logger";
 export default class {
   constructor(containerObject) {
     this.id = containerObject && containerObject.id ? containerObject.id : UUID();
-    Object.freeze(this.id);
     this.language = containerObject && containerObject.language ? containerObject.language : LANGUAGE.JAVASCRIPT;
     this.code = containerObject && containerObject.code ? containerObject.code : "";
     this.logs = containerObject && containerObject.logs ? containerObject.logs : [];
