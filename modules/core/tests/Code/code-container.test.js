@@ -10,7 +10,7 @@ test("test for code Container runner", () => {
   codeContainer.code = codeText;
   expect(codeContainer.code).toBe(codeText);
   expect(codeContainer._getCodeWrap(Languages.JAVASCRIPT, codeContainer.code)).toEqual(
-    expect.stringMatching(/console.log\('Hello world'\)/)
+    expect.stringMatching(/console.log\('Hellow Mercury!'\)/)
   );
 
   const executeResult = () =>
