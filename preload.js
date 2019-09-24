@@ -1,9 +1,11 @@
-const { RemoteClient, ReportConsole, jsdom } = require("mercury-core");
+const jsdom = require('jsdom');
+const fetch = require('./modules/Tasks/RemoteAjax');
 
 window._mercury = {
-  RemoteClient,
-  ReportConsole,
   utils: {
-    jsdom
-  }
+    jsdom,
+  },
 };
+
+// import fetch
+window._mercury.utils[fetch.meta.type] = fetch.task;

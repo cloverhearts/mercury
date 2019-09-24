@@ -1,12 +1,15 @@
-const uuidGenerator = require('uuid/v4');
-const LANG = require('./SupportLang');
-const Observer = require('observeable-object-js');
-const ReportConsole = require('./ReportConsole');
+const uuidGenerator = require("uuid/v4");
+const LANG = require("./SupportLang");
+const Observer = require("observeable-object-js");
+const ReportConsole = require("./ReportConsole");
+const templateEngine = require("lit-html");
+const html = templateEngine.html;
+const render = templateEngine.render;
 
 class Reporter {
-  constructor({uuid, code, language, logs}) {
+  constructor({ uuid, code, language, logs }) {
     this._observer = new Observer();
-    this._code = code || '';
+    this._code = code || "";
     this._uuid = uuid || uuidGenerator();
     this._language = language || LANG.JAVASCRIPT;
     this._logs = logs || [];
@@ -15,8 +18,8 @@ class Reporter {
     } else {
       this._console = new ReportConsole(this._logs);
     }
-    this._console.addEventListener('_console', (event, data) => {
-      this._observer.notify('_broadcast', {type: '_console', data});
+    this._console.addEventListener("_console", (event, data) => {
+      this._observer.notify("_broadcast", { type: "_console", data });
     });
   }
 
@@ -40,8 +43,16 @@ class Reporter {
     return this._logs;
   }
 
+  get html() {
+    return html;
+  }
+
+  get render() {
+    return render;
+  }
+
   clearLogs() {
-    return this.getConsole().clear()
+    return this.getConsole().clear();
   }
 
   getConsole() {
@@ -49,22 +60,24 @@ class Reporter {
   }
 
   on(listener) {
-    this._observer.addEventListener('_broadcast', listener);
+    this._observer.addEventListener("_broadcast", listener);
   }
 
   removeEventListener(listener) {
-    this._observer.removeEventListener('_broadcast', listener);
-    console.log(this._observer)
+    this._observer.removeEventListener("_broadcast", listener);
+    console.log(this._observer);
   }
 
   _getCodeWrap(language, code) {
-    let template = '';
+    let template = "";
     switch (language) {
       case LANG.JAVASCRIPT:
       default:
         template = `
           () => { return ( async function ( { _mercury } ) { 
               const console = this.getConsole()
+              const html = this.html
+              const render = this.render
               try {
                   ${code}
               } catch(error) {
@@ -84,4 +97,4 @@ class Reporter {
   }
 }
 
-module.exports = {Reporter, LANG, ReportConsole};
+module.exports = { Reporter, LANG, ReportConsole };
