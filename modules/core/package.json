@@ -5,7 +5,7 @@
   "main": "dist/mercury-core.js",
   "scripts": {
     "clean": "node_modules/.bin/rimraf ./dist",
-    "build": "node_modules/.bin/npm-run-all clean build:*",
+    "build": "node_modules/.bin/npm-run-all clean fix:* build:*",
     "build:module": "node_modules/.bin/webpack --config webpack.config.js",
     "fix": "npm-run-all clean fix:*",
     "fix:style": "node_modules/.bin/standard --fix",

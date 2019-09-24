@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const taskPaths = path.join(__dirname, '../../Tasks');
+const taskPaths = path.join(__dirname, '../Tasks');
 const moment = require('moment');
 const {ipcMain} = require('electron');
 

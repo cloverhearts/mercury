@@ -1,7 +1,7 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
-const core = require('mercury-core');
+const server = require('./modules/server');
 let mainWindow;
 
 async function createWindow() {
@@ -21,7 +21,7 @@ async function createWindow() {
   mainWindow.on('closed', () => mainWindow = null);
 }
 
-app.on('ready', core.initializeServer);
+app.on('ready', server.initializeServer);
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {

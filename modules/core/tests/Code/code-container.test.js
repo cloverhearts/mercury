@@ -1,4 +1,4 @@
-import mercuryCore from "../../index";
+import mercuryCore from "../../dist/mercury-core";
 const sleep = ms => new Promise(resolve => setTimeout(() => resolve(), ms));
 test("test for code Container runner", () => {
   const { Container, Languages } = mercuryCore.Code;

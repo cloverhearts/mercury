@@ -3,6 +3,7 @@ import { chromeLight, Inspector } from "react-inspector";
 import { Button, ButtonGroup, Position, Tooltip } from "@blueprintjs/core";
 import moment from "moment";
 import * as monaco from "monaco-editor";
+import LogTheme from '../Logger/theme'
 import "./index.scss";
 
 const assignEditor = (_element, editorOption) => {
@@ -28,25 +29,22 @@ const execute = (reporter, code) => {
   });
 };
 
-function LogView({ Reporter }) {
-  const [logs, setLogs] = useState(Reporter.logs);
-  const [themes] = useState(Reporter.getConsole().themes);
+function LogView({ CodeContainer }) {
+  const [logs, setLogs] = useState(CodeContainer.logs);
+  const [themes] = useState(null);
 
   useEffect(() => {
     const eventListener = (_, event) => {
-      if (event.type === "_console") {
-        setTimeout(() => setLogs([...Reporter.logs]), 0);
-      }
+      setTimeout(() => setLogs([...CodeContainer.logs]), 0);
     };
-    Reporter.on(eventListener);
+    CodeContainer.addEventListener(CodeContainer.channel.LOGGER, eventListener);
     return function cleanUp() {
-      Reporter.removeEventListener(eventListener);
+      CodeContainer.removeListener(eventListener);
     };
-  }, [Reporter.uuid, Reporter.logs.length]);
+  }, [CodeContainer.id, CodeContainer.logs.length]);
 
   function onClearLog() {
-    Reporter.clearLogs();
-    setTimeout(() => setLogs([...Reporter.logs]), 0);
+    setTimeout(() => setLogs([...CodeContainer.logs]), 0);
   }
 
   return (
@@ -62,7 +60,7 @@ function LogView({ Reporter }) {
         {logs.map((log, index) => (
           <div key={index} className={`log-row level-${log.level}`}>
             <div className={`log-time`}>{moment(log.time * 1000).calendar()}</div>
-            <Inspector theme={{ ...chromeLight, ...themes[log.level] }} data={log.data} />
+            <Inspector theme={{ ...chromeLight, ...LogTheme[log.level] }} data={log.data} />
           </div>
         ))}
       </div>
@@ -99,11 +97,11 @@ function EditorControllerBox({ onRun }) {
 
 let editor = null;
 export default props => {
-  const { Reporter } = props;
+  const { CodeContainer } = props;
 
   const editorOption = {
-    value: Reporter.code,
-    language: Reporter.language,
+    value: CodeContainer.code,
+    language: CodeContainer.language,
     automaticLayout: true,
     minimap: { enabled: false },
     scrollbar: {
@@ -115,7 +113,7 @@ export default props => {
   function onRun() {
     return new Promise(function(resolve, reject) {
       try {
-        execute(Reporter, editor.getValue());
+        execute(CodeContainer, editor.getValue());
         resolve();
       } catch (error) {
         reject(error);
@@ -128,9 +126,9 @@ export default props => {
       <EditorControllerBox onRun={onRun} />
       <div className={`editor`} ref={_editor => assignEditor(_editor, editorOption)} />
       <div className={`console`}>
-        <LogView Reporter={Reporter} />
+        <LogView CodeContainer={CodeContainer} />
       </div>
-      <div id="test-html">Test-HTML</div>
+      <div id={`html-${CodeContainer.id}`}>Test-HTML</div>
     </div>
   );
 };
