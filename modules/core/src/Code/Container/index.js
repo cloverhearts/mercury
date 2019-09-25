@@ -3,6 +3,8 @@ import EventBroadcaster from 'observeable-object-js'
 import LANGUAGE from '../Languages/Types'
 import Logger from './Logger'
 import { loader } from './Renderer'
+import Template from './ExecuteTemplates'
+const esprima = require('esprima')
 
 export default class {
   constructor (containerObject) {
@@ -14,7 +16,8 @@ export default class {
     this._eventBroadcaster = new EventBroadcaster()
     this.channel = {
       BROADCAST: '_broadcast',
-      LOGGER: '_logger'
+      LOGGER: '_logger',
+      EXECUTOR: '_executor'
     }
     Object.freeze(this.channel)
     this.logger.addEventListener(this.logger.channel.Logger, (event, data) => {
@@ -24,6 +27,7 @@ export default class {
     loader().then(imported => {
       this.renderer = imported
     })
+    this._esprima = esprima
   }
 
   addEventListener (event, listener) {
@@ -35,29 +39,17 @@ export default class {
   }
 
   _getCodeWrap (language, code, initializeObject = 'window') {
-    let template = ''
+    let syntaxValidateError = null
     switch (language) {
       case LANGUAGE.JAVASCRIPT:
       default:
-        template = `
-          () => { return ( async function ( window ) { 
-              const _mercury = window ? window._mercury : {}
-              const console = this.logger
-              let html = this.renderer && this.renderer.html ? this.renderer.html : () => {};
-              let render = this.renderer && this.renderer.render ? (html, _native_dom = '#html-${this.id}') => this.renderer.render(html, document.querySelector(_native_dom)) : () => {};
-              setTimeout(() => {
-                html = this.renderer.html
-                render = (html, _native_dom = '#html-${this.id}') => this.renderer.render(html, document.querySelector(_native_dom))
-              }, 10)
-              try {
-                  ${code}
-              } catch(error) {
-                  console.error(error.toString())
-              }
-          }).bind(this)(${initializeObject}) }
-        `
+        try {
+          this._esprima.parseScript(Template(LANGUAGE.JAVASCRIPT, this.id, code, initializeObject))
+        } catch (error) {
+          syntaxValidateError = error
+        }
+        return Template(LANGUAGE.JAVASCRIPT, this.id, syntaxValidateError ? `throw '${syntaxValidateError}'` : code, initializeObject)
     }
-    return template
   }
 
   getCommandFunction (code, initializeObject = 'window') {
