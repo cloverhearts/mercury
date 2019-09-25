@@ -2,6 +2,8 @@ export default (id, code, initializeObject) => {
   return `
     () => {
       return (async function (window) {
+        const __mercury_executor_notifier = this._eventBroadcaster
+        __mercury_executor_notifier.notify(this.channel.EXECUTOR, { status: 'EXECUTE_START' })
         const _mercury = window ? window._mercury : {}
         const console = this.logger
         let html = this.renderer && this.renderer.html ? this.renderer.html : () => { };
@@ -14,7 +16,10 @@ export default (id, code, initializeObject) => {
           ${code}
         } catch (error) {
           console.error(error.toString())
+          __mercury_executor_notifier.notify(this.channel.EXECUTOR, { status: 'EXECUTE_ERROR' })
+          return
         }
+        __mercury_executor_notifier.notify(this.channel.EXECUTOR, { status: 'EXECUTE_END' })
       }).bind(this)(${initializeObject})
     }
   `

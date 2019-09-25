@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { chromeLight, Inspector } from "react-inspector";
-import { Button, ButtonGroup, Position, Tooltip } from "@blueprintjs/core";
-import moment from "moment";
-import * as monaco from "monaco-editor";
-import LogTheme from "../Logger/theme";
-import "./index.scss";
+import React, {useEffect, useState} from 'react';
+import {chromeLight, Inspector} from 'react-inspector';
+import {Button, ButtonGroup, Position, Tooltip} from '@blueprintjs/core';
+import moment from 'moment';
+import * as monaco from 'monaco-editor';
+import LogTheme from '../Logger/theme';
+import './index.scss';
 
 const assignEditor = (_element, editorOption) => {
   setTimeout(() => {
@@ -13,23 +13,18 @@ const assignEditor = (_element, editorOption) => {
 };
 
 const execute = (reporter, code) => {
-  return new Promise((resolve, reject) => {
-    try {
-      if (reporter) {
-        reporter.code = code;
-        const executor = reporter.getCommandFunction();
-        if (executor) {
-          executor();
-          resolve();
-        }
-      }
-    } catch (error) {
-      reject(error);
+  if (reporter) {
+    reporter.code = code;
+    const executor = reporter.getCommandFunction();
+    if (executor) {
+      executor();
+    } else {
+      console.error('cannot found executor')
     }
-  });
+  }
 };
 
-function LogView({ CodeContainer }) {
+function LogView({CodeContainer}) {
   const [logs, setLogs] = useState(CodeContainer.logger.logs);
   const [themes] = useState(LogTheme);
 
@@ -47,20 +42,24 @@ function LogView({ CodeContainer }) {
     CodeContainer.logger.clear();
     setTimeout(() => setLogs([...CodeContainer.logger.logs]), 0);
   }
+
   return (
     <div className={`log-viewer`}>
       <div className={`log-controller-box`}>
         <ButtonGroup>
           <Tooltip content="Clear console" position={Position.TOP}>
-            <Button icon={`delete`} onClick={onClearLog} className={`clear-log-button`}></Button>
+            <Button icon={`delete`} onClick={onClearLog}
+                    className={`clear-log-button`}></Button>
           </Tooltip>
         </ButtonGroup>
       </div>
       <div className="log-list">
         {logs.map((log, index) => (
           <div key={index} className={`log-row level-${log.level}`}>
-            <div className={`log-time`}>{moment(log.time * 1000).calendar()}</div>
-            <Inspector theme={{ ...chromeLight, ...themes[log.level] }} data={log.data} />
+            <div className={`log-time`}>{moment(log.time * 1000).
+              calendar()}</div>
+            <Inspector theme={{...chromeLight, ...themes[log.level]}}
+                       data={log.data}/>
           </div>
         ))}
       </div>
@@ -68,16 +67,32 @@ function LogView({ CodeContainer }) {
   );
 }
 
-function EditorControllerBox({ onRun }) {
+function EditorControllerBox({CodeContainer}) {
   const [isRunning, setIsRunning] = useState(false);
 
   async function onClickRunButton() {
-    setIsRunning(true);
-    await onRun();
+
+    execute(CodeContainer, editor.getValue());
     setTimeout(() => {
-      setIsRunning(false);
     }, 200);
   }
+
+  useEffect(() => {
+    const eventListener = (_, event) => {
+      if (event.status === "EXECUTE_START") {
+        setIsRunning(true);
+      } else if (event.status === "EXECUTE_END") {
+        setIsRunning(false);
+      } else if (event.status === "EXECUTE_ERROR") {
+        setIsRunning(false);
+        console.error('code execute error')
+      }
+    };
+    CodeContainer.addEventListener(CodeContainer.channel.EXECUTOR, eventListener);
+    return function cleanUp() {
+      CodeContainer.removeListener(eventListener);
+    };
+  }, [CodeContainer.id]);
 
   return (
     <div className={`editor-controller-box`}>
@@ -97,36 +112,26 @@ function EditorControllerBox({ onRun }) {
 
 let editor = null;
 export default props => {
-  const { CodeContainer } = props;
+  const {CodeContainer} = props;
 
   const editorOption = {
     value: CodeContainer.code,
     language: CodeContainer.language,
     automaticLayout: true,
-    minimap: { enabled: false },
+    minimap: {enabled: false},
     scrollbar: {
       verticalScrollbarSize: 5,
-      horizontalScrollbarSize: 5
-    }
+      horizontalScrollbarSize: 5,
+    },
   };
-
-  function onRun() {
-    return new Promise(function(resolve, reject) {
-      try {
-        execute(CodeContainer, editor.getValue());
-        resolve();
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
 
   return (
     <div className={`editor-container`}>
-      <EditorControllerBox onRun={onRun} />
-      <div className={`editor`} ref={_editor => assignEditor(_editor, editorOption)} />
+      <EditorControllerBox CodeContainer={CodeContainer}/>
+      <div className={`editor`}
+           ref={_editor => assignEditor(_editor, editorOption)}/>
       <div className={`console`}>
-        <LogView CodeContainer={CodeContainer} />
+        <LogView CodeContainer={CodeContainer}/>
       </div>
       <div id={`html-${CodeContainer.id}`}>Test-HTML</div>
     </div>

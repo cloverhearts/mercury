@@ -16,7 +16,8 @@ export default class {
     this._eventBroadcaster = new EventBroadcaster()
     this.channel = {
       BROADCAST: '_broadcast',
-      LOGGER: '_logger'
+      LOGGER: '_logger',
+      EXECUTOR: '_executor'
     }
     Object.freeze(this.channel)
     this.logger.addEventListener(this.logger.channel.Logger, (event, data) => {
