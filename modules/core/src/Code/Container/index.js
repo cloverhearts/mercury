@@ -6,18 +6,10 @@ import { loader } from './Renderer'
 
 export default class {
   constructor (containerObject) {
-    this.id = containerObject && containerObject.id
-      ? containerObject.id
-      : UUID()
-    this.language = containerObject && containerObject.language
-      ? containerObject.language
-      : LANGUAGE.JAVASCRIPT
-    this.code = containerObject && containerObject.code
-      ? containerObject.code
-      : ''
-    this.logs = containerObject && containerObject.logs
-      ? containerObject.logs
-      : []
+    this.id = containerObject && containerObject.id ? containerObject.id : UUID()
+    this.language = containerObject && containerObject.language ? containerObject.language : LANGUAGE.JAVASCRIPT
+    this.code = containerObject && containerObject.code ? containerObject.code : ''
+    this.logs = containerObject && containerObject.logs ? containerObject.logs : []
     this.logger = new Logger(this.logs)
     this._eventBroadcaster = new EventBroadcaster()
     this.channel = {
@@ -26,10 +18,8 @@ export default class {
     }
     Object.freeze(this.channel)
     this.logger.addEventListener(this.logger.channel.Logger, (event, data) => {
-      this._eventBroadcaster.notify(this.channel.LOGGER,
-        { type: this.channel.LOGGER, data })
-      this._eventBroadcaster.notify(this.channel.BROADCAST,
-        { type: this.channel.LOGGER, data })
+      this._eventBroadcaster.notify(this.channel.LOGGER, { type: this.channel.LOGGER, data })
+      this._eventBroadcaster.notify(this.channel.BROADCAST, { type: this.channel.LOGGER, data })
     })
     loader().then(imported => {
       this.renderer = imported
@@ -53,11 +43,11 @@ export default class {
           () => { return ( async function ( window ) { 
               const _mercury = window ? window._mercury : {}
               const console = this.logger
-              let html;
-              let render;
+              let html = this.renderer && this.renderer.html ? this.renderer.html : () => {};
+              let render = this.renderer && this.renderer.render ? (html, _native_dom = '#html-${this.id}') => this.renderer.render(html, document.querySelector(_native_dom)) : () => {};
               setTimeout(() => {
                 html = this.renderer.html
-                render = (html) => this.renderer.render(html, document.querySelector('#html-${this.id}'))
+                render = (html, _native_dom = '#html-${this.id}') => this.renderer.render(html, document.querySelector(_native_dom))
               }, 10)
               try {
                   ${code}

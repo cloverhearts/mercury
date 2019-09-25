@@ -1,11 +1,11 @@
 import React from "react";
-import { Card } from '@blueprintjs/core'
+import { Card, Elevation } from "@blueprintjs/core";
 import Editor from "../Editor/CodeEditor";
 import Mercury from "mercury-core";
 
 export default props => {
-  const CodeContainer = Mercury.Code.Container
-  const LANGUAGE = Mercury.Code.Languages
+  const CodeContainer = Mercury.Code.Container;
+  const LANGUAGE = Mercury.Code.Languages;
   const codeContainer = new CodeContainer({
     language: LANGUAGE.JAVASCRIPT,
     code: `
@@ -21,7 +21,7 @@ export default props => {
           `
   });
   return (
-    <Card interactive>
+    <Card elevation={Elevation.TWO}>
       <Editor CodeContainer={codeContainer} />
     </Card>
   );

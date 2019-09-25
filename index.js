@@ -1,38 +1,38 @@
-const {app, BrowserWindow} = require('electron');
-const path = require('path');
-const isDev = require('electron-is-dev');
-const server = require('./modules/server');
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
+const isDev = require("electron-is-dev");
+const server = require("./modules/server");
 let mainWindow;
 
 async function createWindow() {
-  const test = require('electron');
+  const test = require("electron");
   mainWindow = new BrowserWindow({
-    width: 900, height: 680, webPreferences: {
+    width: 900,
+    height: 680,
+    webPreferences: {
+      title: "Mercury",
       nodeIntegration: false,
-      preload: __dirname + `/preload.js`,
-    },
+      preload: __dirname + `/preload.js`
+    }
   });
-  mainWindow.loadURL(isDev ?
-    'http://localhost:3000' :
-    `file://${path.join(__dirname, '../build/index.html')}`);
+  mainWindow.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../build/index.html")}`);
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
-  mainWindow.on('closed', () => mainWindow = null);
+  mainWindow.on("closed", () => (mainWindow = null));
 }
 
-app.on('ready', server.initializeServer);
-app.on('ready', createWindow);
+app.on("ready", server.initializeServer);
+app.on("ready", createWindow);
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }
 });
-
