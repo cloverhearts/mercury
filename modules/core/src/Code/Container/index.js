@@ -3,7 +3,7 @@ import EventBroadcaster from 'observeable-object-js'
 import LANGUAGE from '../Languages/Types'
 import Logger from './Logger'
 import { loader } from './Renderer'
-
+import Template from './ExecuteTemplates'
 const esprima = require('esprima')
 
 export default class {
@@ -38,37 +38,17 @@ export default class {
   }
 
   _getCodeWrap (language, code, initializeObject = 'window') {
-    let template = ''
     let syntaxValidateError = null
     switch (language) {
       case LANGUAGE.JAVASCRIPT:
       default:
         try {
-          this._esprima.parseScript(code)
+          this._esprima.parseScript(Template(LANGUAGE.JAVASCRIPT, this.id, code, initializeObject))
         } catch (error) {
           syntaxValidateError = error
         }
-        template = `
-          () => {
-            return (async function (window) {
-              const _mercury = window ? window._mercury : {}
-              const console = this.logger
-              let html = this.renderer && this.renderer.html ? this.renderer.html : () => { };
-              let render = this.renderer && this.renderer.render ? (html, _native_dom = '#html-${this.id}') => this.renderer.render(html, document.querySelector(_native_dom)) : () => { };
-              setTimeout(() => {
-                html = this.renderer.html
-                render = (html, _native_dom = '#html-${this.id}') => this.renderer.render(html, document.querySelector(_native_dom))
-              }, 10)
-              try {
-                ${syntaxValidateError ? `throw '${syntaxValidateError}'` : code}
-              } catch (error) {
-                console.error(error.toString())
-              }
-            }).bind(this)(${initializeObject})
-          }
-        `
+        return Template(LANGUAGE.JAVASCRIPT, this.id, syntaxValidateError ? `throw '${syntaxValidateError}'` : code, initializeObject)
     }
-    return template
   }
 
   getCommandFunction (code, initializeObject = 'window') {

@@ -31,7 +31,7 @@ const execute = (reporter, code) => {
 
 function LogView({ CodeContainer }) {
   const [logs, setLogs] = useState(CodeContainer.logger.logs);
-  const [themes] = useState(null);
+  const [themes] = useState(LogTheme);
 
   useEffect(() => {
     const eventListener = (_, event) => {
@@ -60,7 +60,7 @@ function LogView({ CodeContainer }) {
         {logs.map((log, index) => (
           <div key={index} className={`log-row level-${log.level}`}>
             <div className={`log-time`}>{moment(log.time * 1000).calendar()}</div>
-            <Inspector theme={{ ...chromeLight, ...LogTheme[log.level] }} data={log.data} />
+            <Inspector theme={{ ...chromeLight, ...themes[log.level] }} data={log.data} />
           </div>
         ))}
       </div>
