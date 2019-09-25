@@ -46,6 +46,11 @@ export default class {
     })
   }
 
+  clear () {
+    const length = this._logs.length
+    this._logs.splice(0, length)
+  }
+
   log (...args) {
     this._pushLog(LOG_LEVEL.LOG, ...args)
   }

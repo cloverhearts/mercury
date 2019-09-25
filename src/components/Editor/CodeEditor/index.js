@@ -3,7 +3,7 @@ import { chromeLight, Inspector } from "react-inspector";
 import { Button, ButtonGroup, Position, Tooltip } from "@blueprintjs/core";
 import moment from "moment";
 import * as monaco from "monaco-editor";
-import LogTheme from '../Logger/theme'
+import LogTheme from "../Logger/theme";
 import "./index.scss";
 
 const assignEditor = (_element, editorOption) => {
@@ -30,23 +30,23 @@ const execute = (reporter, code) => {
 };
 
 function LogView({ CodeContainer }) {
-  const [logs, setLogs] = useState(CodeContainer.logs);
+  const [logs, setLogs] = useState(CodeContainer.logger.logs);
   const [themes] = useState(null);
 
   useEffect(() => {
     const eventListener = (_, event) => {
-      setTimeout(() => setLogs([...CodeContainer.logs]), 0);
+      setTimeout(() => setLogs([...CodeContainer.logger.logs]), 0);
     };
     CodeContainer.addEventListener(CodeContainer.channel.LOGGER, eventListener);
     return function cleanUp() {
       CodeContainer.removeListener(eventListener);
     };
-  }, [CodeContainer.id, CodeContainer.logs.length]);
+  }, [CodeContainer.id]);
 
   function onClearLog() {
-    setTimeout(() => setLogs([...CodeContainer.logs]), 0);
+    CodeContainer.logger.clear();
+    setTimeout(() => setLogs([...CodeContainer.logger.logs]), 0);
   }
-
   return (
     <div className={`log-viewer`}>
       <div className={`log-controller-box`}>
