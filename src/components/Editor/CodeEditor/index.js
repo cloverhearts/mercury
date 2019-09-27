@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {chromeLight, Inspector} from 'react-inspector';
-import {Button, ButtonGroup, Position, Tooltip} from '@blueprintjs/core';
-import moment from 'moment';
-import * as monaco from 'monaco-editor';
-import LogTheme from '../Logger/theme';
-import './index.scss';
+import React, { useEffect, useState } from "react";
+import { chromeLight, Inspector } from "react-inspector";
+import { Button, ButtonGroup, Position, Tooltip } from "@blueprintjs/core";
+import { ResizableBox } from "react-resizable";
+import "react-resizable/css/styles.css";
+import moment from "moment";
+import * as monaco from "monaco-editor";
+import LogTheme from "../Logger/theme";
+import "./index.scss";
 
 const assignEditor = (_element, editorOption) => {
   setTimeout(() => {
@@ -19,12 +21,12 @@ const execute = (reporter, code) => {
     if (executor) {
       executor();
     } else {
-      console.error('cannot found executor')
+      console.error("cannot found executor");
     }
   }
 };
 
-function LogView({CodeContainer}) {
+function LogView({ CodeContainer }) {
   const [logs, setLogs] = useState(CodeContainer.logger.logs);
   const [themes] = useState(LogTheme);
 
@@ -48,18 +50,15 @@ function LogView({CodeContainer}) {
       <div className={`log-controller-box`}>
         <ButtonGroup>
           <Tooltip content="Clear console" position={Position.TOP}>
-            <Button icon={`delete`} onClick={onClearLog}
-                    className={`clear-log-button`}></Button>
+            <Button icon={`delete`} onClick={onClearLog} className={`clear-log-button`}></Button>
           </Tooltip>
         </ButtonGroup>
       </div>
       <div className="log-list">
         {logs.map((log, index) => (
           <div key={index} className={`log-row level-${log.level}`}>
-            <div className={`log-time`}>{moment(log.time * 1000).
-              calendar()}</div>
-            <Inspector theme={{...chromeLight, ...themes[log.level]}}
-                       data={log.data}/>
+            <div className={`log-time`}>{moment(log.time * 1000).calendar()}</div>
+            <Inspector theme={{ ...chromeLight, ...themes[log.level] }} data={log.data} />
           </div>
         ))}
       </div>
@@ -67,14 +66,12 @@ function LogView({CodeContainer}) {
   );
 }
 
-function EditorControllerBox({CodeContainer}) {
+function EditorControllerBox({ CodeContainer }) {
   const [isRunning, setIsRunning] = useState(false);
 
   async function onClickRunButton() {
-
     execute(CodeContainer, editor.getValue());
-    setTimeout(() => {
-    }, 200);
+    setTimeout(() => {}, 200);
   }
 
   useEffect(() => {
@@ -85,7 +82,7 @@ function EditorControllerBox({CodeContainer}) {
         setIsRunning(false);
       } else if (event.status === "EXECUTE_ERROR") {
         setIsRunning(false);
-        console.error('code execute error')
+        console.error("code execute error");
       }
     };
     CodeContainer.addEventListener(CodeContainer.channel.EXECUTOR, eventListener);
@@ -112,26 +109,29 @@ function EditorControllerBox({CodeContainer}) {
 
 let editor = null;
 export default props => {
-  const {CodeContainer} = props;
+  const { CodeContainer } = props;
 
   const editorOption = {
     value: CodeContainer.code,
     language: CodeContainer.language,
     automaticLayout: true,
-    minimap: {enabled: false},
+    minimap: { enabled: false },
     scrollbar: {
-      verticalScrollbarSize: 5,
-      horizontalScrollbarSize: 5,
-    },
+      useShadows: true,
+      verticalScrollbarSize: 10,
+      horizontalScrollbarSize: 10
+    }
   };
 
   return (
     <div className={`editor-container`}>
-      <EditorControllerBox CodeContainer={CodeContainer}/>
-      <div className={`editor`}
-           ref={_editor => assignEditor(_editor, editorOption)}/>
+      <EditorControllerBox CodeContainer={CodeContainer} />
+      <ResizableBox width={`100%`} height={200} axis={`y`}>
+        <div className={`editor`} ref={_editor => assignEditor(_editor, editorOption)} />
+      </ResizableBox>
+
       <div className={`console`}>
-        <LogView CodeContainer={CodeContainer}/>
+        <LogView CodeContainer={CodeContainer} />
       </div>
       <div id={`html-${CodeContainer.id}`}>Test-HTML</div>
     </div>
