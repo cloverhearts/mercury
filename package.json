@@ -65,6 +65,7 @@
     "jest-resolve": "24.8.0",
     "jest-watch-typeahead": "0.3.1",
     "jsdom": "^15.1.1",
+    "lowdb": "^1.0.0",
     "mercury-core": "file:modules/core",
     "mini-css-extract-plugin": "0.5.0",
     "moment": "^2.24.0",
