@@ -10,7 +10,7 @@ const initialize = (userId, configPath) => {
   const defaultObject = {};
   defaultObject[userId] = {};
   defaultObject[userId]["_mercury"] = { config: {} };
-  defaultObject[userId]["notebook"] = [];
+  defaultObject[userId]["notes"] = [];
   configDatabase.defaults(defaultObject).write();
   return configDatabase;
 };
