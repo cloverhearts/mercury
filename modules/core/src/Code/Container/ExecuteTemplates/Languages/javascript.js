@@ -13,7 +13,9 @@ export default (id, code, initializeObject) => {
           render = (html, _native_dom = '#html-${id}') => this.renderer.render(html, document.querySelector(_native_dom))
         }, 10)
         try {
-          ${code}
+          const result = await (async () => {
+            ${code}
+          })()
         } catch (error) {
           console.error(error.toString())
           __mercury_executor_notifier.notify(this.channel.EXECUTOR, { status: 'EXECUTE_ERROR' })
