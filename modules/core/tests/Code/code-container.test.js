@@ -46,6 +46,6 @@ test("test for code Container runner", () => {
   expect(newContainer.language).toEqual(codeContainer.language);
   expect(newContainer.code).toEqual(codeContainer.code);
   expect(newContainer.logs.length).toEqual(codeContainer.logs.length);
-
+  console.log(newContainer.toSerialize());
   return expect(executeResult()).resolves.toBe(true);
 });

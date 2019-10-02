@@ -65,4 +65,14 @@ export default class {
     const command = eval(this._getCodeWrap(this.language, executeCode, initializeObject))
     return command.bind(this)
   }
+
+  toSerialize () {
+    const serializedObject = {}
+    serializedObject.id = this.id
+    serializedObject.language = this.language
+    serializedObject.code = this.code
+    serializedObject.logs = this.logs
+    serializedObject.meta = this.meta.toSerialize()
+    return serializedObject
+  }
 }

@@ -3,8 +3,7 @@ import EventBroadcaster from 'observeable-object-js'
 
 export default class Meta {
   constructor (metaObject) {
-    const { config, createdAt, updatedAt, deletedAt, owner, history } = metaObject ||
-    {}
+    const { config, createdAt, updatedAt, deletedAt, owner, history } = metaObject || {}
     this.config = config || {}
     this.createdAt = createdAt || moment().toISOString()
     this.updatedAt = updatedAt || moment().toISOString()
@@ -36,5 +35,16 @@ export default class Meta {
 
   assignDeletedAt (deletedAt) {
     this.deletedAt = deletedAt || moment().toISOString()
+  }
+
+  toSerialize () {
+    const serializedObject = {}
+    serializedObject.config = this.config
+    serializedObject.createdAt = this.createdAt
+    serializedObject.updatedAt = this.updatedAt
+    serializedObject.deletedAt = this.deletedAt
+    serializedObject.owner = this.owner
+    serializedObject.history = this.history
+    return serializedObject
   }
 }
