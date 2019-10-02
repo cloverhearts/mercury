@@ -38,7 +38,11 @@ module.exports = async (noteId, container) => {
       const newContainer = new Container(container);
       newContainer.meta.assignCreatedAt();
       newContainer.meta.assignUpdatedAt();
-      const newNote = { id: noteId || UUID(), containers: [newContainer.toSerialize()] };
+      const newNote = {
+        id: noteId || UUID(),
+        title: `NEW Note ${newContainer.meta.createdAt}`,
+        containers: [newContainer.toSerialize()]
+      };
       await db
         .get(`${fixedUser}.notes`)
         .push(newNote)
