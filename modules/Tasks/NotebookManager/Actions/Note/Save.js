@@ -3,7 +3,7 @@ const Database = require("../../Database/UserDatabase");
 const fixedUser = "Anonymous";
 const Container = require("mercury-core").default.Code.Container;
 let db = null;
-module.exports = async (noteId, container) => {
+module.exports = async (noteId, container, { noteTitle }) => {
   if (!db) {
     db = await Database();
   }
@@ -38,15 +38,24 @@ module.exports = async (noteId, container) => {
       const newContainer = new Container(container);
       newContainer.meta.assignCreatedAt();
       newContainer.meta.assignUpdatedAt();
+      newContainer.meta.owner = `${fixedUser}`;
       const newNote = {
         id: noteId || UUID(),
-        title: `NEW Note ${newContainer.meta.createdAt}`,
+        title: `${noteTitle ? noteTitle : `NEW Note ${newContainer.meta.createdAt}`}`,
         containers: [newContainer.toSerialize()]
       };
       await db
         .get(`${fixedUser}.notes`)
         .push(newNote)
         .write();
+
+      const newNoteMeta = { id: newNote.id, title: newNote.title };
+      console.log("load ", newNoteMeta);
+      await db
+        .get(`${fixedUser}.meta.order.notes`)
+        .push(newNoteMeta)
+        .write();
+      console.log("end");
       containerId = newContainer.id;
     }
     return await db
