@@ -4,6 +4,7 @@ import LANGUAGE from '../Languages/Types'
 import Logger from './Logger'
 import { loader } from './Renderer'
 import Template from './ExecuteTemplates'
+import Meta from '../Meta'
 const esprima = require('esprima')
 
 export default class {
@@ -28,6 +29,7 @@ export default class {
       this.renderer = imported
     })
     this._esprima = esprima
+    this.meta = new Meta(containerObject || {})
   }
 
   addEventListener (event, listener) {
@@ -48,7 +50,12 @@ export default class {
         } catch (error) {
           syntaxValidateError = error
         }
-        return Template(LANGUAGE.JAVASCRIPT, this.id, syntaxValidateError ? `throw '${syntaxValidateError}'` : code, initializeObject)
+        return Template(
+          LANGUAGE.JAVASCRIPT,
+          this.id,
+          syntaxValidateError ? `throw '${syntaxValidateError}'` : code,
+          initializeObject
+        )
     }
   }
 
@@ -57,5 +64,15 @@ export default class {
     // eslint-disable-next-line no-eval
     const command = eval(this._getCodeWrap(this.language, executeCode, initializeObject))
     return command.bind(this)
+  }
+
+  toSerialize () {
+    const serializedObject = {}
+    serializedObject.id = this.id
+    serializedObject.language = this.language
+    serializedObject.code = this.code
+    serializedObject.logs = this.logs
+    serializedObject.meta = this.meta.toSerialize()
+    return serializedObject
   }
 }
