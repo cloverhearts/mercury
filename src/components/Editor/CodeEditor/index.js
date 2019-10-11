@@ -133,7 +133,7 @@ export default props => {
       <div className={`console`}>
         <LogView CodeContainer={CodeContainer} />
       </div>
-      <div id={`html-${CodeContainer.id}`}>Test-HTML</div>
+      <div id={`html-${CodeContainer.id}`}></div>
     </div>
   );
 };

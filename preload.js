@@ -1,13 +1,13 @@
-const jsdom = require('jsdom');
-const notebookManager = require('./modules/Tasks/NotebookManager');
-const fetch = require('./modules/Tasks/RemoteAjax');
+const jsdom = require("jsdom");
+const NoteManager = require("./modules/client/libraries/NoteManager");
+const Fetch = require("./modules/client/libraries/Fetch");
 
 window._mercury = {
   utils: {
-    jsdom,
-  },
+    jsdom
+  }
 };
 
 // import fetch
-window._mercury.utils[fetch.meta.type] = fetch.task;
-window._mercury.utils[notebookManager.meta.type] = notebookManager.task;
+window._mercury.utils["Fetch"] = Fetch;
+window._mercury.utils["NoteManager"] = NoteManager;
