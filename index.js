@@ -31,7 +31,7 @@ async function createWindow() {
       let servedUrl = pathname;
       let token = pathname.split("MERCURY/WEBAPP/PATH");
       if (pathname.match("MERCURY/WEBAPP/PATH")) {
-        servedUrl = `${path.join(__dirname, "build", token[token.length - 1] || "")}`;
+        servedUrl = `${path.join(resourcePath, "build", token[token.length - 1] || "")}`;
       }
       callback(servedUrl);
     },

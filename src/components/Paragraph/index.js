@@ -8,8 +8,8 @@ export default props => {
   const LANGUAGE = Mercury.Code.Languages;
   const codeContainer = new CodeContainer({
     language: LANGUAGE.JAVASCRIPT,
-    code: `
-          const r = await _mercury.utils.fetch.build('1111', { url: 'https://www.naver.com'}).send();
+    code: ` 
+          const r = await _mercury.utils.Fetch('https://www.naver.com');
           const data = r.data.data
           const { JSDOM } = _mercury.utils.jsdom
           const dom = new JSDOM(data)
