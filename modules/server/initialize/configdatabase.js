@@ -1,5 +1,7 @@
 const path = require("path");
-const configDatabasePath = path.join(__dirname, "../../../database/config.json");
+const app = require("electron").app;
+const basepath = process.env.MERCURY_ENV === "development" ? app.getAppPath() : process.resourcesPath;
+const configDatabasePath = path.join(basepath, "database", `config.json`);
 const database = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync(configDatabasePath);

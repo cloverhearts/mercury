@@ -23,4 +23,30 @@ npm install
 npm run start && npm run dev
 ```
 
-Not available run script ;(
+## How to build mercury?
+
+### ALL Platform
+
+```
+npm run build
+```
+
+### Windows 32bit and 64bit
+
+```
+npm run build:win
+```
+
+### OSX
+
+```
+npm run build:osx
+```
+
+### Linux
+
+```
+npm run build:linux
+```
+
+And, You can find out mercury installation file in dist directory.

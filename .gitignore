@@ -64,3 +64,4 @@ build
 .idea
 */**/.sass-cache
 dist
+database/**

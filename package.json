@@ -4,17 +4,19 @@
   "description": "Mercury - Data discovery and definition  with note system",
   "main": "index.js",
   "scripts": {
-    "electron": "electron ./index.js",
-    "dev": "concurrently \"BROWSER=none\" \"wait-on http://localhost:3000 && electron ./index.js\"",
+    "dev": "cross-env MERCURY_ENV=development npm-run-all dev:run-electron",
+    "dev:run-electron": "concurrently \"BROWSER=none\" \"wait-on http://localhost:3000 && electron ./index.js\"",
     "start": "node scripts/start.js",
-    "build-script": "node scripts/build.js",
+    "postinstall": "electron-builder install-app-deps",
+    "build-script": "cross-env MERCURY_ENV=production cross-env PUBLIC_URL=MERCURY/WEBAPP/PATH node scripts/build.js",
+    "build": "cross-env MERCURY_ENV=production npm-run-all build:win",
     "build:osx": "electron-builder --mac",
-    "build:linux": "npm run build:linux32 && npm run build:linux64",
-    "build:linux32": "electron-builder --linux --ia32",
-    "build:linux64": "electron-builder --linux --x64",
-    "build:win": "npm run build:win32 && npm run build:win64",
-    "build:win32": "electron-builder --win --ia32",
-    "build:win64": "electron-builder --win --x64"
+    "build:linux": "cross-env MERCURY_ENV=production npm-run-all build-script build:linux:*",
+    "build:linux:32": "electron-builder --linux --ia32",
+    "build:linux:64": "electron-builder --linux --x64",
+    "build:win": "cross-env MERCURY_ENV=production npm-run-all build-script build:win:*",
+    "build:win:32": "electron-builder --win --ia32",
+    "build:win:64": "electron-builder --win --x64"
   },
   "repository": {
     "type": "git",
@@ -102,9 +104,9 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.2",
+    "cross-env": "^6.0.3",
     "electron": "^6.0.2",
     "electron-builder": "^21.2.0",
-    "electron-is-dev": "^1.1.0",
     "npm-run-all": "^4.1.5",
     "wait-on": "^3.3.0"
   },
@@ -177,6 +179,10 @@
     "productName": "mercury",
     "appId": "com.cloverhearts.mercury",
     "asar": true,
+    "extraResources": [
+      "./build/**",
+      "./database/**"
+    ],
     "protocols": {
       "name": "mercury",
       "schemes": [
