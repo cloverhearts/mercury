@@ -1,10 +1,8 @@
-const path = require("path");
 const database = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 
 const initialize = (userId, configPath) => {
-  const configDatabasePath = path.join(__dirname, configPath);
-  console.log(configDatabasePath);
+  const configDatabasePath = configPath;
   const adapter = new FileSync(configDatabasePath);
   const configDatabase = database(adapter);
   const defaultObject = {};

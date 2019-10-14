@@ -1,9 +1,10 @@
 const path = require("path");
+const app = require("electron").app;
+const basepath = process.env.MERCURY_ENV === "development" ? app.getAppPath() : process.resourcesPath;
 const database = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
-
 const initialize = (userId, configPath) => {
-  const configDatabasePath = path.join(__dirname, configPath);
+  const configDatabasePath = configPath;
   console.log("load user database ", configDatabasePath);
   const adapter = new FileSync(configDatabasePath);
   const configDatabase = database(adapter);
@@ -14,7 +15,6 @@ const initialize = (userId, configPath) => {
   configDatabase.defaults(defaultObject).write();
   return configDatabase;
 };
-
 module.exports = async (userId, configPath) => {
-  return initialize("Anonymous", "../../../../database/anonymous.json");
+  return initialize("Anonymous", path.join(basepath, "database", "anonymous.json"));
 };
