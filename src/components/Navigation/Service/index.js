@@ -1,6 +1,8 @@
 import React from "react";
-import { Alignment, Button, Navbar } from "@blueprintjs/core";
+import { Alignment, Button, Navbar, Popover, Position } from "@blueprintjs/core";
 import { NavLink } from "react-router-dom";
+
+import NotesMenu from "./Notes";
 
 export default props => {
   return (
@@ -13,6 +15,9 @@ export default props => {
             <NavLink to="/" exact activeClassName="active">
               <Button className="bp3-minimal" icon="home" text="Home" />
             </NavLink>
+            <Popover content={<NotesMenu />} position={Position.BOTTOM}>
+              <Button className="bp3-minimal" icon="cube" text="Notes" />
+            </Popover>
             <NavLink to="/informations" activeClassName="active">
               <Button className="bp3-minimal" icon="document" text="Informations" />
             </NavLink>
