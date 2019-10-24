@@ -1,9 +1,9 @@
 import React from "react";
-import Nav from './components/Navigation/Service'
+import Nav from "./components/Navigation/Service";
 import "./App.scss";
-
+import "medium-editor-custom-html";
 import Paragraph from "./components/Paragraph";
-import Router from './Router'
+import Router from "./Router";
 
 function App() {
   return (

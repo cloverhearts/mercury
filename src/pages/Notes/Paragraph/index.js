@@ -3,13 +3,28 @@ import Editor from "react-medium-editor";
 import "medium-editor/dist/css/medium-editor.css";
 import "medium-editor/dist/css/themes/roman.css";
 import "./Paragraph.scss";
-
+const CustomHtml = window.CustomHtml;
 export default props => {
   const [content, setContent] = useState("Typing here...");
   const editorRef = useRef();
 
   const onChangeText = event => {
     console.log(event);
+  };
+
+  const customHtml = new CustomHtml({
+    buttonText: "<hr>",
+    htmlToInsert: "<hr class='someclass'>"
+  });
+
+  customHtml.onClick = function() {
+    console.log("cccc!");
+    // console.log("click", this);
+    // customHtml.insertHtmlAtCaret(this.options.htmlToInsert);
+  };
+  customHtml.getButton = function(e) {
+    console.log("getButton", e, this);
+    return this.button;
   };
 
   const options = {
@@ -40,7 +55,8 @@ export default props => {
           name: "justifyRight",
           contentDefault: `<span class="bp3-icon-standard bp3-icon-align-right"></span>`
         },
-        "html"
+        "html",
+        "customHtml"
       ],
       updateOnEmptySelection: true
     },
@@ -56,6 +72,9 @@ export default props => {
     },
     justifyLeft: {
       content: "aaa"
+    },
+    extensions: {
+      customHtml: customHtml
     }
   };
   window.editor = editorRef;
