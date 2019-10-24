@@ -35,6 +35,7 @@
   "dependencies": {
     "@babel/core": "7.5.5",
     "@blueprintjs/core": "^3.18.0",
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "@svgr/webpack": "4.3.2",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
@@ -86,6 +87,7 @@
     "react-dev-utils": "^9.0.3",
     "react-dom": "^16.9.0",
     "react-inspector": "^3.0.2",
+    "react-medium-editor": "^1.8.1",
     "react-redux": "^7.1.1",
     "react-resizable": "^1.8.0",
     "react-router-dom": "^5.1.2",

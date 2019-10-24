@@ -1,0 +1,21 @@
+$fa-font-path: "../webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+.mercury-paragraph {
+  .mercury-context-editor {
+    background: yellow;
+    b {
+      color: red;
+    }
+  }
+}
+.user {
+  @extend %fa-icon;
+  @extend .fas;
+
+  &:before {
+    content: fa-content($fa-var-user);
+  }
+}

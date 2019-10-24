@@ -4,10 +4,12 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Informations from "./pages/Informations";
 import Notes from "./pages/Notes";
+import Note from "./pages/Notes/Note";
 
 const routes = [
   { path: "/", component: Home },
   { path: "/notes", component: Notes },
+  { path: "/notes/:noteID", component: Note },
   { path: "/informations", component: Informations }
 ];
 
