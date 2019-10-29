@@ -1,9 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
+import ReactDOM from "react-dom";
 import Editor from "react-medium-editor";
 import "medium-editor/dist/css/medium-editor.css";
 import "medium-editor/dist/css/themes/roman.css";
 import "./Paragraph.scss";
 const CustomHtml = window.CustomHtml;
+
+const TestViewer = props => {
+  function onClick(event) {
+    console.log("click! event!");
+  }
+  return <button onClick={onClick}>TestViwer click me</button>;
+};
+
 export default props => {
   const [content, setContent] = useState("Typing here...");
   const editorRef = useRef();
@@ -12,20 +21,24 @@ export default props => {
     console.log(event);
   };
 
-  const customHtml = new CustomHtml({
-    buttonText: "<hr>",
-    htmlToInsert: "<hr class='someclass'>"
-  });
-
-  customHtml.onClick = function() {
-    console.log("cccc!");
-    // console.log("click", this);
-    // customHtml.insertHtmlAtCaret(this.options.htmlToInsert);
+  CustomHtml.prototype.onClick = function(e) {
+    console.log("cccc!", document.querySelector("#test"));
+    setTimeout(() => {
+      ReactDOM.render(<TestViewer />, document.querySelector("#test"));
+    }, 100);
+    console.log("click", this);
+    CustomHtml.insertHtmlAtCaret(this.options.htmlToInsert);
   };
-  customHtml.getButton = function(e) {
+
+  CustomHtml.prototype.getButton = function(e) {
     console.log("getButton", e, this);
     return this.button;
   };
+
+  const customHtml = new CustomHtml({
+    buttonText: "<hr>",
+    htmlToInsert: "<p><div id='test'>hahah</div></p><p><br></p>"
+  });
 
   const options = {
     placeholder: { text: "Write your response here" },
