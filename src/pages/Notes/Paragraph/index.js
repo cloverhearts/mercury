@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Editor from "react-medium-editor";
 import "medium-editor/dist/css/medium-editor.css";
 import "medium-editor/dist/css/themes/roman.css";
+import CodeEditor from "../../../components/Paragraph";
 import "./Paragraph.scss";
 const CustomHtml = window.CustomHtml;
 
@@ -24,7 +25,7 @@ export default props => {
   CustomHtml.prototype.onClick = function(e) {
     console.log("cccc!", document.querySelector("#test"));
     setTimeout(() => {
-      ReactDOM.render(<TestViewer />, document.querySelector("#test"));
+      ReactDOM.render(<CodeEditor />, document.querySelector("#test"));
     }, 100);
     console.log("click", this);
     CustomHtml.insertHtmlAtCaret(this.options.htmlToInsert);
@@ -37,7 +38,7 @@ export default props => {
 
   const customHtml = new CustomHtml({
     buttonText: "<hr>",
-    htmlToInsert: "<p><div id='test'>hahah</div></p><p><br></p>"
+    htmlToInsert: "<div class='code-editor'><div id='test'>hahah</div></p><p><br></div>"
   });
 
   const options = {
