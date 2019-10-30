@@ -28,7 +28,7 @@ module.exports = {
   },
   target: "node", // or web
   entry: {
-    htmldoc2json: path.resolve(__dirname, "index.js")
+    "me-mercury-extend": path.resolve(__dirname, "index.js")
   },
 
   output: {

@@ -1,13 +1,13 @@
 {
-  "name": "medium-editor-append-element",
+  "name": "medium-editor-mercury-extend",
   "version": "0.0.1",
-  "description": "MediumEditor extension to append custom element",
-  "main": "dist/me-append-element.js",
+  "description": "MediumEditor extension for Mercury",
+  "main": "dist/me-mercury-extend.js",
   "scripts": {
     "clean": "node_modules/.bin/rimraf ./dist",
-    "build": "node_modules/.bin/npm-run-all clean fix:* build:*",
+    "build": "node_modules/.bin/npm-run-all fix:* build:*",
     "build:module": "node_modules/.bin/webpack --config webpack.config.js",
-    "build:doc": "node_modules/.bin/jsdoc -d document ./src/Htmldoc2Json.js",
+    "build:doc": "node_modules/.bin/jsdoc -d document ./src/index.js",
     "fix": "npm-run-all clean fix:*",
     "fix:style": "node_modules/.bin/standard --fix",
     "test": "node_modules/.bin/npm-run-all test:*",
@@ -19,15 +19,10 @@
     "url": "git+https://github.com/cloverhearts/mercury.git"
   },
   "keywords": [
+    "mercury",
+    "medium-editor",
     "html",
-    "json",
-    "document",
-    "convert",
-    "javascript",
-    "webpack",
-    "library",
-    "stater",
-    "kit"
+    "custom"
   ],
   "author": "CloverHearts",
   "license": "MIT",

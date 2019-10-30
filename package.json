@@ -70,6 +70,7 @@
     "jsdom": "^15.1.1",
     "lowdb": "^1.0.0",
     "medium-editor-custom-html": "^1.1.0",
+    "medium-editor-mercury-extend": "file:modules/plugins/medium-editor/merecury-extend",
     "mercury-core": "file:modules/core",
     "mini-css-extract-plugin": "0.5.0",
     "moment": "^2.24.0",

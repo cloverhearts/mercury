@@ -5,8 +5,11 @@ import "medium-editor/dist/css/medium-editor.css";
 import "medium-editor/dist/css/themes/roman.css";
 import CodeEditor from "../../../components/Paragraph";
 import "./Paragraph.scss";
-const CustomHtml = window.CustomHtml;
 
+import MercuryExtenstion from "medium-editor-mercury-extend";
+
+const CustomHtml = window.CustomHtml;
+console.log("endtiro ", Editor.medium);
 const TestViewer = props => {
   function onClick(event) {
     console.log("click! event!");
@@ -70,7 +73,8 @@ export default props => {
           contentDefault: `<span class="bp3-icon-standard bp3-icon-align-right"></span>`
         },
         "html",
-        "customHtml"
+        "customHtml",
+        "mercury-extenstion"
       ],
       updateOnEmptySelection: true
     },
@@ -88,9 +92,11 @@ export default props => {
       content: "aaa"
     },
     extensions: {
-      customHtml: customHtml
+      customHtml: customHtml,
+      "mercury-extenstion": new MercuryExtenstion()
     }
   };
+
   window.editor = editorRef;
   useEffect(() => {
     console.log("Hello world");
