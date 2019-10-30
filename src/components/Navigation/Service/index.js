@@ -8,7 +8,7 @@ export default props => {
   return (
     <div>
       <div>
-        <Navbar>
+        <Navbar fixedToTop>
           <Navbar.Group align={Alignment.LEFT}>
             <Navbar.Heading>Mercury</Navbar.Heading>
             <Navbar.Divider />

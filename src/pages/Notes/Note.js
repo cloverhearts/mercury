@@ -7,7 +7,6 @@ export default props => {
   const { noteID } = useParams();
   return (
     <div className={`mercury-note`}>
-      Mercury note {noteID}
       <Paragraph />
     </div>
   );

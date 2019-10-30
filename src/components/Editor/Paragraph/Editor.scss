@@ -1,0 +1,30 @@
+@import url('~quill/dist/quill.core.css');
+@import url('~quill/dist/quill.snow.css');
+
+.mercury-paragraph-editor {
+  .ql-toolbar {
+    display: block;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    z-index: 10;
+    background: #ffffff;
+    width: 100%;
+    border: none;
+    border-top: 1px solid rgba(16, 22, 26, 0.2);
+    border-bottom: 1px solid rgba(16, 22, 26, 0.2);
+  }
+
+  .ql-container {
+    border: none;
+    margin-top: 91px;
+    font-weight: inherit;
+
+    .ql-editor {
+      min-height: calc(100vh - 91px);
+      iframe {
+        pointer-events: none;
+      }
+    }
+  }
+}
