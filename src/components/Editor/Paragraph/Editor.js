@@ -1,14 +1,27 @@
 import React, { useRef, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Quill from "quill";
-import QuillBetterTable from "quill-better-table";
 import "./Editor.scss";
 import CodeEditor from "../../../components/Paragraph";
+import UUID from "uuid/v4";
 
-const BlockEmbed = Quill.import("blots/block/embed");
-class DividerBlot extends BlockEmbed {}
-DividerBlot.blotName = "divider";
-DividerBlot.tagName = "hr";
+const CodeEditorBlock = Quill.import("blots/block/embed");
+class CodeEditorContainer extends CodeEditorBlock {
+  static create(containerID) {
+    let node = super.create();
+    node.setAttribute("data-container-id", `code-container-${containerID}`);
+    node.setAttribute("contentEditable", false);
+    return node;
+  }
+
+  static value(node) {
+    return node;
+  }
+}
+CodeEditorContainer.blotName = "code-editor-container";
+CodeEditorContainer.tagName = "span";
+CodeEditorContainer.className = "mercury-code-editor-container";
+CodeEditorContainer.content = "hoho";
 
 async function initializeQuill(editorRef) {
   window.Quill = Quill;
@@ -16,42 +29,43 @@ async function initializeQuill(editorRef) {
   const BlotFormatter = await import("quill-blot-formatter");
   Quill.register("modules/imageDrop", ImageDropModule.ImageDrop);
   Quill.register("modules/blotFormatter", BlotFormatter.default);
-  Quill.register(
-    {
-      "modules/better-table": QuillBetterTable
-    },
-    true
-  );
-  console.log(QuillBetterTable.keyboardBindings);
-  Quill.register(DividerBlot);
+  Quill.register(CodeEditorContainer);
+  var icons = Quill.import("ui/icons");
+  icons["code-editor-container"] = '<i class="fa fa-minus" aria-hidden="true"></i>';
 
   const options = {
     theme: "snow",
     modules: {
       keyboard: {
-        bindings: {
-          tab: {
-            key: 9,
-            handler: function(range, context) {
-              console.log("1111", range, context);
-              const quill = window.editor;
-              quill.clipboard.dangerouslyPasteHTML(range.index, '<div id="code-editor2">ff</div>');
-              setTimeout(() => {
-                ReactDOM.render(<CodeEditor />, document.querySelector("#code-editor2"));
-              }, 1000);
+        bindings: {}
+      },
+      toolbar: {
+        container: [
+          [{ font: ["Source Code Pro", "monospace", "Arial"] }],
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          [{ direction: "rtl" }, { list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+          [{ size: [] }, { align: [] }, "bold", "italic", "underline", "strike"],
+          [{ color: [] }, { background: [] }],
+          [{ script: "sub" }, { script: "super" }],
+          ["link", "blockquote", "image", "video", "formula", "code-block", "code-editor-container"]
+        ],
+        handlers: {
+          "code-editor-container": function(value) {
+            const quill = window.editor;
+            const range = quill.getSelection();
+            const codeEditorUUID = `${UUID()}`;
+            const opsEvents = quill.insertEmbed(range.index, "code-editor-container", codeEditorUUID);
+            const editorDOM = opsEvents.ops
+              .filter(event => event.insert && event.insert["code-editor-container"])
+              .find(
+                e => e.insert["code-editor-container"]["dataset"]["containerId"] === `code-container-${codeEditorUUID}`
+              );
+            if (editorDOM) {
+              ReactDOM.render(<CodeEditor />, editorDOM.insert["code-editor-container"]);
             }
           }
         }
       },
-      toolbar: [
-        [{ font: ["Source Code Pro", "monospace", "Arial"] }],
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        [{ direction: "rtl" }, { list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
-        [{ size: [] }, { align: [] }, "bold", "italic", "underline", "strike"],
-        [{ color: [] }, { background: [] }],
-        [{ script: "sub" }, { script: "super" }],
-        ["link", "blockquote", "image", "video", "formula", "code-block", "divider"]
-      ],
       imageDrop: true,
       blotFormatter: {}
     }
@@ -59,7 +73,7 @@ async function initializeQuill(editorRef) {
 
   return new Quill(editorRef.current, options);
 }
-
+function testClick() {}
 export default props => {
   const context = props.context || "12212";
   const editorRef = useRef();
@@ -82,6 +96,7 @@ export default props => {
   useEffect(() => {
     preview.current.innerHTML = rawHtml;
   }, [preview, rawHtml]);
+
   return (
     <div className={`mercury-paragraph-editor ql-snow`}>
       <div ref={editorRef}>{context}</div>
