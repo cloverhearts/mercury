@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Quill from "quill";
-import "./Editor.scss";
 import CodeEditor from "../../../components/Paragraph";
 import UUID from "uuid/v4";
+import "./Editor.scss";
 
 const CodeEditorBlock = Quill.import("blots/block/embed");
 class CodeEditorContainer extends CodeEditorBlock {
@@ -21,7 +21,6 @@ class CodeEditorContainer extends CodeEditorBlock {
 CodeEditorContainer.blotName = "code-editor-container";
 CodeEditorContainer.tagName = "span";
 CodeEditorContainer.className = "mercury-code-editor-container";
-CodeEditorContainer.content = "hoho";
 
 async function initializeQuill(editorRef) {
   window.Quill = Quill;
@@ -31,7 +30,7 @@ async function initializeQuill(editorRef) {
   Quill.register("modules/blotFormatter", BlotFormatter.default);
   Quill.register(CodeEditorContainer);
   var icons = Quill.import("ui/icons");
-  icons["code-editor-container"] = '<i class="fa fa-minus" aria-hidden="true"></i>';
+  icons["code-editor-container"] = '<i class="fas fa-cube" style="color: purple;"></i>';
 
   const options = {
     theme: "snow",
@@ -73,7 +72,7 @@ async function initializeQuill(editorRef) {
 
   return new Quill(editorRef.current, options);
 }
-function testClick() {}
+
 export default props => {
   const context = props.context || "12212";
   const editorRef = useRef();

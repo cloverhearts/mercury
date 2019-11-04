@@ -4,6 +4,13 @@ const NoteManager = NoteManagerTask.task;
 
 module.exports = () => {
   return {
+    create: (data, _jobID = UUID()) => {
+      const type = "create.note";
+      return NoteManager.build(_jobID, {
+        ...data,
+        type
+      }).send();
+    },
     save: (data, _jobID = UUID()) => {
       const type = "save.note";
       return NoteManager.build(_jobID, {
