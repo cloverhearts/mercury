@@ -1,12 +1,20 @@
 import ACTION_TYPES from "./types";
 import initializeState from "./state";
 
-function managementForNote(state = initializeState, action) {
+function managementForNote(_state = initializeState, action) {
+  const state = { ..._state };
   switch (action.type) {
-    case ACTION_TYPES.SET_CURRENT_NOTE:
-      const newState = { ...state };
-      newState.notes.current = { ...action.note };
-      return newState;
+    case ACTION_TYPES.RESPONSE_NEW_NOTE:
+      console.log("res ", state, action);
+      return state;
+    case ACTION_TYPES.RESPONSE_LOAD_NOTE:
+      return state;
+    case ACTION_TYPES.RESPONSE_SAVE_NOTE:
+      return state;
+    case ACTION_TYPES.RESPONSE_REMOVE_NOTE:
+      return state;
+    case ACTION_TYPES.RESPONSE_MOVE_TO_NOTE_PAGE:
+      return state;
     default:
       return state;
   }

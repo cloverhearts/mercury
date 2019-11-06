@@ -1,20 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Menu, MenuItem, MenuDivider } from "@blueprintjs/core";
 import { useHistory } from "react-router-dom";
 
-import NoteActionTypes from "../../../store/Note/types";
-import NoteStore, { Actions as NoteActions } from "../../../store/Note";
+import NoteActions from "../../../store/Note/actions";
 
 function CreateNewNoteMenuItem() {
-  let history = useHistory();
+  const dispatch = useDispatch();
 
   function createNewNote(title = "New Note") {
-    NoteStore.dispatch(
-      NoteActions.NEW_NOTE("Hello mercury").then(note => {
-        console.log("created note ", note);
-        NoteActions.SET_CURRENT_NOTE(note);
-      })
-    );
+    dispatch(NoteActions.newNote({ title, redirect: true }));
   }
 
   function onClickNewNote() {

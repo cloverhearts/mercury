@@ -1,5 +1,5 @@
 const initializeState = {
-  notes: { current: {} }
+  current: {}
 };
 
 export default initializeState;
