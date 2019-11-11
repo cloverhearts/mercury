@@ -1,11 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, createRef } from "react";
 import ReactDOM from "react-dom";
-import Quill from "quill";
+import QuillJS from "quill";
 import CodeEditor from "../../../components/Paragraph";
 import UUID from "uuid/v4";
 import "./Editor.scss";
 
-const CodeEditorBlock = Quill.import("blots/block/embed");
+const CodeEditorBlock = QuillJS.import("blots/block/embed");
 class CodeEditorContainer extends CodeEditorBlock {
   static create(containerID) {
     let node = super.create();
@@ -23,7 +23,10 @@ CodeEditorContainer.tagName = "span";
 CodeEditorContainer.className = "mercury-code-editor-container";
 
 async function initializeQuill(editorRef) {
-  window.Quill = Quill;
+  if (!window.Quill) {
+    window.Quill = QuillJS;
+  }
+  const Quill = window.Quill;
   const ImageDropModule = await import("quill-image-drop-module");
   const BlotFormatter = await import("quill-blot-formatter");
   Quill.register("modules/imageDrop", ImageDropModule.ImageDrop);
@@ -70,26 +73,24 @@ async function initializeQuill(editorRef) {
     }
   };
 
-  return new Quill(editorRef.current, options);
+  return await new Quill(editorRef.current, options);
 }
 
 export default props => {
-  const context = props.context || "12212";
+  const { context } = props;
   const editorRef = useRef();
   const preview = useRef();
   const [rawHtml, setRawHtml] = useState(context);
   let editor = null;
   useEffect(() => {
     (async editorRef => {
-      if (!window.Quill) {
-        editor = await initializeQuill(editorRef);
-        editor.keyboard.bindings["Backspace"] = [];
-        window.editor = editor;
-        editor.on("text-change", () => {
-          const html = editor.container.firstChild.innerHTML;
-          setRawHtml(html);
-        });
-      }
+      editor = await initializeQuill(editorRef);
+      editor.keyboard.bindings["Backspace"] = [];
+      window.editor = editor;
+      editor.on("text-change", () => {
+        const html = editor.container.firstChild.innerHTML;
+        setRawHtml(html);
+      });
     })(editorRef);
   }, [editorRef]);
   useEffect(() => {
@@ -98,7 +99,7 @@ export default props => {
 
   return (
     <div className={`mercury-paragraph-editor ql-snow`}>
-      <div ref={editorRef}>{context}</div>
+      <div ref={editorRef}>{context.content}</div>
       <div ref={preview} className={`ql-editor `}></div>
     </div>
   );

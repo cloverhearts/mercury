@@ -9,9 +9,10 @@ import "./Note.scss";
 
 export default props => {
   const { noteId } = useParams();
-  const currentNote = useSelector(state => state.current);
+  const currentNote = useSelector(state => state.note.current.note);
   const dispatch = useDispatch();
   const [note, setNote] = useState({});
+  const [paragraph, setParagraph] = useState({});
   useEffect(() => {
     if (noteId) {
       dispatch(NoteActions.loadNote({ noteId }));
@@ -19,13 +20,11 @@ export default props => {
   }, [noteId]);
 
   useEffect(() => {
-    console.log("note loaded ", currentNote);
     setNote(currentNote);
+    if (currentNote.paragraphs) {
+      setParagraph(currentNote.paragraphs[0]);
+    }
   }, [currentNote]);
 
-  return (
-    <div className={`mercury-note`}>
-      <Paragraph />
-    </div>
-  );
+  return <div className={`mercury-note`}>{note ? <Paragraph context={paragraph} /> : null}</div>;
 };

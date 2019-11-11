@@ -7,7 +7,6 @@ function managementForNote(_state = initializeState, action) {
     case ACTION_TYPES.RESPONSE_NEW_NOTE:
       return state;
     case ACTION_TYPES.RESPONSE_LOAD_NOTE:
-      console.log("Loaded ", action);
       state.current.note = action.note;
       return state;
     case ACTION_TYPES.RESPONSE_SAVE_NOTE:
