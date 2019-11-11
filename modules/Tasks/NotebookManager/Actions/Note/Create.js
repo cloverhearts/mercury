@@ -24,7 +24,7 @@ module.exports = async (
     const newNote = new NoteContainer({
       title: noteTitle,
       id: noteId,
-      paragraphs: [new Paragraph({ parentId: noteId, content: `You can write here!` })]
+      paragraphs: [new Paragraph({ parentId: noteId, content: [{insert: `You can write here!`}] })]
     });
     await db
       .get(`${fixedUser}.notes`)
