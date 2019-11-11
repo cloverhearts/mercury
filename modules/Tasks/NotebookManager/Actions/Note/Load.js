@@ -10,6 +10,7 @@ module.exports = async noteId => {
     return `Error: unknown database, ${noteId}`;
   }
   try {
+    db.read();
     const note = await db
       .get(`${fixedUser}.notes`)
       .find({ id: noteId })

@@ -1,18 +1,43 @@
 import { takeEvery, put } from "redux-saga/effects";
 import ACTION_TYPES from "./types";
 
-function* requestNewNote(action) {
+function* requestNewNote(context, action) {
   try {
     if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
       return { error: "createNote", message: "cannot found mercury note manager" };
     }
-    const { title } = action.note;
+    const { router } = context;
+    const { title, redirect } = action.note;
     const Manager = window._mercury.system["NoteManager"]();
-    const note = yield Manager.create({ title });
+    const raw = yield Manager.create({ title });
+    const note = raw.data;
     yield put({ type: ACTION_TYPES.RESPONSE_NEW_NOTE, note });
+    if (redirect) {
+      router.history.push(`/notes/${note.id}`);
+    }
   } catch (error) {
     console.error(`${action.type} ERROR ${error}`);
   }
 }
 
-export default [takeEvery(ACTION_TYPES.REQUEST_NEW_NOTE, requestNewNote)];
+function* requestLoadNote(context, action) {
+  try {
+    if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
+      return { error: "createNote", message: "cannot found mercury note manager" };
+    }
+    const { id } = action.note;
+    const Manager = window._mercury.system["NoteManager"]();
+    if (id) {
+      const raw = yield Manager.load({ noteId: id });
+      const note = raw.data;
+      yield put({ type: ACTION_TYPES.RESPONSE_LOAD_NOTE, note });
+    }
+  } catch (error) {
+    console.error(`${action.type} ERROR ${error}`);
+  }
+}
+
+export default function*(context) {
+  yield takeEvery(ACTION_TYPES.REQUEST_NEW_NOTE, requestNewNote, context);
+  yield takeEvery(ACTION_TYPES.REQUEST_LOAD_NOTE, requestLoadNote, context);
+}

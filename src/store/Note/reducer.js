@@ -5,9 +5,10 @@ function managementForNote(_state = initializeState, action) {
   const state = { ..._state };
   switch (action.type) {
     case ACTION_TYPES.RESPONSE_NEW_NOTE:
-      console.log("res ", state, action);
       return state;
     case ACTION_TYPES.RESPONSE_LOAD_NOTE:
+      console.log("Loaded ", action);
+      state.current.note = action.note;
       return state;
     case ACTION_TYPES.RESPONSE_SAVE_NOTE:
       return state;

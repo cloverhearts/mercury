@@ -1,5 +1,7 @@
 const initializeState = {
-  current: {}
+  current: {
+    note: {}
+  }
 };
 
 export default initializeState;

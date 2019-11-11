@@ -1,31 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import NoteActions from "../../store/Note/types";
-import NoteStore from "../../store/Note";
+import NoteActions from "../../store/Note/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 import Paragraph from "./Paragraph";
 
 import "./Note.scss";
 
 export default props => {
-  const { noteID } = useParams();
-  console.log("note id ", noteID);
-  const [currentNote, setCurrentNote] = useState({});
+  const { noteId } = useParams();
+  const currentNote = useSelector(state => state.current);
+  const dispatch = useDispatch();
+  const [note, setNote] = useState({});
   useEffect(() => {
-    if (noteID) {
-      NoteStore.dispatch({ type: NoteActions.LOAD_NOTE, data: { noteId: noteID } });
+    if (noteId) {
+      dispatch(NoteActions.loadNote({ noteId }));
     }
-
-    //   NoteStore.getState().then(e => {
-    //     const note = e.data.current.note;
-    //     setCurrentNote(note);
-    //     console.log("note ", e, note);
-    //   });
-  }, [noteID]);
+  }, [noteId]);
 
   useEffect(() => {
-    console.log("aa", currentNote, currentNote.paragraphs);
-  }, currentNote.paragraphs);
+    console.log("note loaded ", currentNote);
+    setNote(currentNote);
+  }, [currentNote]);
 
   return (
     <div className={`mercury-note`}>
