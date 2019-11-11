@@ -96,26 +96,22 @@ export default props => {
   const {context} = props;
   const editorRef = useRef();
   const preview = useRef();
-  const [contents, setContents] = useState( [{insert: ''}]);
+  const [contents, setContents] = useState([{insert: ''}]);
   let editor = null;
   useEffect(() => {
-      initializeQuill(editorRef).then(_editor => {
-        editor = _editor
-        editor.keyboard.bindings['Backspace'] = [];
-        window.editor = editor;
-        editor.setContents(context.content || [{insert: ''}]);
-        editor.on('text-change', changeContents)
-      })
+    initializeQuill(editorRef).then(_editor => {
+      editor = _editor;
+      editor.keyboard.bindings['Backspace'] = [];
+      window.editor = editor;
+      editor.setContents(context.content || [{insert: ''}]);
+      editor.on('text-change', () => {
+        setContents(editor.getContents());
+      });
+    });
   }, [editorRef]);
-
-  function changeContents() {
-    setContents([{ insert: '1111'}]);
-    console.log(contents)
-  }
 
   return (
     <div className={`mercury-paragraph-editor ql-snow`}>
-      <button onClick={changeContents}></button>
       <div ref={editorRef}></div>
       <div ref={preview} className={`ql-editor `}></div>
     </div>
