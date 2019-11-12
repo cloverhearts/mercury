@@ -15,6 +15,13 @@ function managementForNote(_state = initializeState, action) {
       return state;
     case ACTION_TYPES.RESPONSE_MOVE_TO_NOTE_PAGE:
       return state;
+    case ACTION_TYPES.REQUEST_UNSET_CURRENT_NOTE:
+      state.current.note = {};
+      state.current.suggestForSaveNote = false;
+      return state;
+    case ACTION_TYPES.REQUEST_SUGGEST_SAVE_NOTE:
+      state.current.suggestForSaveNote = !!action.hasSuggestion;
+      return state;
     default:
       return state;
   }

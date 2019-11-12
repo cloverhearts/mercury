@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import NoteActions from "../../store/Note/actions";
 import { useDispatch, useSelector } from "react-redux";
-
 import Paragraph from "./Paragraph";
 
 import "./Note.scss";
@@ -17,6 +17,9 @@ export default props => {
     if (noteId) {
       dispatch(NoteActions.loadNote({ noteId }));
     }
+    return () => {
+      dispatch(NoteActions.unsetCurrentNote());
+    };
   }, [noteId]);
 
   useEffect(() => {
@@ -26,5 +29,9 @@ export default props => {
     }
   }, [currentNote]);
 
-  return <div className={`mercury-note`}>{note ? <Paragraph context={paragraph} /> : null}</div>;
+  return (
+    <div className={`mercury-note`}>
+      {note ? <Paragraph context={paragraph} /> : null}
+    </div>
+  );
 };

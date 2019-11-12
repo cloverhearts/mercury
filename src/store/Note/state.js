@@ -1,6 +1,7 @@
 const initializeState = {
   current: {
-    note: {}
+    note: {},
+    suggestForSaveNote: false
   }
 };
 
