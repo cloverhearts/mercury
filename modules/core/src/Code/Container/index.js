@@ -9,9 +9,9 @@ const esprima = require('esprima')
 
 export default class {
   constructor (containerObject) {
-    this.id = containerObject && containerObject.id ? containerObject.id : UUID()
+    this.id = containerObject && containerObject.id ? containerObject.id : `code-editor-container-${UUID()}`
     this.language = containerObject && containerObject.language ? containerObject.language : LANGUAGE.JAVASCRIPT
-    this.code = containerObject && containerObject.code ? containerObject.code : ''
+    this.code = containerObject && containerObject.code ? containerObject.code : '// javascript code to make here.'
     this.logs = containerObject && containerObject.logs ? containerObject.logs : []
     this.logger = new Logger(this.logs)
     this._eventBroadcaster = new EventBroadcaster()
