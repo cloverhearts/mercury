@@ -4,7 +4,10 @@ import ACTION_TYPES from "./types";
 function* requestNewNote(context, action) {
   try {
     if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
-      return { error: "createNote", message: "cannot found mercury note manager" };
+      return {
+        error: "createNote",
+        message: "cannot found mercury note manager"
+      };
     }
     const { router } = context;
     const { title, redirect } = action.note;
@@ -20,10 +23,33 @@ function* requestNewNote(context, action) {
   }
 }
 
+function* requestSaveNote(context, action) {
+  try {
+    if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
+      return {
+        error: "createNote",
+        message: "cannot found mercury note manager"
+      };
+    }
+    const { id } = action.note;
+    const Manager = window._mercury.system["NoteManager"]();
+    if (id) {
+      const raw = yield Manager.save({ note: action.note });
+      const note = raw.data;
+      yield put({ type: ACTION_TYPES.RESPONSE_SAVE_NOTE, note });
+    }
+  } catch (error) {
+    console.error(`${action.type} ERROR ${error}`);
+  }
+}
+
 function* requestLoadNote(context, action) {
   try {
     if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
-      return { error: "createNote", message: "cannot found mercury note manager" };
+      return {
+        error: "createNote",
+        message: "cannot found mercury note manager"
+      };
     }
     const { id } = action.note;
     const Manager = window._mercury.system["NoteManager"]();
@@ -39,5 +65,6 @@ function* requestLoadNote(context, action) {
 
 export default function*(context) {
   yield takeEvery(ACTION_TYPES.REQUEST_NEW_NOTE, requestNewNote, context);
+  yield takeEvery(ACTION_TYPES.REQUEST_SAVE_NOTE, requestSaveNote, context);
   yield takeEvery(ACTION_TYPES.REQUEST_LOAD_NOTE, requestLoadNote, context);
 }

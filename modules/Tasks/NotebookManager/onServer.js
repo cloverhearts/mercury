@@ -24,7 +24,7 @@ async function onServer(request) {
         result = await Create(title);
         break;
       case "save.note":
-        result = await Save(noteId, container, meta);
+        result = await Save(request.note);
         break;
       default:
         throw Error(`Unknown command type ${type}`);

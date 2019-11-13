@@ -129,6 +129,7 @@ export default props => {
       editor.setContents(context.content || [{ insert: "" }]);
       editor.on("text-change", () => {
         setContents(editor.getContents());
+        context.content = editor.getContents();
         dispatch(NOTE_ACTIONS.setSuggestSaveNote({ hasSuggestion: true }));
       });
     });

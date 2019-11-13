@@ -10,6 +10,7 @@ function managementForNote(_state = initializeState, action) {
       state.current.note = action.note;
       return state;
     case ACTION_TYPES.RESPONSE_SAVE_NOTE:
+      state.current.suggestForSaveNote = false;
       return state;
     case ACTION_TYPES.RESPONSE_REMOVE_NOTE:
       return state;
