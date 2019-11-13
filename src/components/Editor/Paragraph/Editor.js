@@ -13,13 +13,15 @@ const CodeEditorBlock = QuillJS.import("blots/block/embed");
 class CodeEditorContainer extends CodeEditorBlock {
   static create(containerID) {
     let node = super.create();
-    node.setAttribute("data-container-id", `code-container-${containerID}`);
+    node.setAttribute("data-container-id", `${containerID}`);
     node.setAttribute("contentEditable", false);
+    ReactDOM.render(<CodeEditor />, node);
     return node;
   }
 
   static value(node) {
-    return node;
+    const dataContainerId = node.getAttribute("data-container-id");
+    return dataContainerId;
   }
 }
 
@@ -83,27 +85,11 @@ async function initializeQuill(editorRef) {
             const quill = window.editor;
             const range = quill.getSelection();
             const codeEditorUUID = `${UUID()}`;
-            const opsEvents = quill.insertEmbed(
+            quill.insertEmbed(
               range.index,
               "code-editor-container",
-              codeEditorUUID
+              `code-editor-container-${codeEditorUUID}`
             );
-            const editorDOM = opsEvents.ops
-              .filter(
-                event => event.insert && event.insert["code-editor-container"]
-              )
-              .find(
-                e =>
-                  e.insert["code-editor-container"]["dataset"][
-                    "containerId"
-                  ] === `code-container-${codeEditorUUID}`
-              );
-            if (editorDOM) {
-              ReactDOM.render(
-                <CodeEditor />,
-                editorDOM.insert["code-editor-container"]
-              );
-            }
           }
         }
       },
