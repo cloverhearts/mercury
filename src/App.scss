@@ -7,8 +7,7 @@
 html {
   body {
     * {
-      font-family: 'Source Code Pro', 'monospace', 'Arial' !important;
-      font-weight: 400;
+      font-family: "Source Code Pro", "monospace", "Arial", "Icons20", "Font Awesome 5 Free";
       &:focus {
         outline: none;
       }
@@ -17,5 +16,4 @@ html {
 }
 
 .container {
-  padding: 20px;
 }

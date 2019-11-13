@@ -1,4 +1,5 @@
 const meta = require("./meta");
+const Create = require("./Actions/Note/Create");
 const Save = require("./Actions/Note/Save");
 const Load = require("./Actions/Note/Load");
 const ListNote = require("./Actions/Note/List");
@@ -18,8 +19,12 @@ async function onServer(request) {
       case "load.note":
         result = await Load(noteId);
         break;
+      case "create.note":
+        const title = request.title || undefined;
+        result = await Create(title);
+        break;
       case "save.note":
-        result = await Save(noteId, container, meta);
+        result = await Save(request.note);
         break;
       default:
         throw Error(`Unknown command type ${type}`);
