@@ -32,10 +32,14 @@ export function moveToNotePage({ noteId }) {
   return { type: ACTION_TYPES.REQUEST_MOVE_TO_NOTE_PAGE, note };
 }
 
+export function listOfNote() {
+  return { type: ACTION_TYPES.REQUEST_NOTE_LIST };
+}
+
 export function setSuggestSaveNote({ hasSuggestion }) {
   return {
     type: ACTION_TYPES.REQUEST_SUGGEST_SAVE_NOTE,
-    hasSuggestion: hasSuggestion
+    hasSuggestion
   };
 }
 
@@ -44,6 +48,7 @@ export default {
   loadNote,
   saveNote,
   removeNote,
+  listOfNote,
   moveToNotePage,
   unsetCurrentNote,
   setSuggestSaveNote
