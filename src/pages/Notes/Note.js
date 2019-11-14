@@ -29,9 +29,5 @@ export default props => {
     }
   }, [currentNote]);
 
-  return (
-    <div className={`mercury-note`}>
-      {note ? <Paragraph context={paragraph} /> : null}
-    </div>
-  );
+  return <div className={`mercury-note-conatiner`}>{note ? <Paragraph context={paragraph} /> : null}</div>;
 };

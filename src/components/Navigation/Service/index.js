@@ -1,18 +1,19 @@
-import React from "react";
-import {
-  Alignment,
-  Button,
-  Navbar,
-  Popover,
-  Position
-} from "@blueprintjs/core";
+import React, { useEffect } from "react";
+import { Alignment, Button, Navbar, Popover, Position } from "@blueprintjs/core";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import SuggestionSaveNoteButton from "./Partials/SuggestionForSaveNoteButton";
 import NotesMenu from "./Notes";
+import NoteActions from "../../../store/Note/actions";
 
 import "./service.scss";
 
 export default props => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(NoteActions.listOfNote());
+  }, [])
+
   return (
     <Navbar fixedToTop className="mercury-service-navbar">
       <Navbar.Group align={Alignment.LEFT}>

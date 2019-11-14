@@ -14,6 +14,9 @@ function managementForNote(_state = initializeState, action) {
       return state;
     case ACTION_TYPES.RESPONSE_REMOVE_NOTE:
       return state;
+    case ACTION_TYPES.RESPONSE_NOTE_LIST:
+      state.list.notes = [...action.list];
+      return state;
     case ACTION_TYPES.RESPONSE_MOVE_TO_NOTE_PAGE:
       return state;
     case ACTION_TYPES.REQUEST_UNSET_CURRENT_NOTE:

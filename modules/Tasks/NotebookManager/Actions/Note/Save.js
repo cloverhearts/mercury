@@ -1,15 +1,14 @@
-const UUID = require("uuid/v4");
 const Database = require("../../Database/UserDatabase");
 const fixedUser = "Anonymous";
-const Container = require("mercury-core").default.Code.Container;
+const AppendNoteInList = require("./functions/InsertNoteListItem");
 let db = null;
 module.exports = async note => {
   if (!db) {
     db = await Database();
   }
   if (!db) {
-    console.error(`Error: unknown database, ${noteId}`);
-    return `Error: unknown database, ${noteId}`;
+    console.error(`Error: unknown database, ${note.id}`);
+    return `Error: unknown database, ${note.id}`;
   }
   try {
     db.read();
@@ -33,6 +32,8 @@ module.exports = async note => {
       .write();
 
     console.log(savedNote);
+
+    const noteList = await AppendNoteInList({ db, user: fixedUser, noteId: savedNote.id, noteTitle: savedNote.title });
 
     return savedNote;
   } catch (error) {

@@ -1,13 +1,14 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {chromeLight, Inspector} from 'react-inspector';
-import {Button, ButtonGroup, Position, Tooltip} from '@blueprintjs/core';
-import {ResizableBox} from 'react-resizable';
-import 'react-resizable/css/styles.css';
-import moment from 'moment';
-import * as monaco from 'monaco-editor';
-import LogTheme from '../Logger/theme';
-import './index.scss';
-import {useSelector} from 'react-redux';
+import React, { useEffect, useState, useRef } from "react";
+import { chromeLight, Inspector } from "react-inspector";
+import { Button, ButtonGroup, Position, Tooltip } from "@blueprintjs/core";
+import { ResizableBox } from "react-resizable";
+import "react-resizable/css/styles.css";
+import moment from "moment";
+import * as monaco from "monaco-editor";
+import LogTheme from "../Logger/theme";
+import "./index.scss";
+import { useSelector, useDispatch } from "react-redux";
+import NoteActions from "../../../store/Note/actions";
 
 const execute = (reporter, code) => {
   if (reporter) {
@@ -16,12 +17,12 @@ const execute = (reporter, code) => {
     if (executor) {
       executor();
     } else {
-      console.error('cannot found executor');
+      console.error("cannot found executor");
     }
   }
 };
 
-function LogView({CodeContainer}) {
+function LogView({ CodeContainer }) {
   const [logs, setLogs] = useState(CodeContainer.logger.logs);
   const [themes] = useState(LogTheme);
 
@@ -45,18 +46,15 @@ function LogView({CodeContainer}) {
       <div className={`log-controller-box`}>
         <ButtonGroup>
           <Tooltip content="Clear console" position={Position.TOP}>
-            <Button icon={`delete`} onClick={onClearLog}
-                    className={`clear-log-button`}></Button>
+            <Button icon={`delete`} onClick={onClearLog} className={`clear-log-button`}></Button>
           </Tooltip>
         </ButtonGroup>
       </div>
       <div className="log-list">
         {logs.map((log, index) => (
           <div key={index} className={`log-row level-${log.level}`}>
-            <div className={`log-time`}>{moment(log.time * 1000).
-              calendar()}</div>
-            <Inspector theme={{...chromeLight, ...themes[log.level]}}
-                       data={log.data}/>
+            <div className={`log-time`}>{moment(log.time * 1000).calendar()}</div>
+            <Inspector theme={{ ...chromeLight, ...themes[log.level] }} data={log.data} />
           </div>
         ))}
       </div>
@@ -64,28 +62,26 @@ function LogView({CodeContainer}) {
   );
 }
 
-function EditorControllerBox({CodeContainer, editor}) {
+function EditorControllerBox({ CodeContainer, editor }) {
   const [isRunning, setIsRunning] = useState(false);
 
   async function onClickRunButton() {
     execute(CodeContainer, editor.getValue());
-    setTimeout(() => {
-    }, 200);
+    setTimeout(() => {}, 200);
   }
 
   useEffect(() => {
     const eventListener = (_, event) => {
-      if (event.status === 'EXECUTE_START') {
+      if (event.status === "EXECUTE_START") {
         setIsRunning(true);
-      } else if (event.status === 'EXECUTE_END') {
+      } else if (event.status === "EXECUTE_END") {
         setIsRunning(false);
-      } else if (event.status === 'EXECUTE_ERROR') {
+      } else if (event.status === "EXECUTE_ERROR") {
         setIsRunning(false);
-        console.error('code execute error');
+        console.error("code execute error");
       }
     };
-    CodeContainer.addEventListener(CodeContainer.channel.EXECUTOR,
-      eventListener);
+    CodeContainer.addEventListener(CodeContainer.channel.EXECUTOR, eventListener);
     return function cleanUp() {
       CodeContainer.removeListener(eventListener);
     };
@@ -108,22 +104,26 @@ function EditorControllerBox({CodeContainer, editor}) {
 }
 
 export default props => {
-  const {paragraphId, context} = props;
+  const { paragraphId, context } = props;
+  const dispatch = useDispatch();
   const note = useSelector(state => state.note.current.note);
-  const paragraph = note.paragraphs.find(p => p.id === paragraphId);
-  const containerDataStore = paragraph.containers.find(c => c.id === context.id);
+  const paragraph = note && note.paragraphs ? note.paragraphs.find(p => p.id === paragraphId) : {};
+  const containerDataStore =
+    paragraph && paragraph.containers
+      ? paragraph.containers.find(c => c.id === context.id)
+      : { code: "", language: "javascript" };
 
   const editorRef = useRef();
   const editorOption = {
     value: containerDataStore.code,
     language: containerDataStore.language,
     automaticLayout: true,
-    minimap: {enabled: false},
+    minimap: { enabled: false },
     scrollbar: {
       useShadows: true,
       verticalScrollbarSize: 10,
-      horizontalScrollbarSize: 10,
-    },
+      horizontalScrollbarSize: 10
+    }
   };
   const [editor, setEditor] = useState();
   useEffect(() => {
@@ -131,20 +131,19 @@ export default props => {
     setEditor(editor);
     editor.getModel().onDidChangeContent(() => {
       containerDataStore.code = editor.getValue();
+      dispatch(NoteActions.setSuggestSaveNote({ hasSuggestion: true }));
     });
   }, [editorRef]);
 
   return (
     <div className={`editor-container`}>
-      {editor ?
-        <EditorControllerBox CodeContainer={context} editor={editor}/> :
-        null}
+      {editor ? <EditorControllerBox CodeContainer={context} editor={editor} /> : null}
       <ResizableBox width={`100%`} height={200} axis={`y`}>
-        <div className={`editor`} ref={editorRef}/>
+        <div className={`editor`} ref={editorRef} />
       </ResizableBox>
 
       <div className={`console`}>
-        <LogView CodeContainer={context}/>
+        <LogView CodeContainer={context} />
       </div>
       <div id={`html-${context.id}`}></div>
     </div>

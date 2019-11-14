@@ -29,6 +29,7 @@ async function onServer(request) {
       default:
         throw Error(`Unknown command type ${type}`);
     }
+    console.log('res ', result)
     return result;
   } catch (error) {
     return error;

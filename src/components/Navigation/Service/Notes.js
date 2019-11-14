@@ -1,9 +1,26 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Menu, MenuItem, MenuDivider } from "@blueprintjs/core";
 import { useHistory } from "react-router-dom";
 
 import NoteActions from "../../../store/Note/actions";
+
+function RecentlyNotes(props) {
+  const { notes } = props;
+  const history = useHistory();
+  const goTo = useCallback(id => {
+    console.log(id);
+    history.push(`/notes/${id}`);
+  });
+  return (
+    <React.Fragment>
+      {notes ? <MenuDivider title="Recently notes" /> : null}
+      {notes.map(note => (
+        <MenuItem key={note.id} icon="cube" text={note.title} onClick={_ => goTo(note.id)} />
+      ))}
+    </React.Fragment>
+  );
+}
 
 function CreateNewNoteMenuItem() {
   const dispatch = useDispatch();
@@ -19,7 +36,8 @@ function CreateNewNoteMenuItem() {
 }
 
 export default props => {
-  let history = useHistory();
+  const history = useHistory();
+  const notes = useSelector(state => state.note.list.notes);
   const goTo = (pathname, params) => {
     const location = {
       pathname,
@@ -27,22 +45,12 @@ export default props => {
     };
     history.push(location);
   };
+
   return (
     <Menu>
       <CreateNewNoteMenuItem />
       <MenuItem icon="list" text="Show all notes" onClick={e => goTo("/notes")} />
-      <MenuDivider title="Favorite notes" />
-      <MenuItem icon="star" text="Just 1 note" />
-      <MenuItem icon="star" text="Just 2 note" />
-      <MenuItem icon="star" text="Just 3 note" />
-      <MenuItem icon="star" text="Just 4 note" />
-      <MenuItem icon="star" text="Just 5 note" />
-      <MenuDivider title="Recently notes" />
-      <MenuItem icon="cube" text="Just 1 note" />
-      <MenuItem icon="cube" text="Just 2 note" />
-      <MenuItem icon="cube" text="Just 3 note" />
-      <MenuItem icon="cube" text="Just 4 note" />
-      <MenuItem icon="cube" text="Just 5 note" />
+      <RecentlyNotes notes={notes} />
     </Menu>
   );
 };
