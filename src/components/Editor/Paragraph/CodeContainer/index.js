@@ -3,10 +3,10 @@ import { Card, Elevation } from "@blueprintjs/core";
 import Editor from "../../CodeEditor";
 
 export default props => {
-  const { context, noteId, paragraphId } = props;
   return (
     <Card elevation={Elevation.TWO}>
-      <Editor noteId={noteId} paragraphId={paragraphId} context={context} />
+      11<br></br>11<br></br>11<br></br>11<br></br>CLOVER<br></br>
+      {/* <Editor noteId={noteId} paragraphId={paragraphId} context={context} /> */}
     </Card>
   );
 };

@@ -1,5 +1,6 @@
 import { takeEvery, put } from "redux-saga/effects";
 import ACTION_TYPES from "./types";
+import { CONSOLE } from "@blueprintjs/icons/lib/esm/generated/iconContents";
 
 function* requestNewNote(context, action) {
   try {
@@ -57,7 +58,7 @@ function* requestLoadNote(context, action) {
     const Manager = window._mercury.system["NoteManager"]();
     if (id) {
       const raw = yield Manager.load({ noteId: id });
-      const note = raw.data;
+      const note = { ...raw.data };
       yield put({ type: ACTION_TYPES.RESPONSE_LOAD_NOTE, note });
     }
   } catch (error) {
@@ -75,8 +76,12 @@ function* requestMetaListOfNote(context, action) {
     }
     const Manager = window._mercury.system["NoteManager"]();
     const raw = yield Manager.list();
-    const list = raw.data;
-    yield put({ type: ACTION_TYPES.RESPONSE_NOTE_LIST, meta: { notes: list } });
+
+    //TODO(cloverhearts(: problem.
+
+    // const newRAW = { ...raw };
+    // const list = [...newRAW.data];
+    // yield put({ type: ACTION_TYPES.RESPONSE_NOTE_LIST, list });
   } catch (error) {
     console.error(`${action.type} ERROR ${error}`);
   }

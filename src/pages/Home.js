@@ -1,9 +1,6 @@
-import React from 'react'
+import React from "react";
+import "./Home.scss";
 
 export default () => {
-  return (
-    <div>
-      Home
-    </div>
-  )
-}
+  return <div className={`mercury-home-container`}>Home</div>;
+};

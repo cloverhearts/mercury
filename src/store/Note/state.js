@@ -1,9 +1,10 @@
 const initializeState = {
   current: {
     note: {},
-    suggestForSaveNote: false
+    suggestForSaveNote: false,
+    notes: []
   },
-  meta: {
+  list: {
     notes: []
   }
 };
