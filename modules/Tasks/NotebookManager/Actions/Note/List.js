@@ -1,5 +1,5 @@
-const Database = require("../../Database/UserDatabase");
-const fixedUser = "Anonymous";
+const Database = require('../../Database/UserDatabase');
+const fixedUser = 'Anonymous';
 let db = null;
 module.exports = async () => {
   if (!db) {
@@ -10,10 +10,11 @@ module.exports = async () => {
     return `Error: unknown database, Note List`;
   }
   try {
+    db.read();
     const note = await db.get(`${fixedUser}.meta.order.notes`).value();
     return note;
   } catch (error) {
-    console.log("ERROR ", error);
+    console.log('ERROR ', error);
     return error;
   }
 };

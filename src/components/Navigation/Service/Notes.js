@@ -37,8 +37,7 @@ function CreateNewNoteMenuItem() {
 
 export default props => {
   const history = useHistory();
-  const notes = useSelector(state => state.note.current.notes);
-  console.log("clover notes", notes);
+  const notes = useSelector(state => state.note.list.notes);
   const goTo = (pathname, params) => {
     const location = {
       pathname,

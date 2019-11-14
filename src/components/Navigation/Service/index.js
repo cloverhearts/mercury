@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alignment, Button, Navbar, Popover, Position } from "@blueprintjs/core";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,10 @@ import "./service.scss";
 
 export default props => {
   const dispatch = useDispatch();
-  dispatch(NoteActions.listOfNote());
+  useEffect(() => {
+    dispatch(NoteActions.listOfNote());
+  }, [])
+
   return (
     <Navbar fixedToTop className="mercury-service-navbar">
       <Navbar.Group align={Alignment.LEFT}>

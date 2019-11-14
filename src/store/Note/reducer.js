@@ -3,12 +3,11 @@ import initializeState from "./state";
 
 function managementForNote(_state = initializeState, action) {
   const state = { ..._state };
-  console.log("state ", { ...state });
   switch (action.type) {
     case ACTION_TYPES.RESPONSE_NEW_NOTE:
       return state;
     case ACTION_TYPES.RESPONSE_LOAD_NOTE:
-      state.current.note = { ...action.note };
+      state.current.note = action.note;
       return state;
     case ACTION_TYPES.RESPONSE_SAVE_NOTE:
       state.current.suggestForSaveNote = false;
@@ -16,7 +15,7 @@ function managementForNote(_state = initializeState, action) {
     case ACTION_TYPES.RESPONSE_REMOVE_NOTE:
       return state;
     case ACTION_TYPES.RESPONSE_NOTE_LIST:
-      state.current.list.notes = [...action.list];
+      state.list.notes = [...action.list];
       return state;
     case ACTION_TYPES.RESPONSE_MOVE_TO_NOTE_PAGE:
       return state;

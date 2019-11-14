@@ -22,6 +22,7 @@ module.exports = async (
   }
 
   try {
+    db.read()
     const noteId = `note-${UUID()}`;
     const newNote = new NoteContainer({
       title: noteTitle,
