@@ -1,7 +1,7 @@
 import { takeEvery, put, takeLatest } from "redux-saga/effects";
 import ACTION_TYPES from "./types";
 
-function* requestNewNote(context, action) {
+export function* requestNewNote(context, action) {
   try {
     if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
       return {
@@ -9,6 +9,7 @@ function* requestNewNote(context, action) {
         message: "cannot found mercury note manager"
       };
     }
+    console.log("-------------------------------------------", context, action);
     const { router } = context;
     const { title, redirect } = action.note;
     const Manager = window._mercury.system["NoteManager"]();

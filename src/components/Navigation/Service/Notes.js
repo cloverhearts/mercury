@@ -1,15 +1,15 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Menu, MenuItem, MenuDivider } from "@blueprintjs/core";
 import { useHistory } from "react-router-dom";
 
 import NoteActions from "../../../store/Note/actions";
+import PlatformActions from "../../../store/Platform/actions";
 
 function RecentlyNotes(props) {
   const { notes } = props;
   const history = useHistory();
   const goTo = useCallback(id => {
-    console.log(id);
     history.push(`/notes/${id}`);
   });
   return (
@@ -26,7 +26,8 @@ function CreateNewNoteMenuItem() {
   const dispatch = useDispatch();
 
   function createNewNote(title = "New Note") {
-    dispatch(NoteActions.newNote({ title, redirect: true }));
+    dispatch(PlatformActions.openCreateNewNoteDialog({ title }));
+    console.log("clicked");
   }
 
   function onClickNewNote() {

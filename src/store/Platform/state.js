@@ -1,7 +1,12 @@
 const initializeState = {
   note: {
     dialog: {
-      createNewNote: false
+      createNewNote: {
+        isOpen: false,
+        default: {
+          title: "New Note"
+        }
+      }
     }
   }
 };
