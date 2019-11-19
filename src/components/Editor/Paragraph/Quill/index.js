@@ -10,11 +10,13 @@ export default async function initializeQuill(editorRef, context, store) {
   const Quill = window.Quill;
   const ImageDropModule = await import("quill-image-drop-module");
   const BlotFormatter = await import("quill-blot-formatter");
+  var Size = Quill.import("attributors/style/size");
+  Size.whitelist = ["12px", "16px", "18px", "72px"];
 
   Quill.register("modules/imageDrop", ImageDropModule.ImageDrop);
   Quill.register("modules/blotFormatter", BlotFormatter.default);
+  Quill.register(Size, true);
   Quill.register(CodeEditorContainer(context, store));
-
   const icons = Quill.import("ui/icons");
   icons["code-editor-container"] = '<i class="fas fa-cube" style="color: purple;"></i>';
 
@@ -28,8 +30,9 @@ export default async function initializeQuill(editorRef, context, store) {
         container: [
           [{ font: ["Source Code Pro", "monospace", "Arial"] }],
           [{ header: [1, 2, 3, 4, 5, 6, false] }],
-          [{ direction: "rtl" }, { list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
-          [{ size: [] }, { align: [] }, "bold", "italic", "underline", "strike"],
+          [{ direction: "rtl" }],
+          [{ size: Size.whitelist }, { align: [] }, "bold", "italic", "underline", "strike"],
+          [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
           [{ color: [] }, { background: [] }],
           [{ script: "sub" }, { script: "super" }],
           ["link", "blockquote", "image", "video", "formula", "code-block", "code-editor-container"]
