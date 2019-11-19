@@ -15,7 +15,7 @@ function RecentlyNotes(props) {
   return (
     <React.Fragment>
       {notes ? <MenuDivider title="Recently notes" /> : null}
-      {notes.map(note => (
+      {notes.slice(0, 5).map(note => (
         <MenuItem key={note.id} icon="cube" text={note.title} onClick={_ => goTo(note.id)} />
       ))}
     </React.Fragment>
@@ -27,7 +27,6 @@ function CreateNewNoteMenuItem() {
 
   function createNewNote(title = "New Note") {
     dispatch(PlatformActions.openCreateNewNoteDialog({ title }));
-    console.log("clicked");
   }
 
   function onClickNewNote() {

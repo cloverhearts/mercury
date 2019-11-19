@@ -10,10 +10,7 @@ function* openNewNoteDialog(context, action) {
 function* createNewNoteOnDialog(context, action) {
   try {
     if (action.note && action.note.title) {
-      yield call(requestNewNote, context, {
-        type: NOTE_ACTIONS.REQUEST_NEW_NOTE,
-        note: { ...action.note, redirect: true }
-      });
+      yield put({ type: NOTE_ACTIONS.REQUEST_NEW_NOTE, note:  { ...action.note, redirect: true }})
     }
     yield put({ type: ACTION_TYPES.RESPONSE_CLOSE_CREATE_NEW_NOTE_DIALOG });
   } catch (error) {

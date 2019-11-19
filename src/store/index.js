@@ -12,7 +12,7 @@ function create(context) {
   );
 
   function* sagas() {
-    return yield all([Note.saga(context), Platform.saga(context)]);
+    return yield all([...Note.saga(context), ...Platform.saga(context)]);
   }
 
   sagaMiddleware.run(sagas);

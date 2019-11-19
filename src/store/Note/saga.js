@@ -9,7 +9,6 @@ export function* requestNewNote(context, action) {
         message: "cannot found mercury note manager"
       };
     }
-    console.log("-------------------------------------------", context, action);
     const { router } = context;
     const { title, redirect } = action.note;
     const Manager = window._mercury.system["NoteManager"]();
