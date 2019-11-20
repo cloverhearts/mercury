@@ -21,7 +21,6 @@ module.exports = async ({
     console.error(`Error: unknown database, create note`);
     return `Error: unknown database`;
   }
-  console.log("fffff , ", description);
   try {
     db.read();
     const noteId = `note-${UUID()}`;

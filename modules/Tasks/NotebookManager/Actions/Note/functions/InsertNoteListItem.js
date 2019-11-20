@@ -12,7 +12,6 @@ module.exports = async function AppendNoteInList({
   index = 0
 }) {
   db.read();
-  console.log("dddddddddd ", noteDescription);
   const list = await db.get(`${user}.meta.order.notes`).value();
   const noteMetaIndex = list.findIndex(meta => meta.id === noteId);
   if (noteMetaIndex >= 0) {

@@ -31,9 +31,7 @@ module.exports = async note => {
       .assign(note)
       .write();
 
-    console.log(savedNote);
-
-    const noteList = await AppendNoteInList({ db, user: fixedUser, noteId: savedNote.id, noteTitle: savedNote.title });
+    await AppendNoteInList({ db, user: fixedUser, noteId: savedNote.id, noteTitle: savedNote.title });
 
     return savedNote;
   } catch (error) {
