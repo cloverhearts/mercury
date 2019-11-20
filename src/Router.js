@@ -9,7 +9,7 @@ import Note from "./pages/Notes/Note";
 const routes = [
   { path: "/", component: Home },
   { path: "/notes", component: Notes },
-  { path: "/notes/:noteId", component: Note },
+  { path: "/notes/:noteId", component: Note, name: "note" },
   { path: "/informations", component: Informations }
 ];
 

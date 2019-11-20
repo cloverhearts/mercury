@@ -6,8 +6,8 @@ export function openCreateNewNoteDialog(note) {
 }
 
 export function closeCreateNewNoteDialog(note) {
-  const { title = "" } = note || {};
-  return { type: ACTION_TYPES.REQUEST_CLOSE_CREATE_NEW_NOTE_DIALOG, note: { title } };
+  const { title = "", description = "" } = note || {};
+  return { type: ACTION_TYPES.REQUEST_CLOSE_CREATE_NEW_NOTE_DIALOG, note: { title, description } };
 }
 
 export default {
