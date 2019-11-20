@@ -10,9 +10,9 @@ export function* requestNewNote(context, action) {
       };
     }
     const { router } = context;
-    const { title, redirect } = action.note;
+    const { title, description, redirect } = action.note;
     const Manager = window._mercury.system["NoteManager"]();
-    const raw = yield Manager.create({ title });
+    const raw = yield Manager.create({ title, description });
     const note = raw.data;
     yield put({ type: ACTION_TYPES.RESPONSE_NEW_NOTE, note });
     yield put({ type: ACTION_TYPES.REQUEST_NOTE_LIST });

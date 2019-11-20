@@ -8,11 +8,12 @@ const Paragraph = require("mercury-core").default.ParagraphContainer.Paragraph;
 
 // TODO(cloverhearts): NEED TO IMPLEMENT
 let db = null;
-module.exports = async (
-  noteTitle = `New Note ${moment()
+module.exports = async ({
+  title: noteTitle = `New Note ${moment()
     .utc()
-    .toISOString()}`
-) => {
+    .toISOString()}`,
+  description = ""
+}) => {
   if (!db) {
     db = await Database();
   }
@@ -20,9 +21,9 @@ module.exports = async (
     console.error(`Error: unknown database, create note`);
     return `Error: unknown database`;
   }
-
+  console.log("fffff , ", description);
   try {
-    db.read()
+    db.read();
     const noteId = `note-${UUID()}`;
     const newNote = new NoteContainer({
       title: noteTitle,
@@ -34,7 +35,13 @@ module.exports = async (
       .push(newNote.toSerialize())
       .write();
 
-    await AppendNoteInList({ db, user: fixedUser, noteId: newNote.id, noteTitle: newNote.title });
+    await AppendNoteInList({
+      db,
+      user: fixedUser,
+      noteId: newNote.id,
+      noteTitle: newNote.title,
+      noteDescription: description
+    });
 
     return await db
       .get(`${fixedUser}.notes`)

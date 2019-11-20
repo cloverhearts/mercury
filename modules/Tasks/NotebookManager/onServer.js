@@ -21,7 +21,8 @@ async function onServer(request) {
         break;
       case "create.note":
         const title = request.title || undefined;
-        result = await Create(title);
+        const description = request.description || "";
+        result = await Create({ title, description });
         break;
       case "save.note":
         result = await Save(request.note);
@@ -29,7 +30,6 @@ async function onServer(request) {
       default:
         throw Error(`Unknown command type ${type}`);
     }
-    console.log('res ', result)
     return result;
   } catch (error) {
     return error;

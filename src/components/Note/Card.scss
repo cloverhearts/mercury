@@ -1,0 +1,44 @@
+.mercury-note-card {
+  display: inline-block;
+  position: relative;
+  top: 0;
+  margin: 10px;
+  width: 320px;
+  height: 217px;
+  max-height: 300px;
+  .card {
+    width: 100%;
+    position: relative;
+    top: 0;
+    float: left;
+    .title {
+      height: 50px;
+      margin-top: 0;
+      font-size: 20px;
+      word-break: keep-all;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      color: #137cbd;
+    }
+    .description {
+      width: 100%;
+      min-height: 100px;
+      margin-bottom: 10px;
+      color: #738694;
+      word-break: break-all;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+    .footer {
+      display: block;
+      position: absolute;
+      bottom: 10px;
+      width: 87%;
+      text-align: right;
+      .created-at {
+        display: inline-block;
+        font-size: 11px;
+      }
+    }
+  }
+}
