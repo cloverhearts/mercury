@@ -16,8 +16,8 @@ const routes = [
 export default () => {
   return (
     <Switch>
-      {routes.map(r => {
-        return <Route exact path={r.path} component={r.component} />;
+      {routes.map((r, index) => {
+        return <Route key={index} exact path={r.path} component={r.component} />;
       })}
     </Switch>
   );

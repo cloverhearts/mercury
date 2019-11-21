@@ -47,7 +47,7 @@ const CodeEditorContainer = (context, store) => {
 export default (context, store) => {
   const container = CodeEditorContainer(context, store);
   container.blotName = "code-editor-container";
-  container.tagName = "span";
+  container.tagName = "div";
   container.className = "mercury-code-editor-container";
   return container;
 };

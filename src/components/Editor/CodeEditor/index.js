@@ -138,10 +138,7 @@ export default props => {
   return (
     <div className={`editor-container`}>
       {editor ? <EditorControllerBox CodeContainer={context} editor={editor} /> : null}
-      <ResizableBox width={`100%`} height={200} axis={`y`}>
         <div className={`editor`} ref={editorRef} />
-      </ResizableBox>
-
       <div className={`console`}>
         <LogView CodeContainer={context} />
       </div>

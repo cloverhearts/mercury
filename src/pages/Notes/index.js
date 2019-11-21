@@ -11,7 +11,7 @@ export default () => {
     <div className={`mercury-note-list-container`}>
       <div className={`note-list`}>
         {notes.map(note => (
-          <Note {...note} />
+          <Note key={note.id} {...note} />
         ))}
       </div>
     </div>
