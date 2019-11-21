@@ -1,21 +1,25 @@
-import React, {useState} from 'react';
-import {Card, Elevation} from '@blueprintjs/core';
-import Editor from '../../CodeEditor';
-import {ResizableBox} from 'react-resizable';
+import React, { useState } from "react";
+import { Card, Elevation } from "@blueprintjs/core";
+import Editor from "../../CodeEditor";
+import { Resizable } from "re-resizable";
+
+import "./index.scss";
 
 export default props => {
-  const {noteId, paragraphId, context} = props;
+  const { noteId, paragraphId, context } = props;
+  const resizableOptions = {
+    defaultSize: {
+      width: `100%`,
+      height: `200px`
+    }
+  };
   return (
-    <div style={{display: 'inline-block'}}  >
-      <ResizableBox width={200}
-                    height={200} axis="both">
-        <div width={500}>
-          <Card  elevation={Elevation.TWO}>
-            <Editor noteId={noteId} paragraphId={paragraphId} context={context}/>
-          </Card>
-        </div>
-      </ResizableBox>
-    </div>
-
+    <span className={`mercury-code-container`} contentEditable={false}>
+      <Resizable defaultSize={resizableOptions}>
+        <Card className={`mercury-code-editor`} elevation={Elevation.TWO}>
+          <Editor noteId={noteId} paragraphId={paragraphId} context={context} />
+        </Card>
+      </Resizable>
+    </span>
   );
 };

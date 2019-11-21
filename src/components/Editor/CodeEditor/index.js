@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { chromeLight, Inspector } from "react-inspector";
 import { Button, ButtonGroup, Position, Tooltip } from "@blueprintjs/core";
-import { ResizableBox } from "react-resizable";
-import "react-resizable/css/styles.css";
 import moment from "moment";
 import * as monaco from "monaco-editor";
 import LogTheme from "../Logger/theme";
@@ -138,7 +136,7 @@ export default props => {
   return (
     <div className={`editor-container`}>
       {editor ? <EditorControllerBox CodeContainer={context} editor={editor} /> : null}
-        <div className={`editor`} ref={editorRef} />
+      <div className={`editor`} ref={editorRef} />
       <div className={`console`}>
         <LogView CodeContainer={context} />
       </div>
