@@ -1,5 +1,8 @@
 import ACTION_TYPES from "./types";
 import initializeState from "./state";
+import MercuryCore from "mercury-core";
+
+const Note = MercuryCore.NoteContainer.Note;
 
 function managementForNote(_state = initializeState, action) {
   const state = { ..._state };
@@ -7,7 +10,7 @@ function managementForNote(_state = initializeState, action) {
     case ACTION_TYPES.RESPONSE_NEW_NOTE:
       return state;
     case ACTION_TYPES.RESPONSE_LOAD_NOTE:
-      state.current.note = action.note;
+      state.current.note = new Note(action.note);
       return state;
     case ACTION_TYPES.RESPONSE_SAVE_NOTE:
       state.current.suggestForSaveNote = false;

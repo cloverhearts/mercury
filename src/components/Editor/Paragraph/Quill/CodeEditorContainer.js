@@ -40,7 +40,7 @@ const CodeEditorContainer = (context, store) => {
         return new MercuryCore.Code.Container(codeContainer);
       }
       const newCodeContainer = new MercuryCore.Code.Container({ id: containerId });
-      containers.push({ ...newCodeContainer });
+      containers.push(newCodeContainer);
       return newCodeContainer;
     }
   };
