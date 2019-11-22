@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { chromeLight, Inspector } from "react-inspector";
 import { Button, ButtonGroup, Position, Tooltip } from "@blueprintjs/core";
-import { ResizableBox } from "react-resizable";
-import "react-resizable/css/styles.css";
 import moment from "moment";
 import * as monaco from "monaco-editor";
 import LogTheme from "../Logger/theme";
@@ -40,7 +38,7 @@ function LogView({ CodeContainer }) {
     CodeContainer.logger.clear();
     setTimeout(() => setLogs([...CodeContainer.logger.logs]), 0);
   }
-
+  console.log("logs ", CodeContainer, logs);
   return (
     <div className={`log-viewer`}>
       <div className={`log-controller-box`}>
@@ -104,19 +102,13 @@ function EditorControllerBox({ CodeContainer, editor }) {
 }
 
 export default props => {
-  const { paragraphId, context } = props;
+  const { container } = props;
+  const codeContainer = container || { code: "", language: "javascript" };
   const dispatch = useDispatch();
-  const note = useSelector(state => state.note.current.note);
-  const paragraph = note && note.paragraphs ? note.paragraphs.find(p => p.id === paragraphId) : {};
-  const containerDataStore =
-    paragraph && paragraph.containers
-      ? paragraph.containers.find(c => c.id === context.id)
-      : { code: "", language: "javascript" };
-
   const editorRef = useRef();
   const editorOption = {
-    value: containerDataStore.code,
-    language: containerDataStore.language,
+    value: codeContainer.code,
+    language: codeContainer.language,
     automaticLayout: true,
     minimap: { enabled: false },
     scrollbar: {
@@ -130,22 +122,19 @@ export default props => {
     const editor = monaco.editor.create(editorRef.current, editorOption);
     setEditor(editor);
     editor.getModel().onDidChangeContent(() => {
-      containerDataStore.code = editor.getValue();
+      codeContainer.code = editor.getValue();
       dispatch(NoteActions.setSuggestSaveNote({ hasSuggestion: true }));
     });
   }, [editorRef]);
 
   return (
     <div className={`editor-container`}>
-      {editor ? <EditorControllerBox CodeContainer={context} editor={editor} /> : null}
-      <ResizableBox width={`100%`} height={200} axis={`y`}>
-        <div className={`editor`} ref={editorRef} />
-      </ResizableBox>
-
+      {editor ? <EditorControllerBox CodeContainer={codeContainer} editor={editor} /> : null}
+      <div className={`editor`} ref={editorRef} />
       <div className={`console`}>
-        <LogView CodeContainer={context} />
+        <LogView CodeContainer={codeContainer} />
       </div>
-      <div id={`html-${context.id}`}></div>
+      <div id={`html-${codeContainer.id}`}></div>
     </div>
   );
 };

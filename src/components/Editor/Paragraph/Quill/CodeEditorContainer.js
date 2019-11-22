@@ -6,6 +6,8 @@ import MercuryCore from "mercury-core";
 import ProviderWithContext from "../../../Platform/ProviderWithContext";
 import { BrowserRouter } from "react-router-dom";
 
+import "./CodeEditorContainer.scss";
+
 const CodeEditorBlock = QuillJS.import("blots/block/embed");
 const CodeEditorContainer = (context, store) => {
   return class extends CodeEditorBlock {
@@ -15,7 +17,7 @@ const CodeEditorContainer = (context, store) => {
       const containerContext = this.getOrCreateCodeContainer(containerID, context);
       const noteId = context.parentId;
       const paragraphId = context.id;
-      node.setAttribute("contentEditable", false);
+      // node.setAttribute("contentEditable", false);
       ReactDOM.render(
         <BrowserRouter>
           <ProviderWithContext store={store}>
@@ -38,7 +40,7 @@ const CodeEditorContainer = (context, store) => {
         return new MercuryCore.Code.Container(codeContainer);
       }
       const newCodeContainer = new MercuryCore.Code.Container({ id: containerId });
-      containers.push({ ...newCodeContainer });
+      containers.push(newCodeContainer);
       return newCodeContainer;
     }
   };
@@ -47,7 +49,7 @@ const CodeEditorContainer = (context, store) => {
 export default (context, store) => {
   const container = CodeEditorContainer(context, store);
   container.blotName = "code-editor-container";
-  container.tagName = "span";
+  container.tagName = "div";
   container.className = "mercury-code-editor-container";
   return container;
 };

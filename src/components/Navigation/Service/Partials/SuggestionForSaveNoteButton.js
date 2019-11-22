@@ -9,11 +9,10 @@ export default props => {
   const dispatch = useDispatch();
 
   const onClickSave = useCallback(() => {
-    dispatch(NoteAction.saveNote({ ...currentNote }));
+    dispatch(NoteAction.saveNote(currentNote));
   }, [currentNote]);
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   return currentNote && currentNote.id ? (
     <Button

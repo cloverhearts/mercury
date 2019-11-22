@@ -1,5 +1,6 @@
 import { takeEvery, put, takeLatest } from "redux-saga/effects";
 import ACTION_TYPES from "./types";
+import MercuryCore from "mercury-core";
 
 export function* requestNewNote(context, action) {
   try {
@@ -32,10 +33,13 @@ function* requestSaveNote(context, action) {
         message: "cannot found mercury note manager"
       };
     }
+
     const { id } = action.note;
+
     const Manager = window._mercury.system["NoteManager"]();
     if (id) {
-      const raw = yield Manager.save({ note: action.note });
+      const serializedNote = action.note.toSerialize();
+      const raw = yield Manager.save({ note: serializedNote });
       const note = raw.data;
       yield put({ type: ACTION_TYPES.RESPONSE_SAVE_NOTE, note });
       yield put({ type: ACTION_TYPES.REQUEST_NOTE_LIST });
