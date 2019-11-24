@@ -9,11 +9,12 @@ export default () => {
   const notes = useSelector(state => state.note.list.notes);
   return (
     <div className={`mercury-note-list-container`}>
-      <div className={`note-list`}>
+      { notes && notes.length > 0 ? <div className={`note-list`}>
         {notes.map(note => (
           <Note key={note.id} {...note} />
         ))}
-      </div>
+      </div> : <span>Does not found any note</span>}
+
     </div>
   );
 };
