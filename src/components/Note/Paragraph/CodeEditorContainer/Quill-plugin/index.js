@@ -1,15 +1,15 @@
 import React from "react";
 import QuillJS from "quill";
 import ReactDOM from "react-dom";
-import CodeContainer from "../CodeContainer";
+import CodeContainer from "../index";
 import MercuryCore from "mercury-core";
-import ProviderWithContext from "../../../Platform/ProviderWithContext";
+import ProviderWithContext from "../../../../Platform/ProviderWithContext";
 import { BrowserRouter } from "react-router-dom";
 
-import "./CodeEditorContainer.scss";
+import "./index.scss";
 
 const CodeEditorBlock = QuillJS.import("blots/block/embed");
-const CodeEditorContainer = (context, store) => {
+const Index = (context, store) => {
   return class extends CodeEditorBlock {
     static create(containerID) {
       let node = super.create();
@@ -47,9 +47,9 @@ const CodeEditorContainer = (context, store) => {
 };
 
 export default (context, store) => {
-  const container = CodeEditorContainer(context, store);
+  const container = Index(context, store);
   container.blotName = "code-editor-container";
   container.tagName = "div";
-  container.className = "mercury-code-editor-container";
+  container.className = "mercury-code-editor-container-warp";
   return container;
 };

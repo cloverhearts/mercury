@@ -1,7 +1,7 @@
 import QuillJS from "quill";
 import UUID from "uuid/v4";
 
-import CodeEditorContainer from "./CodeEditorContainer";
+import CodeEditorContainer from "../CodeEditorContainer/Quill-plugin";
 
 export default async function initializeQuill(editorRef, context, store) {
   if (!window.Quill) {

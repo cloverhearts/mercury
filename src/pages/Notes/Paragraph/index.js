@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import ParagraphEditor from "../../../components/Editor/Paragraph";
+import ParagraphEditor from "../../../components/Note/Paragraph";
 import "./Paragraph.scss";
 export default props => {
   const { context } = props;

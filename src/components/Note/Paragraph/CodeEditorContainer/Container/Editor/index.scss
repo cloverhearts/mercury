@@ -1,0 +1,13 @@
+.editor-container {
+  height: 100%;
+  .editor {
+    height: 100%;
+    min-height: 300px;
+    .monaco-editor {
+      height: 100%;
+      .monaco-scrollable-element.editor-scrollable.vs {
+        text-align: left;
+      }
+    }
+  }
+}
