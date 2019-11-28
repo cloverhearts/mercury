@@ -15,10 +15,12 @@ export default function MercuryRenderContainer(props) {
             onUpdateRender(e.target.innerHTML);
           }
         });
+      if (Container.render && Container.render.html) {
+        render.innerHTML = Container.render.html
+      }
     }
   }, [renderRef.current]);
   return <div id={`html-${Container.id}`} ref={renderRef}
               className={`mercury-render-container`}>
-    {Container.render && Container.render.html ? <div dangerouslySetInnerHTML={{ __html: Container.render.html }} /> : null}
   </div>;
 }
