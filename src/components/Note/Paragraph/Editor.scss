@@ -20,7 +20,7 @@
     font-weight: inherit;
 
     .ql-editor {
-      min-height: calc(100vh - 91px);
+      height: calc(100vh - 91px);
       iframe {
         pointer-events: none;
       }
@@ -28,22 +28,88 @@
   }
 }
 
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  border-color: #ccc;
+  height: 241px;
+  overflow: auto;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="8px"]::before {
+  content: "8px";
+  font-size: 8px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="9px"]::before {
+  content: "9px";
+  font-size: 9px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before {
+  content: "10px";
+  font-size: 10px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="11px"]::before {
+  content: "11px";
+  font-size: 11px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="12px"]::before {
+  content: "12px";
+  font-size: 12px !important;
+}
+
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="14px"]::before {
-  content: "Normal";
+  content: "14px";
   font-size: 14px !important;
 }
 
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before {
-  content: "Large";
+  content: "16px";
   font-size: 16px !important;
 }
 
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before {
-  content: "Huge";
+  content: "18px";
   font-size: 18px !important;
 }
 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before {
+  content: "20px";
+  font-size: 20px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="22px"]::before {
+  content: "22px";
+  font-size: 22px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="24px"]::before {
+  content: "24px";
+  font-size: 24px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="26px"]::before {
+  content: "26px";
+  font-size: 26px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="28px"]::before {
+  content: "28px";
+  font-size: 28px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="36px"]::before {
+  content: "36px";
+  font-size: 36px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="48px"]::before {
+  content: "48px";
+  font-size: 48px !important;
+}
+
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="72px"]::before {
-  content: "왕만함";
-  font-size: 18px !important;
+  content: "72px";
+  font-size: 72px !important;
 }

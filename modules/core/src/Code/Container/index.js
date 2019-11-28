@@ -30,6 +30,7 @@ export default class {
     })
     this._esprima = esprima
     this.meta = containerObject ? new Meta(containerObject.meta || {}) : new Meta()
+    this.render = containerObject ? containerObject.render : {}
   }
 
   addEventListener (event, listener) {
@@ -73,6 +74,7 @@ export default class {
     serializedObject.code = this.code
     serializedObject.logs = this.logs
     serializedObject.meta = this.meta.toSerialize()
+    serializedObject.render = this.render
     return serializedObject
   }
 }

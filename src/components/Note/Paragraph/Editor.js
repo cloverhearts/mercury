@@ -30,7 +30,6 @@ export default props => {
   return (
     <div className={`mercury-paragraph-editor ql-snow`}>
       <div ref={editorRef}></div>
-      <div ref={preview} className={`ql-editor `}></div>
     </div>
   );
 };
