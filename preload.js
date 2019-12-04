@@ -9,7 +9,8 @@ window._mercury = {
   utils: {
     jsdom
   },
-  system: {}
+  system: {},
+  appRender: {}
 };
 
 // import fetch

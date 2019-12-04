@@ -33,9 +33,10 @@ test("test for code Container runner", () => {
       // test for remove event listener
       codeContainer.removeListener(codeContainer.channel.LOGGER, invalidListener);
 
-      const executor = codeContainer.getCommandFunction(codeContainer.code, "");
-      expect(executor).toBeTruthy();
-      executor();
+      codeContainer.getCommandFunction(codeContainer.code, "").then(executor => {
+        expect(executor).toBeTruthy();
+        executor();
+      });
     });
 
   const serializedCodeContainer = JSON.stringify(codeContainer);

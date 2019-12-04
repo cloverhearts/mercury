@@ -4,7 +4,7 @@ const {createTask} = require('../Task');
 const meta = {
   ...CommonMeta,
   onRender: (response) => {
-    return response;
+    return response && response.data ? response.data : response;
   },
 };
 
