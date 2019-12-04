@@ -56,10 +56,10 @@ export default class {
   }
 
   warn (...args) {
-    this._pushLog(LOG_LEVEL.LOG, ...args)
+    this._pushLog(LOG_LEVEL.WARN, ...args)
   }
 
   error (...args) {
-    this._pushLog(LOG_LEVEL.LOG, ...args)
+    this._pushLog(LOG_LEVEL.ERROR, ...args)
   }
 }

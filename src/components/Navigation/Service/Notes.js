@@ -14,7 +14,7 @@ function RecentlyNotes(props) {
   });
   return (
     <React.Fragment>
-      {notes ? <MenuDivider title="Recently notes" /> : null}
+      {notes && notes.length > 0 ? <MenuDivider title="Recently notes" /> : null}
       {notes.slice(0, 5).map(note => (
         <MenuItem key={note.id} icon="cube" text={note.title} onClick={_ => goTo(note.id)} />
       ))}
