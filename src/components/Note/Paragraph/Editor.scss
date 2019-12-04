@@ -33,6 +33,32 @@
   overflow: auto;
 }
 
+.ql-color .ql-picker-options [data-value=custom-color] {
+  background: none !important;
+  width: 100% !important;
+  height: 20px !important;
+  text-align: center;
+}
+.ql-color .ql-picker-options [data-value=custom-color]:before {
+  content: 'Enter Custom CSS';
+}
+.ql-color .ql-picker-options [data-value=custom-color]:hover {
+  border-color: transparent !important;
+}
+
+.ql-background .ql-picker-options [data-value=custom-color] {
+  background: none !important;
+  width: 100% !important;
+  height: 20px !important;
+  text-align: center;
+}
+.ql-background .ql-picker-options [data-value=custom-color]:before {
+  content: 'Enter Custom CSS';
+}
+.ql-background .ql-picker-options [data-value=custom-color]:hover {
+  border-color: transparent !important;
+}
+
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="8px"]::before {
   content: "8px";
   font-size: 8px !important;

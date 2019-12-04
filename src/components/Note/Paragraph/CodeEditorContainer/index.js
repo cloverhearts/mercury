@@ -52,7 +52,7 @@ export default props => {
   return (
     <span className={`mercury-code-container`} contentEditable={false}>
       {container ? (
-        <Resizable defaultSize={resizableOptions} onResizeStop={onResizeStop} minHeight={300}>
+        <Resizable defaultSize={resizableOptions} onResizeStop={onResizeStop} minHeight={300} minWidth={300}>
           <Card className={`mercury-code-editor`} interactive={true}>
             <CodeEditor noteId={noteId} paragraphId={paragraphId}
                         container={container}/>

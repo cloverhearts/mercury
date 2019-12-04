@@ -39,13 +39,15 @@ export default function MercuryLogger({Container}) {
       <div className="log-list">
         {logs.map((log, index) => (
           <div key={index} className={`log-row level-${log.level}`}>
-            <div>{log.level}</div>
             <div className={`log-time`}>{moment(log.time * 1000).
               calendar()}</div>
             <Inspector theme={{...chromeLight, ...themes[log.level]}}
                        data={log.data}/>
           </div>
         ))}
+        {logs.length <= 0 ? <div className={`empty-log-viewer`}>
+          Clean logs!
+        </div> : null}
       </div>
     </div>
   );

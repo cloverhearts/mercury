@@ -58,7 +58,11 @@ export default function MercuryCodeEditor(props) {
   };
 
   const onChangeTab = (tab) => {
-    setSelectedTab(tab);
+    if (!tab) {
+      setSelectedTab('log');
+    } else {
+      setSelectedTab(tab);
+    }
   };
 
   const onUpdateRender = (html) => {
@@ -67,6 +71,7 @@ export default function MercuryCodeEditor(props) {
     container.render = renderResult;
     setRender(renderResult)
     dispatch(NoteActions.setSuggestSaveNote({hasSuggestion: true}));
+    setSelectedTab('render');
   };
 
   return (
@@ -80,18 +85,20 @@ export default function MercuryCodeEditor(props) {
       </div>
 
       {container ?
-        <Tabs id="TabsExample" onChange={onChangeTab}
-              selectedTabId={selectedTab}>
-          <Tab id="render" title="Render"
+        <Tabs
+              onChange={onChangeTab}
+              selectedTabId={selectedTab}
+              className={`mercury-code-editor-tab-container`}
+        >
+          <Tab id="render" title="App"
                panel={<RenderContainer Container={container} Code={code}
                                        onUpdateRender={onUpdateRender}/>}/>
-          <Tab id="log" title="LOG"
+          <Tab id="log" title="Log"
                panel={<LoggerContainer Container={container}/>}/>
         </Tabs>
         :
         null
       }
-
     </div>
   );
 }

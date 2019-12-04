@@ -5,8 +5,14 @@
     min-height: 300px;
     .monaco-editor {
       height: 100%;
+      .margin {
+        border-left: 2px dotted rgba(16, 22, 26, 0.1);
+        background: rgba(16, 22, 26, 0.01);
+      }
       .monaco-scrollable-element.editor-scrollable.vs {
         text-align: left;
+        .view-lines {
+        }
       }
     }
   }

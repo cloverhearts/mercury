@@ -3,17 +3,22 @@
   .mercury-code-action-bar-container {
     width: 100%;
     height: 30px;
+    margin-bottom: 10px;
   }
   .mercury-code-write-container {
     width: 100%;
     height: 50%;
   }
 
-  .mercury-code-logger-container {
+  .mercury-code-editor-tab-container {
+    margin-top: 20px;
+    .mercury-code-logger-container {
 
+    }
+
+    .mercury-code-render-container {
+
+    }
   }
 
-  .mercury-code-render-container {
-
-  }
 }

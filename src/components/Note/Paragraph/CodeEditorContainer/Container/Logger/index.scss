@@ -1,8 +1,49 @@
 .log-viewer {
+  display: block;
+  position: relative;
   .log-controller-box {
+    display: block;
+    position: absolute;
+    top: -50px;
+    right: 0;
     text-align: right;
   }
+  
+  .empty-log-viewer {
+    text-align: center;
+    opacity: 0.5;
+  }
+  
   .log-list {
     text-align: left;
+    .log-row {
+      margin: 5px 0;
+      padding: 5px 0;
+      &:nth-child(n + 2) {
+        border-top: 1px solid rgba(16, 22, 26, 0.15);
+      }
+      .log-time {
+        font-size: 10px;
+        color: #bbbbbb;
+      }
+      ol[role=tree] {
+        li {
+          &:before {
+            display: none;
+          }
+          cursor: pointer !important;
+          padding-left: 20px;
+          opacity: 0.9;
+          &:hover {
+            opacity: 1;
+            background: rgba(#137cbd, 0.05) !important;
+          }
+        }
+
+        & > li {
+          padding-left: 0;
+        }
+      }
+    }
   }
 }
