@@ -5,6 +5,7 @@ import Logger from './Logger'
 import { loader } from './Renderer'
 import Template from './ExecuteTemplates'
 import Meta from '../Meta'
+
 const esprima = require('esprima')
 
 export default class {
@@ -25,9 +26,7 @@ export default class {
       this._eventBroadcaster.notify(this.channel.LOGGER, { type: this.channel.LOGGER, data })
       this._eventBroadcaster.notify(this.channel.BROADCAST, { type: this.channel.LOGGER, data })
     })
-    loader().then(imported => {
-      this.renderer = imported
-    })
+    this.renderer = null
     this._esprima = esprima
     this.meta = containerObject ? new Meta(containerObject.meta || {}) : new Meta()
     this.render = containerObject ? containerObject.render : {}
@@ -61,10 +60,28 @@ export default class {
   }
 
   getCommandFunction (code, initializeObject = 'window') {
-    const executeCode = code || this.code
-    // eslint-disable-next-line no-eval
-    const command = eval(this._getCodeWrap(this.language, executeCode, initializeObject))
-    return command.bind(this)
+    const container = this
+    return new Promise((resolve) => {
+      const generator = () => {
+        const executeCode = code || this.code
+        if (!this.renderer) {
+          loader().then(libraries => {
+            const withRenderer = () => {
+              this.renderer = libraries
+              // eslint-disable-next-line no-eval
+              const command = eval(this._getCodeWrap(this.language, executeCode, initializeObject))
+              resolve(command.bind(container))
+            }
+            withRenderer.call(container)
+          })
+        } else {
+          // eslint-disable-next-line no-eval
+          const command = eval(this._getCodeWrap(this.language, executeCode, initializeObject))
+          resolve(command.bind(container))
+        }
+      }
+      generator.call(container)
+    })
   }
 
   toSerialize () {

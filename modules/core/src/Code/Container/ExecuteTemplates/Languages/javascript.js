@@ -4,14 +4,12 @@ export default (id, code, initializeObject) => {
       return (async function (window) {
         const __mercury_executor_notifier = this._eventBroadcaster
         __mercury_executor_notifier.notify(this.channel.EXECUTOR, { status: 'EXECUTE_START' })
-        const _mercury = window ? window._mercury : {}
+        const _mercury = window ? Object.assign({}, window._mercury) : {}
         const console = this.logger
-        let html = this.renderer && this.renderer.html ? this.renderer.html : () => { };
-        let render = this.renderer && this.renderer.render ? (html, _native_dom = '#html-${id}') => this.renderer.render(html, document.querySelector(_native_dom)) : () => {};
-        setTimeout(() => {
-          html = this.renderer.html
-          render = (html, _native_dom = '#html-${id}') => this.renderer.render(html, document.querySelector(_native_dom))
-        }, 10)
+        if (this.renderer && !_mercury.appRender.render) {
+          _mercury.appRender = Object.assign({}, this.renderer)
+          _mercury.appRender.render = (html, _native_dom = '#html-${id}') => this.renderer.render(html, document.querySelector(_native_dom))
+        }
         try {
           const result = await (async () => {
             ${code}
