@@ -1,4 +1,5 @@
 const { app, BrowserWindow, protocol } = require("electron");
+const contextMenu = require('electron-context-menu');
 const path = require("path");
 const basepath = app.getAppPath();
 // const isDev = require("electron-is-dev");
@@ -8,6 +9,22 @@ let mainWindow;
 const isDev = process.env.MERCURY_ENV === "development";
 const resourcePath = isDev ? basepath : process.resourcesPath;
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = true;
+
+
+contextMenu({
+  showCopyImage: true,
+  showCopyImageAddress: true,
+  showSaveImageAs: true,
+  showServices: true,
+  prepend: (defaultActions, params, browserWindow) => [
+    {
+      label: 'Go to APP Home',
+      click: () => {
+        browserWindow.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(resourcePath, "build", "index.html")}`)
+      }
+    }
+  ]
+});
 
 async function createWindow() {
   const WEB_FOLDER = path.join(resourcePath, "build");
