@@ -2,13 +2,13 @@ const prompt = require('electron-prompt');
 const jsdom = require('jsdom');
 const NoteManager = require('./modules/client/libraries/NoteManager');
 const Fetch = require('./modules/client/libraries/Fetch');
-const importModule = require('./modules/client/libraries/RequireModule');
+const npmModule = require('./modules/client/libraries/RequireModule');
 window.prompt = prompt;
 
 window._mercury = {
   utils: {
     jsdom,
-    importModule
+    npmModule
   },
   system: {},
   appRender: {},
