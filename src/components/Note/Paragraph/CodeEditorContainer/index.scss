@@ -1,6 +1,10 @@
-.mercury-code-container {
+.mercury-code-container-resize-wrap {
   display: inline-block;
-  .mercury-code-editor {
-    height: 100%;
+  .mercury-code-container {
+    display: block;
+    width: 100%;
+    .mercury-code-editor {
+      height: 100%;
+    }
   }
 }

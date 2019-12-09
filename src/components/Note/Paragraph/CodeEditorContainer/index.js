@@ -26,19 +26,23 @@ export default props => {
     null;
   const metaConfig = container ? container.meta.config : {};
   const defaultWidth = metaConfig.editor ?
-    metaConfig.editor.width || `800px` :
-    `800px`;
+    metaConfig.editor.width || `50%` :
+    `50%`;
   const resizableOptions = {
-    width: defaultWidth,
+    width: '100%', // disabled current resize feature.
     height: '100%',
   };
+
+  const [containerWidth, setContainerWidth] = useState(resizableOptions.width)
+  const [containerHeight] = useState(resizableOptions.height)
 
   const onResizeStop = useCallback(
     (e, direction, ref, d) => {
       const styles = ref && ref.style;
       if (styles) {
         const width = styles.getPropertyValue('width');
-        const height = '100%';
+        setContainerWidth(width)
+        const height = containerHeight;
         metaConfig.editor = {
           width,
           height,
@@ -50,15 +54,16 @@ export default props => {
   );
 
   return (
-    <span className={`mercury-code-container`} contentEditable={false}>
-      {container ? (
-        <Resizable defaultSize={resizableOptions} onResizeStop={onResizeStop} minHeight={300} minWidth={300}>
+    <Resizable className={`mercury-code-container-resize-wrap`} size={{width: containerWidth, height: containerHeight}}
+               onResizeStop={onResizeStop} minHeight={300} minWidth={300} enable={false}>
+      <div className={`mercury-code-container`} contentEditable={false}>
+        {container ? (
           <Card className={`mercury-code-editor`} interactive={true}>
             <CodeEditor noteId={noteId} paragraphId={paragraphId}
                         container={container}/>
           </Card>
-        </Resizable>
-      ) : null}
-    </span>
+        ) : null}
+      </div>
+    </Resizable>
   );
 };
