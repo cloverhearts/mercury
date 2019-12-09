@@ -13,6 +13,23 @@ export default function MercuryLogger({Container}) {
 
   useEffect(() => {
     const eventListener = (_, event) => {
+      console.log('event', event)
+      if (window._mercury.notification) {
+        switch (event.data.level) {
+          case 'log':
+            window._mercury.notification.log(event.data.data)
+            break;
+          case 'warn':
+            window._mercury.notification.warn(event.data.data)
+            break;
+          case 'error':
+            window._mercury.notification.error(event.data.data)
+            break;
+          default:
+            break;
+        }
+      }
+
       setTimeout(() => setLogs([...Container.logger.logs]), 0);
     };
     Container.addEventListener(Container.channel.LOGGER, eventListener);

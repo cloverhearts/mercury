@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "./components/Navigation/Service";
 import "./App.scss";
 import Router from "./Router";
+import './components/Platform/Management/Notification'
 
 function App() {
   return (
