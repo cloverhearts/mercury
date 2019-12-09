@@ -9,12 +9,10 @@ export default async function initializeQuill(editorRef, context, store) {
   }
   const Quill = window.Quill;
   const ImageDropModule = await import("quill-image-drop-module");
-  const BlotFormatter = await import("quill-blot-formatter");
   var Size = Quill.import("attributors/style/size");
   Size.whitelist = ["8px", "9px", "10px", "11px", "12px", "14px", "16px", "18px", "20px", "22px", "24px", "26px", "28px", "36px", "48px", "72px"];
 
   Quill.register("modules/imageDrop", ImageDropModule.ImageDrop);
-  Quill.register("modules/blotFormatter", BlotFormatter.default);
   Quill.register(Size, true);
   Quill.register(CodeEditorContainer(context, store));
   const icons = Quill.import("ui/icons");
@@ -80,7 +78,6 @@ export default async function initializeQuill(editorRef, context, store) {
         }
       },
       imageDrop: true,
-      blotFormatter: {}
     }
   };
   return new Quill(editorRef.current, options);
