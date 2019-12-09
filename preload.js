@@ -11,7 +11,7 @@ window._mercury = {
     npmModule
   },
   system: {},
-  appRender: {},
+  appRender: {}
 };
 
 // import fetch

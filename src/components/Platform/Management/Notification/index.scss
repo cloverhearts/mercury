@@ -1,0 +1,17 @@
+.mercury-notification-normal {
+  min-width: 100px;
+  max-height: 400px;
+  overflow: hidden;
+  .log-notification{
+    color: white;
+    background: #669EFF;
+  }
+  .error-notification{
+    color: white;
+    background: #A82255;
+  }
+  .warn-notification{
+    color: white;
+    background: #FFC940;
+  }
+}
