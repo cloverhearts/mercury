@@ -1,15 +1,11 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {chromeLight, Inspector} from 'react-inspector';
-import {Button, ButtonGroup, Position, Tooltip} from '@blueprintjs/core';
-import moment from 'moment';
 import * as monaco from 'monaco-editor';
-import LogTheme from '../Logger/theme';
 import './index.scss';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import NoteActions from '../../../../../../store/Note/actions';
 
 export default props => {
-  const {Container, Option, Editor, UpdateEditor, onUpdateCode} = props;
+  const {Option, Editor, UpdateEditor, onUpdateCode} = props;
   const dispatch = useDispatch();
   const editorRef = useRef();
   useEffect(() => {

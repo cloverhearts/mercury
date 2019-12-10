@@ -1,9 +1,11 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+import moment from 'moment'
 
 import './index.scss';
 
 export default function MercuryRenderContainer(props) {
   const {Container, onUpdateRender} = props;
+  const [latestUpdated, setLatestUpdated] = useState(Container.meta.updatedAt)
   const renderRef = useRef();
 
   useEffect(() => {
@@ -13,6 +15,7 @@ export default function MercuryRenderContainer(props) {
         (e) => {
           if (e && e.target) {
             onUpdateRender(e.target.innerHTML);
+            setLatestUpdated(moment().local().toString())
           }
         });
       if (Container.render && Container.render.html) {
@@ -20,7 +23,14 @@ export default function MercuryRenderContainer(props) {
       }
     }
   }, [renderRef.current]);
-  return <div id={`html-${Container.id}`} ref={renderRef}
-              className={`mercury-render-container`}>
-  </div>;
+  return (
+    <div className={`mercury-render-container-wrap`}>
+      <div
+        className={`updated-at`}>
+        {latestUpdated ? `updated at ${moment(latestUpdated).local().toString()}` : ''}
+      </div>
+      <div id={`html-${Container.id}`} ref={renderRef}
+           className={`mercury-render-container`}></div>
+    </div>
+  )
 }
