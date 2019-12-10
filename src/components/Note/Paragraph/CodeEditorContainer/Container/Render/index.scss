@@ -1,2 +1,13 @@
-.mercury-render-container {
+.mercury-render-container-wrap {
+  position: relative;
+  .updated-at {
+    text-align: right;
+    font-size: 14px;
+    color: #bbbbbb;
+    position: absolute;
+    top: -42px;
+    right: 0;
+  }
+  .mercury-render-container {
+  }
 }
