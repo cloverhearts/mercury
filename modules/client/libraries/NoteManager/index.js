@@ -30,6 +30,13 @@ module.exports = () => {
       return NoteManager.build(_jobID, {
         type
       }).send();
-    }
+    },
+    export: (data, _jobID = UUID()) => {
+      const type = "export.note";
+      return NoteManager.build(_jobID, {
+        ...data,
+        type
+      }).send();
+    },
   };
 };

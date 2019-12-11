@@ -18,7 +18,17 @@ function* createNewNoteOnDialog(context, action) {
   }
 }
 
+function* openExportNoteDialog(context, action) {
+  yield put({ type: ACTION_TYPES.RESPONSE_OPEN_EXPORT_NOTE_DIALOG, note: action.note });
+}
+
+function* closeExportNoteDialog(context, action) {
+  yield put({ type: ACTION_TYPES.RESPONSE_CLOSE_EXPORT_NOTE_DIALOG });
+}
+
 export default function* rootSaga(context) {
   yield takeLatest(ACTION_TYPES.REQUEST_OPEN_CREATE_NEW_NOTE_DIALOG, openNewNoteDialog, context);
   yield takeLatest(ACTION_TYPES.REQUEST_CLOSE_CREATE_NEW_NOTE_DIALOG, createNewNoteOnDialog, context);
+  yield takeLatest(ACTION_TYPES.REQUEST_OPEN_EXPORT_NOTE_DIALOG, openExportNoteDialog, context);
+  yield takeLatest(ACTION_TYPES.REQUEST_CLOSE_EXPORT_NOTE_DIALOG, closeExportNoteDialog, context);
 }

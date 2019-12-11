@@ -1,11 +1,12 @@
 import ACTION_TYPES from "./types";
 import initializeState from "./state";
 import MercuryCore from "mercury-core";
+import {exportNote} from "./actions";
 
 const Note = MercuryCore.NoteContainer.Note;
 
 function managementForNote(_state = initializeState, action) {
-  const state = { ..._state };
+  const state = {..._state};
   switch (action.type) {
     case ACTION_TYPES.RESPONSE_NEW_NOTE:
       return state;
@@ -28,6 +29,12 @@ function managementForNote(_state = initializeState, action) {
       return state;
     case ACTION_TYPES.REQUEST_SUGGEST_SAVE_NOTE:
       state.current.suggestForSaveNote = !!action.hasSuggestion;
+      return state;
+    case ACTION_TYPES.RESPONSE_EXPORT_NOTE:
+      state.current.exportNote = new Note(action.note)
+      return state;
+    case ACTION_TYPES.CLEAR_EXPORT_NOTE:
+      state.current.exportNote = {};
       return state;
     default:
       return state;

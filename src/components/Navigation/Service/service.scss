@@ -1,9 +1,2 @@
 .mercury-service-navbar {
-  .save-note {
-    transform: 0deg;
-    &.suggest {
-      transition: all 0.3s;
-      transform: rotate(-360deg);
-    }
-  }
 }

@@ -72,10 +72,10 @@ function* requestLoadNote(context, action) {
 function* requestMetaListOfNote(context, action) {
   try {
     if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
-      return {
+      throw new Error({
         error: "createNote",
         message: "cannot found mercury note manager"
-      };
+      });
     }
     const Manager = window._mercury.system["NoteManager"]();
     const raw = yield Manager.list();
@@ -86,9 +86,29 @@ function* requestMetaListOfNote(context, action) {
   }
 }
 
+function* requestExportNote(context, action) {
+  try {
+    if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
+      throw new Error({
+        error: "exportNote",
+        message: "cannot found mercury note manager"
+      });
+    }
+
+    const { id } = action.note;
+    const Manager = window._mercury.system["NoteManager"]();
+    const raw = yield Manager.export({ noteId: id });
+    const note = raw.data;
+    yield put({ type: ACTION_TYPES.RESPONSE_EXPORT_NOTE, note})
+  } catch (error) {
+    console.error(`${action.type} ERROR ${error}`);
+  }
+}
+
 export default function*(context) {
   yield takeEvery(ACTION_TYPES.REQUEST_NEW_NOTE, requestNewNote, context);
   yield takeEvery(ACTION_TYPES.REQUEST_SAVE_NOTE, requestSaveNote, context);
   yield takeEvery(ACTION_TYPES.REQUEST_LOAD_NOTE, requestLoadNote, context);
   yield takeEvery(ACTION_TYPES.REQUEST_NOTE_LIST, requestMetaListOfNote, context);
+  yield takeLatest(ACTION_TYPES.REQUEST_EXPORT_NOTE, requestExportNote, context)
 }

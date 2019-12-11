@@ -43,6 +43,14 @@ export function setSuggestSaveNote({ hasSuggestion }) {
   };
 }
 
+export function exportNote({ id }) {
+  return { type: ACTION_TYPES.REQUEST_EXPORT_NOTE, note: { id }}
+}
+
+export function clearExportNote() {
+  return { type: ACTION_TYPES.CLEAR_EXPORT_NOTE}
+}
+
 export default {
   newNote,
   loadNote,
@@ -51,5 +59,7 @@ export default {
   listOfNote,
   moveToNotePage,
   unsetCurrentNote,
-  setSuggestSaveNote
+  setSuggestSaveNote,
+  exportNote,
+  clearExportNote
 };

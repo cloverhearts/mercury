@@ -1,0 +1,8 @@
+.mercury-suggestion-save-note-button {
+  transform: 0;
+
+  &.suggest {
+    transition: all 0.3s;
+    transform: rotate(-360deg);
+  }
+}
