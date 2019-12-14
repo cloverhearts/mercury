@@ -2,13 +2,13 @@ const meta = require("./meta");
 const Create = require("./Actions/Note/Create");
 const Save = require("./Actions/Note/Save");
 const Load = require("./Actions/Note/Load");
+const importNote = require('./Actions/Note/Import')
 const ListNote = require("./Actions/Note/List");
 
 // { container: {}, noteId: 'noteid', type: 'save' }
 async function onServer(request) {
   try {
-    const { type, noteId, container } = request;
-    let meta = request.meta || {};
+    const { type, noteId } = request;
     let result = {};
 
     console.log("Notebook manager ", request);
@@ -26,6 +26,12 @@ async function onServer(request) {
         break;
       case "save.note":
         result = await Save(request.note);
+        break;
+      case "import.note":
+        result = await importNote(request.note)
+        break;
+      case "export.note":
+        result = await Load(noteId);
         break;
       default:
         throw Error(`Unknown command type ${type}`);

@@ -6,6 +6,15 @@ const initializeState = {
         default: {
           title: "New Note"
         }
+      },
+      exportNote: {
+        isOpen: false,
+        target: {
+          id: ''
+        }
+      },
+      importNote: {
+        isOpen: false,
       }
     }
   }

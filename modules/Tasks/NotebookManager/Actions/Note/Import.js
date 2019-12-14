@@ -7,12 +7,7 @@ const NoteContainer = require("mercury-core").default.NoteContainer.Note;
 const Paragraph = require("mercury-core").default.ParagraphContainer.Paragraph;
 
 let db = null;
-module.exports = async ({
-  title: noteTitle = `New Note ${moment()
-    .utc()
-    .toISOString()}`,
-  description = ""
-}) => {
+module.exports = async (targetNote) => {
   if (!db) {
     db = await Database();
   }
@@ -22,28 +17,24 @@ module.exports = async ({
   }
   try {
     db.read();
-    const noteId = `note-${UUID()}`;
-    const newNote = new NoteContainer({
-      title: noteTitle,
-      id: noteId,
-      paragraphs: [new Paragraph({ parentId: noteId, content: [{ insert: `You can write here!` }] })]
-    });
+    targetNote.id = `note-${UUID()}`;
+    console.log('ttt ', targetNote)
     await db
       .get(`${fixedUser}.notes`)
-      .push(newNote.toSerialize())
+      .push(targetNote)
       .write();
 
     await AppendNoteInList({
       db,
       user: fixedUser,
-      noteId: newNote.id,
-      noteTitle: newNote.title,
-      noteDescription: description
+      noteId: targetNote.id,
+      noteTitle: targetNote.title || `Imported note`,
+      noteDescription: targetNote.description || ''
     });
 
     return await db
       .get(`${fixedUser}.notes`)
-      .find({ id: noteId })
+      .find({ id: targetNote.id })
       .value();
   } catch (error) {
     console.error(error);
