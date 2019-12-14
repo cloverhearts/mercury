@@ -6,6 +6,7 @@ import NotesMenu from "./Notes";
 import NoteActions from "../../../store/Note/actions";
 import NoteCreateDialog from "../../Platform/Management/Dialog/NoteCreateDialog";
 import NoteExportDialog from '../../Platform/Management/Dialog/NoteExportDialog'
+import NoteImportDialog from '../../Platform/Management/Dialog/NoteImportDialog'
 import SuggestionSaveNoteButton from "./Partials/SuggestionForSaveNoteButton";
 import ExportNoteButton from './Partials/ExportNoteButton'
 
@@ -44,6 +45,7 @@ export default props => {
       </Navbar>
       <NoteCreateDialog />
       <NoteExportDialog />
+      <NoteImportDialog />
     </>
   );
 };

@@ -35,6 +35,14 @@ function CreateNewNoteMenuItem() {
   return <MenuItem icon="cube-add" text="New data note" onClick={onClickNewNote} />;
 }
 
+function ImportNoteMenuItem() {
+  const dispatch = useDispatch()
+  const onClickImportNote = useCallback(() => {
+    dispatch(PlatformActions.openImportNoteDialog())
+  }, [])
+  return <MenuItem icon="import" text="Import note" onClick={onClickImportNote} />
+}
+
 export default props => {
   const history = useHistory();
   const notes = useSelector(state => state.note.list.notes);
@@ -49,6 +57,7 @@ export default props => {
   return (
     <Menu>
       <CreateNewNoteMenuItem />
+      <ImportNoteMenuItem />
       <MenuItem icon="list" text="Show all notes" onClick={e => goTo("/notes")} />
       <RecentlyNotes notes={notes} />
     </Menu>

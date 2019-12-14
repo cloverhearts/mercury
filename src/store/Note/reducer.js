@@ -36,6 +36,9 @@ function managementForNote(_state = initializeState, action) {
     case ACTION_TYPES.CLEAR_EXPORT_NOTE:
       state.current.exportNote = {};
       return state;
+    case ACTION_TYPES.RESPONSE_IMPORT_NOTE:
+      state.current.note = new Note(action.note);
+      return state;
     default:
       return state;
   }

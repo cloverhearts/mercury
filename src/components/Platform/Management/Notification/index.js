@@ -28,9 +28,11 @@ if (window) {
     },
 
   };
-  window._mercury.notification = {
-    log: window.__system_notifications.log,
-    warn: window.__system_notifications.warn,
-    error: window.__system_notifications.error,
-  };
+  if (window._mercury) {
+    window._mercury.notification = {
+      log: window.__system_notifications.log,
+      warn: window.__system_notifications.warn,
+      error: window.__system_notifications.error,
+    };
+  }
 }

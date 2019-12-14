@@ -12,6 +12,9 @@ const initializeState = {
         target: {
           id: ''
         }
+      },
+      importNote: {
+        isOpen: false,
       }
     }
   }

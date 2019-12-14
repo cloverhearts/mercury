@@ -23,6 +23,12 @@ function reducer(_state = initializeState, action) {
       state.note.dialog.exportNote.isOpen = false;
       state.note.dialog.exportNote.target = {};
       return state;
+    case ACTION_TYPES.RESPONSE_OPEN_IMPORT_NOTE_DIALOG:
+      state.note.dialog.importNote.isOpen = true;
+      return state;
+    case ACTION_TYPES.RESPONSE_CLOSE_IMPORT_NOTE_DIALOG:
+      state.note.dialog.importNote.isOpen = false;
+      return state;
     default:
       return state;
   }

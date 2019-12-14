@@ -46,7 +46,7 @@ export default props => {
   useEffect(() => {
     if (exportTarget.id && exporting === EXPORT_STATE.EXPORTING) {
       // unsafe download code.
-      const downloadFileName = `mercury-note-${exportTarget.id}.json`
+      const downloadFileName = `mercury-note-${exportTarget.id}.mcr`
       const virtualDownloadLink = document.createElement('a')
       virtualDownloadLink.href = `data:application/vnd.mercury.note+json,charset=utf-8,${encodeURIComponent(JSON.stringify(exportTarget.toSerialize()))}`
       virtualDownloadLink.style.display = 'none'
@@ -67,7 +67,7 @@ export default props => {
         {...options}
         isOpen={isOpen}
       >
-        <div className={`mercury-create-note-dialog-content ${Classes.DIALOG_BODY} `}>
+        <div className={`mercury-export-note-dialog-content ${Classes.DIALOG_BODY} `}>
           <p>Note Id: {noteId}</p>
           <p>Do you want to export this note?</p>
         </div>

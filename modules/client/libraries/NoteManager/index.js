@@ -38,5 +38,12 @@ module.exports = () => {
         type
       }).send();
     },
+    import: (data, _jobID = UUID()) => {
+      const type = "import.note";
+      return NoteManager.build(_jobID, {
+        ...data,
+        type
+      }).send();
+    },
   };
 };
