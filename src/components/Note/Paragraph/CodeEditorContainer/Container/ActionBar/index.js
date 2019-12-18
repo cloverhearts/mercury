@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from 'react'
-import {Button, ButtonGroup} from '@blueprintjs/core';
-import ExecuteCodeEditor from './Actions/ExecuteCodeEditor'
-
-import './index.scss'
+import React, { useState, useEffect } from "react";
+import { Button, ButtonGroup } from "@blueprintjs/core";
+import { useDispatch } from "react-redux";
+import NoteActions from "../../../../../../store/Note/actions";
+import "./index.scss";
 
 export default function ActionBar(props) {
-  const {Container, Editor, onUpdateMetaConfig} = props
-
+  const { Container, Editor, onUpdateMetaConfig } = props;
+  const dispatch = useDispatch();
   const [isRunning, setIsRunning] = useState(false);
 
   async function onClickRunButton() {
-    ExecuteCodeEditor(Container, Editor.getValue());
+    dispatch(NoteActions.executeCodeContainer(Container));
     setTimeout(() => {}, 200);
   }
 
@@ -46,8 +46,7 @@ export default function ActionBar(props) {
           icon={`caret-down`}
           loading={isRunning}
           className={`bp3-intent-primary config-button`}
-        >
-        </Button>
+        ></Button>
       </ButtonGroup>
     </div>
   );

@@ -86,7 +86,7 @@ export default function MercuryCodeEditor(props) {
       <div className={`mercury-code-action-bar-container`}>
         <ActionBar Container={container} Editor={editor} onUpdateMetaConfig={onUpdateMetaConfig}/>
       </div>
-      <div className={`mercury-code-write-container hide`}>
+      <div className={`mercury-code-write-container ${false ? 'hide' : ''}\``}>
         <Editor Container={container} Option={editorOption} Editor={editor}
                 UpdateEditor={setEditor} onUpdateCode={onUpdateCode}/>
       </div>
@@ -95,7 +95,7 @@ export default function MercuryCodeEditor(props) {
         <Tabs
               onChange={onChangeTab}
               selectedTabId={selectedTab}
-              className={`mercury-code-editor-tab-container hide`}
+              className={`mercury-code-editor-tab-container ${ false ? 'hide' : ''}`}
         >
           <Tab id="render" title="App"
                panel={<RenderContainer Container={container} Code={code}

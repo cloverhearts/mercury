@@ -26,7 +26,7 @@ export default props => {
         precondition: null,
         keybindingContext: null,
         run: () => {
-          // dispatch(NoteActions)
+          dispatch(NoteActions.executeCodeContainer(Container))
         }
       })
     }
