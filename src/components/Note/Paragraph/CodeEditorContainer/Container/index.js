@@ -37,6 +37,7 @@ export default function MercuryCodeEditor(props) {
   const [code, setCode] = useState((container.code));
   const [render, setRender] = useState((container.render));
   const [selectedTab, setSelectedTab] = useState('log');
+  const [metaConfig, setMetaConfig] = useState(container.meta.config)
   const editorOption = {
     value: codeContainer.code,
     language: codeContainer.language,
@@ -74,12 +75,18 @@ export default function MercuryCodeEditor(props) {
     setSelectedTab('render');
   };
 
+  const onUpdateMetaConfig = (config = {}) => {
+    const originalConfig = container.meta.config || {}
+    container.meta.config = {...originalConfig, config}
+    setMetaConfig(container.meta.config)
+  }
+
   return (
     <div className={`mercury-code-editor-container`}>
       <div className={`mercury-code-action-bar-container`}>
-        <ActionBar Container={container} Editor={editor}/>
+        <ActionBar Container={container} Editor={editor} onUpdateMetaConfig={onUpdateMetaConfig}/>
       </div>
-      <div className={`mercury-code-write-container`}>
+      <div className={`mercury-code-write-container hide`}>
         <Editor Container={container} Option={editorOption} Editor={editor}
                 UpdateEditor={setEditor} onUpdateCode={onUpdateCode}/>
       </div>
@@ -88,7 +95,7 @@ export default function MercuryCodeEditor(props) {
         <Tabs
               onChange={onChangeTab}
               selectedTabId={selectedTab}
-              className={`mercury-code-editor-tab-container`}
+              className={`mercury-code-editor-tab-container hide`}
         >
           <Tab id="render" title="App"
                panel={<RenderContainer Container={container} Code={code}

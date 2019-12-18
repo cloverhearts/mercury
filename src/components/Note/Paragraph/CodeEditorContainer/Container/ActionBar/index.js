@@ -5,7 +5,7 @@ import ExecuteCodeEditor from './Actions/ExecuteCodeEditor'
 import './index.scss'
 
 export default function ActionBar(props) {
-  const {Container, Editor} = props
+  const {Container, Editor, onUpdateMetaConfig} = props
 
   const [isRunning, setIsRunning] = useState(false);
 
@@ -40,7 +40,13 @@ export default function ActionBar(props) {
           loading={isRunning}
           className={`bp3-intent-primary run-code-button`}
         >
-          RUN
+          Execute
+        </Button>
+        <Button
+          icon={`caret-down`}
+          loading={isRunning}
+          className={`bp3-intent-primary config-button`}
+        >
         </Button>
       </ButtonGroup>
     </div>

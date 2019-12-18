@@ -8,10 +8,21 @@
   .mercury-code-write-container {
     width: 100%;
     height: 50%;
+
+    &.hide {
+      height: 0;
+      overflow: hidden;
+    }
   }
 
   .mercury-code-editor-tab-container {
     margin-top: 20px;
+
+    &.hide {
+      height: 0;
+      overflow: hidden;
+      margin-top: 0;
+    }
     .mercury-code-logger-container {
 
     }
