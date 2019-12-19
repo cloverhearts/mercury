@@ -41,8 +41,14 @@ export default function MercuryCodeEditor(props) {
   const [render, setRender] = useState(container.render);
   const [selectedTab, setSelectedTab] = useState("log");
   const [metaConfig, setMetaConfig] = useState(container.meta.config);
-  const isHideEditor = useMemo(() => metaConfig.hide && metaConfig.hide.editor, [container.meta.config])
-  const isHideAppView = useMemo(() => metaConfig.hide && metaConfig.hide.appView, [container.meta.config])
+  const isHideEditor = useMemo(
+    () => metaConfig.hide && metaConfig.hide.editor,
+    [container.meta.config]
+  );
+  const isHideAppView = useMemo(
+    () => metaConfig.hide && metaConfig.hide.appView,
+    [container.meta.config]
+  );
   const editorOption = {
     value: codeContainer.code,
     language: codeContainer.language,
@@ -83,7 +89,6 @@ export default function MercuryCodeEditor(props) {
     const originalConfig = container.meta.config || {};
     container.meta.config = { ...originalConfig, ...config };
     setMetaConfig(container.meta.config);
-    console.log(container.meta.config, config)
   };
 
   return (
@@ -96,7 +101,7 @@ export default function MercuryCodeEditor(props) {
         />
       </div>
       <div
-        className={`mercury-code-write-container ${ isHideEditor ? "hide" : ""}`}
+        className={`mercury-code-write-container ${isHideEditor ? "hide" : ""}`}
       >
         <Editor
           Container={container}
@@ -111,7 +116,9 @@ export default function MercuryCodeEditor(props) {
         <Tabs
           onChange={onChangeTab}
           selectedTabId={selectedTab}
-          className={`mercury-code-editor-tab-container ${isHideAppView ? "hide" : ""}`}
+          className={`mercury-code-editor-tab-container ${
+            isHideAppView ? "hide" : ""
+          }`}
         >
           <Tab
             id="render"
