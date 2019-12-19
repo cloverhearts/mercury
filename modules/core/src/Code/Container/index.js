@@ -5,11 +5,12 @@ import Logger from './Logger'
 import { loader } from './Renderer'
 import Template from './ExecuteTemplates'
 import Meta from '../Meta'
-
+const serialize = require('serialize-javascript')
 const esprima = require('esprima')
 
 export default class {
-  constructor (containerObject) {
+  constructor (containerObject, parentParagraph) {
+    this.parentParagraph = parentParagraph
     this.id = containerObject && containerObject.id ? containerObject.id : `code-editor-container-${UUID()}`
     this.language = containerObject && containerObject.language ? containerObject.language : LANGUAGE.JAVASCRIPT
     this.code = containerObject && containerObject.code ? containerObject.code : '// javascript code to make here.'
@@ -30,6 +31,10 @@ export default class {
     this._esprima = esprima
     this.meta = containerObject ? new Meta(containerObject.meta || {}) : new Meta()
     this.render = containerObject ? containerObject.render : {}
+    try {
+      // eslint-disable-next-line no-eval
+      this.storage = containerObject && containerObject.storage ? eval(`(${containerObject.storage})`) : {}
+    } catch {}
   }
 
   addEventListener (event, listener) {
@@ -92,6 +97,12 @@ export default class {
     serializedObject.logs = this.logs
     serializedObject.meta = this.meta.toSerialize()
     serializedObject.render = this.render
+    try {
+      serializedObject.storage = serialize(this.storage)
+    } catch (error) {
+      serializedObject.storage = {}
+      console.error(`cannot serialize storage in note ${this.id} `, error)
+    }
     return serializedObject
   }
 }
