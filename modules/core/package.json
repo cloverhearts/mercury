@@ -67,6 +67,7 @@
     "lit-html": "^1.1.2",
     "moment": "^2.24.0",
     "observeable-object-js": "^1.0.1",
+    "serialize-javascript": "^2.1.2",
     "uuid": "^3.3.3"
   }
 }

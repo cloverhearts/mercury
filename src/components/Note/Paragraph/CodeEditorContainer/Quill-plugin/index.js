@@ -37,9 +37,9 @@ const Index = (context, store) => {
       const containers = context.containers;
       const codeContainer = containers.find(container => container.id === containerId);
       if (codeContainer) {
-        return new MercuryCore.Code.Container(codeContainer);
+        return new MercuryCore.Code.Container(codeContainer, context);
       }
-      const newCodeContainer = new MercuryCore.Code.Container({ id: containerId });
+      const newCodeContainer = new MercuryCore.Code.Container({ id: containerId }, context);
       containers.push(newCodeContainer);
       return newCodeContainer;
     }

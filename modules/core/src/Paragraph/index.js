@@ -14,7 +14,7 @@ export default class {
       `New Pragraph ${moment()
         .utc()
         .toISOString()}`
-    this.containers = !containers ? [] : containers.map(container => new CodeContainer(container))
+    this.containers = !containers ? [] : containers.map(container => new CodeContainer(container, this))
   }
 
   get note () {

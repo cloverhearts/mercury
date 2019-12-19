@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, MenuItem } from "@blueprintjs/core";
 import ToggleShowEditorMenu from "./Menus/ToggleShowEditor";
-import ToggleShowAppView from "./Menus/ToggleShowAppView";
+import ToggleShowAppViewMenu from "./Menus/ToggleShowAppView";
 
 export default function ContainerSubmenu(props) {
   const { Container, onUpdateMetaConfig } = props;
@@ -11,7 +11,7 @@ export default function ContainerSubmenu(props) {
         Container={Container}
         onUpdateMetaConfig={onUpdateMetaConfig}
       />
-      <ToggleShowAppView
+      <ToggleShowAppViewMenu
         Container={Container}
         onUpdateMetaConfig={onUpdateMetaConfig}
       />
