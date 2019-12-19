@@ -1,4 +1,4 @@
-const npm = require("npm");
+const npm = require('npm-programmatic')
 
 module.exports = (packageName) => {
   return new Promise((resolve, reject) => {
@@ -6,20 +6,19 @@ module.exports = (packageName) => {
       const module = require(packageName)
       module.default ? resolve(module.default) : resolve(module)
     } catch (cannotFoundModule) {
-      npm.load({
-        loaded: false
-      }, function (err) {
-        npm.commands.install([packageName], function (error, data) {
-          if (error) {
-            reject(error)
-          }
-          try {
-            const module = require(packageName)
-            module.default ? resolve(module.default) : resolve(module)
-          } catch (moduleError) {
-            reject(moduleError)
-          }
-        });
+      npm.install([packageName], {
+        save: false
+      })
+      .then(function(){
+        try {
+          const module = require(packageName)
+          module.default ? resolve(module.default) : resolve(module)
+        } catch (moduleError) {
+          reject(moduleError)
+        }
+      })
+      .catch(function(e){
+        reject(e)
       });
     }
   })

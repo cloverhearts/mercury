@@ -3,10 +3,14 @@ const jsdom = require('jsdom');
 const NoteManager = require('./modules/client/libraries/NoteManager');
 const Fetch = require('./modules/client/libraries/Fetch');
 const npmModule = require('./modules/client/libraries/RequireModule');
+const loadsh = require('lodash')
 window.prompt = prompt;
+
+window._ = loadsh
 
 window._mercury = {
   utils: {
+    loadsh: loadsh,
     jsdom,
     npmModule
   },

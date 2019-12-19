@@ -30,8 +30,8 @@ function* requestSaveNote(context, action) {
   try {
     if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
       return {
-        error: "createNote",
-        message: "cannot found mercury note manager"
+        error: 'saveNote',
+        message: 'cannot found mercury note manager',
       };
     }
 
