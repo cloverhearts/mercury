@@ -43,6 +43,9 @@ export function setSuggestSaveNote({ hasSuggestion }) {
   };
 }
 
+export function executeCodeContainer(CodeContainer) {
+  return { type: ACTION_TYPES.REQUEST_EXECUTE_CODE_CONTAINER, container: CodeContainer }
+}
 
 export function importNote(note) {
   return { type: ACTION_TYPES.REQUEST_IMPORT_NOTE, note}
@@ -66,5 +69,6 @@ export default {
   setSuggestSaveNote,
   importNote,
   exportNote,
-  clearExportNote
+  clearExportNote,
+  executeCodeContainer
 };

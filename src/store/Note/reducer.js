@@ -39,6 +39,8 @@ function managementForNote(_state = initializeState, action) {
     case ACTION_TYPES.RESPONSE_IMPORT_NOTE:
       state.current.note = new Note(action.note);
       return state;
+    case ACTION_TYPES.RESPONSE_EXECUTE_CODE_CONTAINER:
+      return state;
     default:
       return state;
   }

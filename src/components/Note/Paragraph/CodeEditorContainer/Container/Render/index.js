@@ -27,7 +27,7 @@ export default function MercuryRenderContainer(props) {
     <div className={`mercury-render-container-wrap`}>
       <div
         className={`updated-at`}>
-        {latestUpdated ? `updated at ${moment(latestUpdated).local().toString()}` : ''}
+        {latestUpdated ? `updated at ${moment(new Date(latestUpdated)).local().toISOString()}` : ''}
       </div>
       <div id={`html-${Container.id}`} ref={renderRef}
            className={`mercury-render-container`}></div>

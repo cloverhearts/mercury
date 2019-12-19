@@ -5,7 +5,7 @@ import {useDispatch} from 'react-redux';
 import NoteActions from '../../../../../../store/Note/actions';
 
 export default props => {
-  const {Option, Editor, UpdateEditor, onUpdateCode} = props;
+  const {Container, Option, Editor, UpdateEditor, onUpdateCode} = props;
   const dispatch = useDispatch();
   const editorRef = useRef();
   useEffect(() => {
@@ -16,6 +16,19 @@ export default props => {
         onUpdateCode(codeEditor.getValue());
         dispatch(NoteActions.setSuggestSaveNote({hasSuggestion: true}));
       });
+
+      codeEditor.addAction({
+        id: `${Container.id}-shortcut-execute-code`,
+        label: 'Execute Code',
+        keybindings: [
+          monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter
+        ],
+        precondition: null,
+        keybindingContext: null,
+        run: () => {
+          dispatch(NoteActions.executeCodeContainer(Container))
+        }
+      })
     }
   }, [editorRef, Editor]);
 
