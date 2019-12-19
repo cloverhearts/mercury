@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button, ButtonGroup } from "@blueprintjs/core";
+import { Button, ButtonGroup, Popover, Position } from "@blueprintjs/core";
 import { useDispatch } from "react-redux";
 import NoteActions from "../../../../../../store/Note/actions";
 import "./index.scss";
+import EditorOptionMenu from './ContainerSubMenu'
 
 export default function ActionBar(props) {
-  const { Container, Editor, onUpdateMetaConfig } = props;
+  const { Container, onUpdateMetaConfig } = props;
   const dispatch = useDispatch();
   const [isRunning, setIsRunning] = useState(false);
 
@@ -35,18 +36,20 @@ export default function ActionBar(props) {
     <div className={`editor-controller-box`}>
       <ButtonGroup>
         <Button
-          icon={`play`}
+          icon={`walk`}
           onClick={onClickRunButton}
           loading={isRunning}
           className={`bp3-intent-primary run-code-button`}
         >
           Execute
         </Button>
-        <Button
-          icon={`caret-down`}
-          loading={isRunning}
-          className={`bp3-intent-primary config-button`}
-        ></Button>
+        <Popover content={<EditorOptionMenu Container={Container} onUpdateMetaConfig={onUpdateMetaConfig} />} position={Position.BOTTOM_RIGHT}>
+          <Button
+            icon={`caret-down`}
+            loading={isRunning}
+            className={`bp3-intent-primary config-button`}
+          />
+        </Popover>
       </ButtonGroup>
     </div>
   );

@@ -13,7 +13,6 @@ export default function MercuryLogger({Container}) {
 
   useEffect(() => {
     const eventListener = (_, event) => {
-      console.log('event', event)
       if (window._mercury.notification) {
         switch (event.data.level) {
           case 'log':
