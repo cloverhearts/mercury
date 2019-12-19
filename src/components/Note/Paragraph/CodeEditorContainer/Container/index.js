@@ -41,8 +41,8 @@ export default function MercuryCodeEditor(props) {
   const [render, setRender] = useState(container.render);
   const [selectedTab, setSelectedTab] = useState("log");
   const [metaConfig, setMetaConfig] = useState(container.meta.config);
-  const isHideEditor = useMemo(() => !metaConfig.hide || !metaConfig.hide.editor, [container.meta.config])
-  const isHideAppView = useMemo(() => !metaConfig.hide || !metaConfig.hide.appView, [container.meta.config])
+  const isHideEditor = useMemo(() => metaConfig.hide && metaConfig.hide.editor, [container.meta.config])
+  const isHideAppView = useMemo(() => metaConfig.hide && metaConfig.hide.appView, [container.meta.config])
   const editorOption = {
     value: codeContainer.code,
     language: codeContainer.language,
