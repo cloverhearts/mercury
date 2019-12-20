@@ -42,6 +42,9 @@ function* requestSaveNote(context, action) {
       const serializedNote = action.note.toSerialize();
       const raw = yield Manager.save({ note: serializedNote });
       const note = raw.data;
+      if (window._mercury.notification) {
+        window._mercury.notification.log('SAVED')
+      }
       yield put({ type: ACTION_TYPES.RESPONSE_SAVE_NOTE, note });
       yield put({ type: ACTION_TYPES.REQUEST_NOTE_LIST });
     }
@@ -150,8 +153,8 @@ function* requestExecuteCodeContainer(context, action) {
 
 export default function*(context) {
   yield takeEvery(ACTION_TYPES.REQUEST_NEW_NOTE, requestNewNote, context);
-  yield takeEvery(ACTION_TYPES.REQUEST_SAVE_NOTE, requestSaveNote, context);
-  yield takeEvery(ACTION_TYPES.REQUEST_LOAD_NOTE, requestLoadNote, context);
+  yield takeLatest(ACTION_TYPES.REQUEST_SAVE_NOTE, requestSaveNote, context);
+  yield takeLatest(ACTION_TYPES.REQUEST_LOAD_NOTE, requestLoadNote, context);
   yield takeEvery(
     ACTION_TYPES.REQUEST_NOTE_LIST,
     requestMetaListOfNote,

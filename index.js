@@ -18,7 +18,7 @@ contextMenu({
   showServices: true,
   prepend: (defaultActions, params, browserWindow) => [
     {
-      label: 'Go to APP Home',
+      label: 'Force Reload',
       click: () => {
         browserWindow.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(resourcePath, "build", "index.html")}`)
       }

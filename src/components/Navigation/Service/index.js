@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Alignment, Button, Navbar, Popover, Position } from "@blueprintjs/core";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import NotesMenu from "./Notes";
 import NoteActions from "../../../store/Note/actions";
 import NoteCreateDialog from "../../Platform/Management/Dialog/NoteCreateDialog";
@@ -9,10 +9,12 @@ import NoteExportDialog from '../../Platform/Management/Dialog/NoteExportDialog'
 import NoteImportDialog from '../../Platform/Management/Dialog/NoteImportDialog'
 import SuggestionSaveNoteButton from "./Partials/SuggestionForSaveNoteButton";
 import ExportNoteButton from './Partials/ExportNoteButton'
+import ConfigurationNoteButton from './Partials/ConfigrationNoteButton'
 
 import "./service.scss";
 
 export default props => {
+  const currentNote = useSelector(state => state.note.current.note);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(NoteActions.listOfNote());
@@ -35,12 +37,14 @@ export default props => {
           </NavLink>
         </Navbar.Group>
         <Navbar.Group align={Alignment.RIGHT}>
-          <ExportNoteButton />
-          <SuggestionSaveNoteButton />
-          <Navbar.Divider />
-          <NavLink to="/" exact activeClassName="active">
-            <Button className="bp3-minimal" icon="cog" />
-          </NavLink>
+          { currentNote && currentNote.id ?
+            <>
+              <ExportNoteButton />
+              <SuggestionSaveNoteButton />
+              <Navbar.Divider />
+              <ConfigurationNoteButton />
+            </> : null
+          }
         </Navbar.Group>
       </Navbar>
       <NoteCreateDialog />
