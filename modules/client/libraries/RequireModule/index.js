@@ -7,6 +7,7 @@ module.exports = (packageName) => {
       module.default ? resolve(module.default) : resolve(module)
     } catch (cannotFoundModule) {
       npm.install([packageName], {
+        cwd: __dirname,
         save: false
       })
       .then(function(){
