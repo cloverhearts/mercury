@@ -13,9 +13,11 @@ import NoteActions from "../../../store/Note/actions";
 import NoteCreateDialog from "../../Platform/Management/Dialog/NoteCreateDialog";
 import NoteExportDialog from "../../Platform/Management/Dialog/NoteExportDialog";
 import NoteImportDialog from "../../Platform/Management/Dialog/NoteImportDialog";
+import NoteRemoveDialog from "../../Platform/Management/Dialog/NoteRemoveDialog";
 import NoteConfigurationDialog from "../../Platform/Management/Dialog/NoteConfigurationDialog";
 import SuggestionSaveNoteButton from "./Partials/SuggestionForSaveNoteButton";
 import ExportNoteButton from "./Partials/ExportNoteButton";
+import RemoveNoteButton from "./Partials/RemoveNoteButton"
 import ConfigurationNoteButton from "./Partials/ConfigrationNoteButton";
 
 import "./service.scss";
@@ -52,8 +54,9 @@ export default props => {
             <>
               <ExportNoteButton />
               <SuggestionSaveNoteButton />
-              <Navbar.Divider />
               <ConfigurationNoteButton />
+              <Navbar.Divider />
+              <RemoveNoteButton />
             </>
           ) : null}
         </Navbar.Group>
@@ -61,6 +64,7 @@ export default props => {
       <NoteCreateDialog />
       <NoteExportDialog />
       <NoteImportDialog />
+      <NoteRemoveDialog />
       <NoteConfigurationDialog />
     </>
   );

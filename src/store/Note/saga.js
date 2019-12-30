@@ -1,4 +1,4 @@
-import { takeEvery, put, takeLatest } from "redux-saga/effects";
+import { takeEvery, put, takeLatest, delay } from "redux-saga/effects";
 import ACTION_TYPES from "./types";
 import PLATFORM_ACTION_TYPES from "../Platform/types";
 import MercuryCore from "mercury-core";
@@ -19,8 +19,31 @@ export function* requestNewNote(context, action) {
     yield put({ type: ACTION_TYPES.RESPONSE_NEW_NOTE, note });
     yield put({ type: ACTION_TYPES.REQUEST_NOTE_LIST });
     if (redirect) {
+      yield delay(50)
       router.history.push(`/notes/${note.id}`);
     }
+  } catch (error) {
+    console.error(`${action.type} ERROR ${error}`);
+  }
+}
+
+export function* requestRemoveNote(context, action) {
+  try {
+    if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
+      return {
+        error: "removeNote",
+        message: "cannot found mercury note manager"
+      };
+    }
+    const { router } = context;
+    const { id, redirect } = action.note;
+    const Manager = window._mercury.system["NoteManager"]();
+    yield Manager.remove({ noteId: id });
+    yield put({ type: ACTION_TYPES.REQUEST_NOTE_LIST });
+    if (redirect) {
+      router.history.push(`/`);
+    }
+    put({ type: ACTION_TYPES.RESPONSE_REMOVE_NOTE })
   } catch (error) {
     console.error(`${action.type} ERROR ${error}`);
   }
@@ -30,8 +53,8 @@ function* requestSaveNote(context, action) {
   try {
     if (!(window && window._mercury && window._mercury.system["NoteManager"])) {
       return {
-        error: 'saveNote',
-        message: 'cannot found mercury note manager',
+        error: "saveNote",
+        message: "cannot found mercury note manager"
       };
     }
 
@@ -43,7 +66,7 @@ function* requestSaveNote(context, action) {
       const raw = yield Manager.save({ note: serializedNote });
       const note = raw.data;
       if (window._mercury.notification) {
-        window._mercury.notification.log('SAVED')
+        window._mercury.notification.log("SAVED");
       }
       yield put({ type: ACTION_TYPES.RESPONSE_SAVE_NOTE, note });
       yield put({ type: ACTION_TYPES.REQUEST_NOTE_LIST });
@@ -145,7 +168,7 @@ function* requestExecuteCodeContainer(context, action) {
     } else {
       console.error("cannot found executor");
     }
-    yield put({ type: ACTION_TYPES.RESPONSE_EXECUTE_CODE_CONTAINER })
+    yield put({ type: ACTION_TYPES.RESPONSE_EXECUTE_CODE_CONTAINER });
   } catch (error) {
     console.error(`${action.type} ERROR ${error}`);
   }
@@ -153,6 +176,11 @@ function* requestExecuteCodeContainer(context, action) {
 
 export default function*(context) {
   yield takeEvery(ACTION_TYPES.REQUEST_NEW_NOTE, requestNewNote, context);
+  yield takeLatest(
+    ACTION_TYPES.REQUEST_REMOVE_NOTE,
+    requestRemoveNote,
+    context
+  );
   yield takeLatest(ACTION_TYPES.REQUEST_SAVE_NOTE, requestSaveNote, context);
   yield takeLatest(ACTION_TYPES.REQUEST_LOAD_NOTE, requestLoadNote, context);
   yield takeEvery(

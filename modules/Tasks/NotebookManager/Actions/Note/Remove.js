@@ -1,5 +1,8 @@
 const Database = require("../../Database/UserDatabase");
+const moment = require("moment");
 const fixedUser = "Anonymous";
+const RemoveNoteInList = require('./functions/RemoveNoteListItem');
+
 let db = null;
 module.exports = async noteId => {
   if (!db) {
@@ -11,12 +14,23 @@ module.exports = async noteId => {
   }
   try {
     db.read();
-    const note = await db
+    const deletedAt = moment()
+      .utc()
+      .toISOString()
+    await db
       .get(`${fixedUser}.notes`)
-      .filter((note) => !note.deletedAt)
       .find({ id: noteId })
-      .value();
-    return note;
+      .assign({ deletedAt })
+      .write();
+
+    await RemoveNoteInList({
+      db,
+      user: fixedUser,
+      noteId,
+      deletedAt
+    });
+
+    return { isSuccess: true };
   } catch (error) {
     console.error("ERROR ", error);
     return error;

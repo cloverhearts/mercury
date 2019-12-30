@@ -8,7 +8,9 @@ export default props => {
   const titleInput = createRef();
   const isOpen = useSelector(state => state.platform.note.dialog.createNewNote.isOpen);
   const defaultTitle = useSelector(state => state.platform.note.dialog.createNewNote.default.title);
+  const defaultDescription = useSelector(state => state.platform.note.dialog.createNewNote.default.description);
   const dispatch = useDispatch();
+  const [disabledCreateButton, setDisabledCreateButton] = useState(false)
   const [title, setTitle] = useState(defaultTitle);
   const [description, setDescription] = useState("");
   const options = {
@@ -20,11 +22,16 @@ export default props => {
     usePortal: true
   };
 
+  useEffect(() => {
+    setDisabledCreateButton(false);
+    setTitle(defaultTitle);
+    setDescription(defaultDescription);
+  }, [isOpen])
+
   const onClose = useCallback(
     e => {
       e.preventDefault();
       dispatch(PlatformActions.closeCreateNewNoteDialog());
-      setTitle(defaultTitle);
     },
     [isOpen]
   );
@@ -32,6 +39,7 @@ export default props => {
   const onCreate = useCallback(
     e => {
       e.preventDefault();
+      setDisabledCreateButton(true);
       dispatch(PlatformActions.closeCreateNewNoteDialog({ title, description }));
     },
     [title, description]
@@ -78,7 +86,7 @@ export default props => {
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
             <Button onClick={onClose}>Close</Button>
-            <Button onClick={onCreate} intent={Intent.PRIMARY} disabled={!title}>
+            <Button onClick={onCreate} intent={Intent.PRIMARY} disabled={!title || disabledCreateButton}>
               Create Note
             </Button>
           </div>

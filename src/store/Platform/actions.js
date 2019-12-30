@@ -10,6 +10,14 @@ export function closeCreateNewNoteDialog(note) {
   return { type: ACTION_TYPES.REQUEST_CLOSE_CREATE_NEW_NOTE_DIALOG, note: { title, description } };
 }
 
+export function openRemoveNoteDialog() {
+  return { type: ACTION_TYPES.REQUEST_OPEN_REMOVE_NOTE_DIALOG };
+}
+
+export function closeRemoveNoteDialog() {
+  return { type: ACTION_TYPES.REQUEST_CLOSE_REMOVE_NOTE_DIALOG };
+}
+
 export function openExportNoteDialog({ id }) {
   return { type: ACTION_TYPES.REQUEST_OPEN_EXPORT_NOTE_DIALOG, note: { id } };
 }
@@ -37,6 +45,8 @@ export function closeNoteConfigDialog() {
 export default {
   openCreateNewNoteDialog,
   closeCreateNewNoteDialog,
+  openRemoveNoteDialog,
+  closeRemoveNoteDialog,
   openExportNoteDialog,
   closeExportNoteDialog,
   openImportNoteDialog,

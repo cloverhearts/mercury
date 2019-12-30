@@ -18,9 +18,9 @@ export function saveNote(note) {
   return { type: ACTION_TYPES.REQUEST_SAVE_NOTE, note };
 }
 
-export function removeNote({ noteId }) {
+export function removeNote({ noteId, redirect }) {
   const note = { id: noteId };
-  return { type: ACTION_TYPES.REQUEST_REMOVE_NOTE, note };
+  return { type: ACTION_TYPES.REQUEST_REMOVE_NOTE, note: { ...note, redirect: !!redirect } };
 }
 
 export function unsetCurrentNote() {

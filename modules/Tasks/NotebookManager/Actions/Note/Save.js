@@ -35,7 +35,7 @@ module.exports = async note => {
 
     return savedNote;
   } catch (error) {
-    console.log("ERROR ", error);
+    console.error("ERROR ", error);
     return error;
   }
 };

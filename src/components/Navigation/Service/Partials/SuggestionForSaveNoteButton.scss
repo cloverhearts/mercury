@@ -4,10 +4,9 @@
   &.suggest {
     transition: all 0.1s;
     transform: rotate(-360deg);
-    background: #137cbd !important;
     border-radius: 50px;
     span[icon] {
-      color: white;
+      color: #48AFF0;
     }
   }
 }

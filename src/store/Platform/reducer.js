@@ -13,6 +13,12 @@ function reducer(_state = initializeState, action) {
     case ACTION_TYPES.RESPONSE_CLOSE_CREATE_NEW_NOTE_DIALOG:
       state.note.dialog.createNewNote.isOpen = false;
       return state;
+    case ACTION_TYPES.RESPONSE_OPEN_REMOVE_NOTE_DIALOG:
+      state.note.dialog.removeNote.isOpen = true;
+      return state;
+    case ACTION_TYPES.RESPONSE_CLOSE_REMOVE_NOTE_DIALOG:
+      state.note.dialog.removeNote.isOpen = false;
+      return state;
     case ACTION_TYPES.RESPONSE_OPEN_EXPORT_NOTE_DIALOG:
       if (action.note) {
         state.note.dialog.exportNote.target.id = action.note.id;
