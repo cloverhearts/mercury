@@ -9,10 +9,11 @@ export default function ActionBar(props) {
   const { Container, onUpdateMetaConfig } = props;
   const dispatch = useDispatch();
   const [isRunning, setIsRunning] = useState(false);
+  const [executeCount, setExecuteCount] = useState(0);
 
   async function onClickRunButton() {
     dispatch(NoteActions.executeCodeContainer(Container));
-    setTimeout(() => {}, 200);
+    setExecuteCount(executeCount + 1)
   }
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function ActionBar(props) {
           icon={`walk`}
           onClick={onClickRunButton}
           loading={isRunning}
-          className={`bp3-intent-primary run-code-button`}
+          className={`bp3-intent-primary run-code-button ${!executeCount ? 'need-to-execute-this-code' : ''}`}
         >
           Execute
         </Button>
