@@ -29,9 +29,6 @@ export default props => {
     if (currentNote.paragraphs) {
       setParagraph(currentNote.paragraphs[0]);
     }
-    return () => {
-      dispatch(NoteActions.saveNote(currentNote))
-    }
   }, [currentNote]);
 
   return <div className={`mercury-note-container`}>
