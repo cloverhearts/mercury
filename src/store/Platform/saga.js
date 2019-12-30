@@ -34,6 +34,14 @@ function* closeImportNoteDialog(context, action) {
   yield put({ type: ACTION_TYPES.RESPONSE_CLOSE_IMPORT_NOTE_DIALOG });
 }
 
+function* openNoteConfigDialog(context, action) {
+  yield put({ type: ACTION_TYPES.RESPONSE_OPEN_NOTE_CONFIG_DIALOG })
+}
+
+function* closeNoteConfigDialog(context, action) {
+  yield put({ type: ACTION_TYPES.RESPONSE_CLOSE_NOTE_CONFIG_DIALOG })
+}
+
 export default function* rootSaga(context) {
   yield takeLatest(ACTION_TYPES.REQUEST_OPEN_CREATE_NEW_NOTE_DIALOG, openNewNoteDialog, context);
   yield takeLatest(ACTION_TYPES.REQUEST_CLOSE_CREATE_NEW_NOTE_DIALOG, createNewNoteOnDialog, context);
@@ -41,4 +49,6 @@ export default function* rootSaga(context) {
   yield takeLatest(ACTION_TYPES.REQUEST_CLOSE_EXPORT_NOTE_DIALOG, closeExportNoteDialog, context);
   yield takeLatest(ACTION_TYPES.REQUEST_OPEN_IMPORT_NOTE_DIALOG, openImportNoteDialog, context);
   yield takeLatest(ACTION_TYPES.REQUEST_CLOSE_IMPORT_NOTE_DIALOG, closeImportNoteDialog, context);
+  yield takeLatest(ACTION_TYPES.REQUEST_OPEN_NOTE_CONFIG_DIALOG, openNoteConfigDialog, context);
+  yield takeLatest(ACTION_TYPES.REQUEST_CLOSE_NOTE_CONFIG_DIALOG, closeNoteConfigDialog, context);
 }

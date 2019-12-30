@@ -26,11 +26,21 @@ export function closeImportNoteDialog() {
   return { type: ACTION_TYPES.REQUEST_CLOSE_IMPORT_NOTE_DIALOG };
 }
 
+export function openNoteConfigDialog() {
+  return { type: ACTION_TYPES.REQUEST_OPEN_NOTE_CONFIG_DIALOG }
+}
+
+export function closeNoteConfigDialog() {
+  return { type: ACTION_TYPES.REQUEST_CLOSE_NOTE_CONFIG_DIALOG }
+}
+
 export default {
   openCreateNewNoteDialog,
   closeCreateNewNoteDialog,
   openExportNoteDialog,
   closeExportNoteDialog,
   openImportNoteDialog,
-  closeImportNoteDialog
+  closeImportNoteDialog,
+  openNoteConfigDialog,
+  closeNoteConfigDialog
 };

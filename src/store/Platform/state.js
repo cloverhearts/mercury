@@ -15,6 +15,9 @@ const initializeState = {
       },
       importNote: {
         isOpen: false,
+      },
+      configNote: {
+        isOpen: false,
       }
     }
   }

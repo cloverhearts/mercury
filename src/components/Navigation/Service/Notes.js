@@ -2,9 +2,9 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Menu, MenuItem, MenuDivider } from "@blueprintjs/core";
 import { useHistory } from "react-router-dom";
-
-import NoteActions from "../../../store/Note/actions";
 import PlatformActions from "../../../store/Platform/actions";
+
+import './Notes.scss'
 
 function RecentlyNotes(props) {
   const { notes } = props;
@@ -55,7 +55,7 @@ export default props => {
   };
 
   return (
-    <Menu>
+    <Menu className={`mercury-service-nav-note-menus`}>
       <CreateNewNoteMenuItem />
       <ImportNoteMenuItem />
       <MenuItem icon="list" text="Show all notes" onClick={e => goTo("/notes")} />

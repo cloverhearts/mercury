@@ -8,7 +8,7 @@ export default props => {
   const dispatch = useDispatch();
 
   const onClickConfigurationForNote = useCallback(() => {
-    // TODO(cloverhearts): need to implement
+    dispatch(PlatformActions.openNoteConfigDialog())
   }, [currentNote]);
 
   useEffect(() => {}, []);

@@ -11,6 +11,7 @@ import "./Note.scss";
 export default props => {
   const { noteId } = useParams();
   const currentNote = useSelector(state => state.note.current.note);
+  const originTitle = useSelector(state => state.note.current.note.title);
   const dispatch = useDispatch();
   const [note, setNote] = useState({});
   const [paragraph, setParagraph] = useState({});
@@ -32,7 +33,7 @@ export default props => {
 
   return <div className={`mercury-note-container`}>
     <Helmet>
-      <title>{ note ? `${app.name} - ${note.title}` : 'Mercury'}</title>
+      <title>{ note ? `${app.name} - ${originTitle}` : 'Mercury'}</title>
     </Helmet>
     {note ? <Paragraph context={paragraph} /> : null}
   </div>;
