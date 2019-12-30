@@ -1,7 +1,6 @@
-import { takeLatest, put, call } from "redux-saga/effects";
+import { takeLatest, put } from "redux-saga/effects";
 import NOTE_ACTIONS from "../Note/types";
 import ACTION_TYPES from "./types";
-import { requestNewNote } from "../Note/saga";
 
 function* openNewNoteDialog(context, action) {
   yield put({ type: ACTION_TYPES.RESPONSE_OPEN_CREATE_NEW_NOTE_DIALOG });

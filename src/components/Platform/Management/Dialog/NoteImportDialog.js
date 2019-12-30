@@ -3,14 +3,12 @@ import React, {
   useState,
   useCallback,
   useEffect,
-  createRef,
 } from 'react';
 import {
   Button,
   Dialog,
   Classes,
   FormGroup,
-  InputGroup,
   Intent,
   FileInput,
 } from '@blueprintjs/core';
@@ -29,7 +27,7 @@ export default props => {
   };
   const isOpen = useSelector(
     state => state.platform.note.dialog.importNote.isOpen);
-  const [importing, setImporting] = useState(IMPORT_STATE.READY);
+  const [importing] = useState(IMPORT_STATE.READY);
   const [filePath, setFilePath] = useState('');
   const [file, setFile] = useState(null);
   const [note, setNote] = useState(null)

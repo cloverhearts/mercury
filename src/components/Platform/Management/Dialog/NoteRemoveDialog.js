@@ -3,14 +3,11 @@ import React, {
   useState,
   useCallback,
   useEffect,
-  createRef
 } from "react";
 import {
   Button,
   Dialog,
   Classes,
-  FormGroup,
-  InputGroup,
   Intent
 } from "@blueprintjs/core";
 import { useSelector, useDispatch } from "react-redux";

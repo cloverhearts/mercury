@@ -1,7 +1,6 @@
 import ACTION_TYPES from "./types";
 import initializeState from "./state";
 import MercuryCore from "mercury-core";
-import {exportNote} from "./actions";
 
 const Note = MercuryCore.NoteContainer.Note;
 

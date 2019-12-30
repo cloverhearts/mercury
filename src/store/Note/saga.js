@@ -1,7 +1,6 @@
 import { takeEvery, put, takeLatest, delay } from "redux-saga/effects";
 import ACTION_TYPES from "./types";
 import PLATFORM_ACTION_TYPES from "../Platform/types";
-import MercuryCore from "mercury-core";
 
 export function* requestNewNote(context, action) {
   try {

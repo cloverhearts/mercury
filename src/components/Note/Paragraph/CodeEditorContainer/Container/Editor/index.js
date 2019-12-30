@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import * as monaco from 'monaco-editor';
 import './index.scss';
 import {useDispatch, useSelector} from 'react-redux';

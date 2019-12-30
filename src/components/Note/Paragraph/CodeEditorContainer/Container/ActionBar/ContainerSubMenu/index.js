@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, MenuItem } from "@blueprintjs/core";
+import { Menu } from "@blueprintjs/core";
 import ToggleShowEditorMenu from "./Menus/ToggleShowEditor";
 import ToggleShowAppViewMenu from "./Menus/ToggleShowAppView";
 

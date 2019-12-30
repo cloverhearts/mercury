@@ -41,13 +41,6 @@ export default props => {
           <Popover content={<NotesMenu />} position={Position.BOTTOM} popoverClassName={`mercury-service-nav-note-menus-container`}>
             <Button className="bp3-minimal" icon="cube" text="Notes" />
           </Popover>
-          <NavLink to="/informations" activeClassName="active">
-            <Button
-              className="bp3-minimal"
-              icon="document"
-              text="Informations"
-            />
-          </NavLink>
         </Navbar.Group>
         <Navbar.Group align={Alignment.RIGHT}>
           {currentNote && currentNote.id ? (
