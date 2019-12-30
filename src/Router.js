@@ -10,7 +10,8 @@ const routes = [
   { path: "/", component: Home },
   { path: "/notes", component: Notes },
   { path: "/notes/:noteId", component: Note, name: "note" },
-  { path: "/informations", component: Informations }
+  { path: "/informations", component: Informations },
+  { path: "*", component: Home },
 ];
 
 export default () => {

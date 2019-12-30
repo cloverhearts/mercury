@@ -16,6 +16,7 @@ contextMenu({
   showCopyImageAddress: true,
   showSaveImageAs: true,
   showServices: true,
+  showInspectElement: true,
   prepend: (defaultActions, params, browserWindow) => [
     {
       label: 'Force Reload',
@@ -27,18 +28,17 @@ contextMenu({
 });
 
 async function createWindow() {
-  const WEB_FOLDER = path.join(resourcePath, "build");
-  const PROTOCOL = "file";
   mainWindow = new BrowserWindow({
     width: 900,
     height: 680,
     webPreferences: {
-      title: "1 Mercury " + `file://${path.join(resourcePath, "build", "index.html")}`,
+      title: "Mercury",
       nodeIntegration: false,
       preload: __dirname + `/preload.js`,
       webSecurity: false
     }
   });
+  mainWindow.setMenu(null)
 
   protocol.interceptFileProtocol(
     "file",

@@ -25,9 +25,12 @@ export default props => {
   }, [noteId]);
 
   useEffect(() => {
-    setNote(currentNote);
+    setNote({...currentNote});
     if (currentNote.paragraphs) {
       setParagraph(currentNote.paragraphs[0]);
+    }
+    return () => {
+      dispatch(NoteActions.saveNote(currentNote))
     }
   }, [currentNote]);
 
