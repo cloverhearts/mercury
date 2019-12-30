@@ -1,5 +1,30 @@
 {
   "name": "Mercury",
-  "version": "1.0.0-alpha",
-  "downloadUrl": "https://github.com/cloverhearts/mercury/releases"
+  "releaseName": "SUJINI",
+  "version": "1.0.0",
+  "downloadUrl": "https://github.com/cloverhearts/mercury/releases",
+  "maintainer": [
+    {
+      "name": "CloverHearts",
+      "email": "cloverheartsdev+mercury@gmail.com",
+      "homepage": "https://www.cloverhearts.com",
+      "github": "https://github.com/cloverhearts"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "chancesu",
+      "email": "chancesu7+mercury@gmail.com",
+      "homepage": "https://github.com/chancesu",
+      "github": "https://github.com/chancesu"
+    }
+  ],
+  "specialThanks": [
+    {
+      "name": "chancesu",
+      "email": "chancesu7+mercury@gmail.com",
+      "homepage": "https://github.com/chancesu",
+      "github": "https://github.com/chancesu"
+    }
+  ]
 }
