@@ -8,7 +8,7 @@ module.exports = (packageName) => {
     } catch (cannotFoundModule) {
       npm.install([packageName], {
         cwd: __dirname,
-        save: false
+        save: true
       })
       .then(function(){
         try {
