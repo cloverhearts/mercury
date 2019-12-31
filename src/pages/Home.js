@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from 'react-helmet'
 import app from '../application'
 import "./Home.scss";
+import ApplicationInformation from '../application'
 
 export default () => {
   return <div className={`mercury-home-container`}>
@@ -13,10 +14,10 @@ export default () => {
       <div className="twinkling"></div>
       <div className={`mercury-header`}>
         <div className={`title`}>
-          MERCURY
+          {ApplicationInformation.name}
         </div>
         <div className={`version-name`}>
-          Alpha
+          {ApplicationInformation.releaseName}
         </div>
         <div className={`comment`}>
           <p>Let's start data discovery</p>
