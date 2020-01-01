@@ -2,6 +2,9 @@
   min-width: 100px;
   max-height: 400px;
   overflow: hidden;
+  .bp3-button-group .bp3-icon.bp3-icon-cross{
+    color:#fff;
+  }
   .log-notification{
     color: white;
     background: #669EFF;
@@ -14,7 +17,7 @@
   }
   .warn-notification{
     color: white;
-    background: #FFC940;
+    background:#f5993c;
     opacity: 0.8;
   }
 }
