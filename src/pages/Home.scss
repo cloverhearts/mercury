@@ -1,4 +1,5 @@
 .mercury-home-container {
+  margin-bottom: 50px;
   .mercury-jumbo-container {
     @extend .space-bg;
 
@@ -22,9 +23,48 @@
         text-align: center;
         font-size: 18px;
         font-weight: 200;
+        .version-number {
+          font-size: 12px;
+        }
       }
     }
   }
+
+  .mercury-recently-notes {
+    text-align: center;
+    .list {
+      padding: 50px 0;
+      .mercury-note-card {
+        text-align: left;
+      }
+    }
+  }
+
+  .product-information {
+    text-align: center;
+    .header {
+      color: rgba(#137cbd, 0.6);
+      font-size: 22px;
+      font-weight: 800;
+      margin: 20px 0;
+    }
+    .person-card {
+      display: inline-block;
+      width: 320px;
+      box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.15), 0 0 0 rgba(16, 22, 26, 0), 0 0 0 rgba(16, 22, 26, 0);
+      border-radius: 3px;
+      word-break: break-all;
+      padding: 10px;
+      .name {
+        color: rgba(green, 0.8);
+        margin-bottom: 10px;
+        font-size: 15px;
+        font-weight: 700;
+      }
+    }  
+  }
+  
+
 }
 
 .space-bg {
