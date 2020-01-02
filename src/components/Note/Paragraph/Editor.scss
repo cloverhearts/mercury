@@ -207,3 +207,32 @@
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="72px"]::before {
   content: "72px";
 }
+
+
+.ql-font .ql-picker-options .ql-picker-item[data-value="source-code"]::before {
+  content : "Source Code Pro";
+}
+.ql-font .ql-picker-options .ql-picker-item[data-value="monospace"]::before {
+  content : "Monospace";
+}
+.ql-font .ql-picker-options .ql-picker-item[data-value="arial"]::before {
+  content : "Arial";
+}
+.ql-font .ql-picker-options .ql-picker-item[data-value="notosans"]::before {
+  content : "Noto Sans";
+}
+.ql-font .ql-picker-options .ql-picker-item[data-value="nanum-gothic"]::before {
+  content : "Nanum Gothic";
+}
+.ql-font-source-code{
+  font-family: "Source Code Pro";
+}
+.ql-font-arial{
+  font-family: "Arial";
+}
+.ql-font-notosans{
+  font-family: "Noto Sans";
+}
+.ql-font-nanum-gothic{
+  font-family: "Nanum Gothic";
+}

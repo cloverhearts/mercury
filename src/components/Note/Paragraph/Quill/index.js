@@ -9,6 +9,10 @@ export default async function initializeQuill(editorRef, context, store) {
   }
   const Quill = window.Quill;
   const ImageDropModule = await import('quill-image-drop-module');
+  const Font = Quill.import('formats/font');
+  Font.whitelist = [
+    'source-code', 'monospace', 'arial', 'notosans', 'nanum-gothic'
+  ];
   const Size = Quill.import('attributors/style/size');
   Size.whitelist = [
     '8px',
@@ -31,6 +35,7 @@ export default async function initializeQuill(editorRef, context, store) {
   Quill.register('modules/imageDrop', ImageDropModule.ImageDrop);
   Quill.register(Size, true);
   Quill.register(CodeEditorContainer(context, store));
+  Quill.register(Font, true);
 
   const icons = Quill.import('ui/icons');
   icons['code-editor-container'] = '<i class="fas fa-cube" style="color: purple;"></i>';
@@ -43,7 +48,7 @@ export default async function initializeQuill(editorRef, context, store) {
       },
       toolbar: {
         container: [
-          [{font: ['Source Code Pro', 'monospace', 'Arial']}],
+          [{font: Font.whitelist}],
           [{header: [1, 2, 3, 4, 5, 6, false]}],
           [
             {size: Size.whitelist},
