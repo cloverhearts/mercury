@@ -208,7 +208,9 @@
   content: "72px";
 }
 
-
+.ql-snow .ql-picker.ql-font{
+  width:120px;
+}
 .ql-font .ql-picker-options .ql-picker-item[data-value="source-code"]::before {
   content : "Source Code Pro";
 }
@@ -224,6 +226,31 @@
 .ql-font .ql-picker-options .ql-picker-item[data-value="nanum-gothic"]::before {
   content : "Nanum Gothic";
 }
+.ql-snow .ql-picker.ql-font .ql-picker-label::before{
+  overflow:hidden;
+  display:inline-block;
+  width:88%;
+  height:24px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  word-wrap:normal;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="source-code"]::before {
+  content : "Source Code Pro";
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before {
+  content : "Monospace";
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="arial"]::before {
+  content : "Arial";
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="notosans"]::before {
+  content : "Noto Sans";
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="nanum-gothic"]::before {
+  content : "Nanum Gothic";
+}
+
 .ql-font-source-code{
   font-family: "Source Code Pro";
 }
