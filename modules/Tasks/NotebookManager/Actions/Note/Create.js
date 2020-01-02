@@ -25,6 +25,7 @@ module.exports = async ({
     const noteId = `note-${UUID()}`;
     const newNote = new NoteContainer({
       title: noteTitle,
+      description: description,
       id: noteId,
       paragraphs: [new Paragraph({ parentId: noteId, content: [{ insert: `You can write here!` }] })]
     });
