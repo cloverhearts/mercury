@@ -38,7 +38,7 @@ export default async function initializeQuill(editorRef, context, store) {
   Quill.register(Font, true);
 
   const icons = Quill.import('ui/icons');
-  icons['code-editor-container'] = '<i class="fas fa-cube" style="color: purple;"></i>';
+  icons['code-editor-container'] = '<i class="fab fa-js-square"></i>';
 
   const options = {
     theme: 'snow',
