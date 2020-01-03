@@ -3,6 +3,24 @@
   .bp3-button-group {
     .run-code-button {
       min-width: 130px;
+      &.need-to-execute-this-code {
+        background: linear-gradient(-45deg, #65a1bd, #c92ce7, #137cbd, #23d5ab);
+        background-size: 400% 400%;
+        animation: need-to-execute-animation-bg 4s ease infinite;
+        @keyframes need-to-execute-animation-bg {
+          0% {
+            background-position: 0 100%;
+          }
+
+          50% {
+            background-position: 100% 0;
+          }
+
+          100% {
+            background-position: 0 100%;
+          }
+        }
+      }
     }
     .config-button {
 

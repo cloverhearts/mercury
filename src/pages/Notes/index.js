@@ -1,6 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Note from "../../components/Note/Card";
 
 import "./index.scss";
@@ -13,7 +12,7 @@ export default () => {
         {notes.map(note => (
           <Note key={note.id} {...note} />
         ))}
-      </div> : <span>Does not found any note</span>}
+      </div> : <div>Does not found any note</div>}
 
     </div>
   );

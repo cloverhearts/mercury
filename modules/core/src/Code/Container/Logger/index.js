@@ -38,7 +38,7 @@ export default class {
       data: context
     }
     this._logs.push(logItem)
-    if (this._logs.length > 1000) {
+    if (this._logs.length > 100) {
       this._logs.shift()
     }
     setTimeout(() => {
@@ -46,9 +46,20 @@ export default class {
     })
   }
 
-  clear () {
+  clear (data) {
+    const context = Array.isArray(data) && data.length <= 1 ? data[0] : data
     const length = this._logs.length
     this._logs.splice(0, length)
+    const logItem = {
+      level: LOG_LEVEL.CLEAR,
+      time: moment()
+        .utc()
+        .unix(),
+      data: context || 'clear logs'
+    }
+    setTimeout(() => {
+      this.eventBroadcaster.notify(this.channel.Logger, logItem)
+    })
   }
 
   log (...args) {

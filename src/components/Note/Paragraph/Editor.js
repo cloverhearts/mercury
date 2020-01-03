@@ -10,9 +10,7 @@ export default props => {
   const { context } = props;
   const store = useStore();
   const editorRef = useRef();
-  const preview = useRef();
   const dispatch = useDispatch();
-  const [contents, setContents] = useState([{ insert: "" }]);
   let editor = null;
   useEffect(() => {
     initializeQuill(editorRef, context, store).then(_editor => {
@@ -21,7 +19,6 @@ export default props => {
       window._mercuryParagraphEditor = editor;
       editor.setContents(context.content || [{ insert: "" }]);
       editor.on("text-change", () => {
-        setContents(editor.getContents());
         context.content = editor.getContents();
         dispatch(NOTE_ACTIONS.setSuggestSaveNote({ hasSuggestion: true }));
       });

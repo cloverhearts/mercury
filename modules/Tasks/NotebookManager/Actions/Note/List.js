@@ -11,7 +11,8 @@ module.exports = async () => {
   }
   try {
     db.read();
-    const note = await db.get(`${fixedUser}.meta.order.notes`).value();
+    const note = await db.get(`${fixedUser}.meta.order.notes`).filter((note) => !note.deletedAt).value();
+    console.log('note', note)
     return note;
   } catch (error) {
     console.log('ERROR ', error);

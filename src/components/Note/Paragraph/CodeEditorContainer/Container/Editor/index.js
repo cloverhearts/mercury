@@ -1,10 +1,11 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import * as monaco from 'monaco-editor';
 import './index.scss';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import NoteActions from '../../../../../../store/Note/actions';
 
 export default props => {
+  const currentNote = useSelector(state => state.note.current.note);
   const {Container, Option, Editor, UpdateEditor, onUpdateCode} = props;
   const dispatch = useDispatch();
   const editorRef = useRef();
@@ -29,6 +30,20 @@ export default props => {
           dispatch(NoteActions.executeCodeContainer(Container))
         }
       })
+
+      codeEditor.addAction({
+        id: `${Container.id}-shortcut-save-note`,
+        label: 'Save Note',
+        keybindings: [
+          monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S
+        ],
+        precondition: null,
+        keybindingContext: null,
+        run: () => {
+          dispatch(NoteActions.saveNote(currentNote))
+        }
+      })
+
     }
   }, [editorRef, Editor]);
 

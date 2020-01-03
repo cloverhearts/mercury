@@ -3,7 +3,7 @@ import EventBroadcaster from 'observeable-object-js'
 import LANGUAGE from '../Languages/Types'
 import Logger from './Logger'
 import { loader } from './Renderer'
-import Template from './ExecuteTemplates'
+import Template, { JAVASCRIPT_DEFAULT_CODE } from './ExecuteTemplates'
 import Meta from '../Meta'
 const serialize = require('serialize-javascript')
 const esprima = require('esprima')
@@ -13,7 +13,7 @@ export default class {
     this.parentParagraph = parentParagraph
     this.id = containerObject && containerObject.id ? containerObject.id : `code-editor-container-${UUID()}`
     this.language = containerObject && containerObject.language ? containerObject.language : LANGUAGE.JAVASCRIPT
-    this.code = containerObject && containerObject.code ? containerObject.code : '// javascript code to make here.'
+    this.code = containerObject && containerObject.code ? containerObject.code : JAVASCRIPT_DEFAULT_CODE
     this.logs = containerObject && containerObject.logs ? containerObject.logs : []
     this.logger = new Logger(this.logs)
     this._eventBroadcaster = new EventBroadcaster()

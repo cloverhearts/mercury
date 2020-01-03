@@ -1,10 +1,7 @@
 const UUID = require("uuid/v4");
-const moment = require("moment");
 const Database = require("../../Database/UserDatabase");
 const AppendNoteInList = require("./functions/InsertNoteListItem");
 const fixedUser = "Anonymous";
-const NoteContainer = require("mercury-core").default.NoteContainer.Note;
-const Paragraph = require("mercury-core").default.ParagraphContainer.Paragraph;
 
 let db = null;
 module.exports = async (targetNote) => {
@@ -18,7 +15,6 @@ module.exports = async (targetNote) => {
   try {
     db.read();
     targetNote.id = `note-${UUID()}`;
-    console.log('ttt ', targetNote)
     await db
       .get(`${fixedUser}.notes`)
       .push(targetNote)

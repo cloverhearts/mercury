@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Card, Elevation} from '@blueprintjs/core';
+import {Card} from '@blueprintjs/core';
 import CodeEditor from './Container';
 import {Resizable} from 're-resizable';
 import NoteActions from '../../../../store/Note/actions';
@@ -25,9 +25,6 @@ export default props => {
     paragraph.containers[paragraphIndexer.containerIndex] :
     null;
   const metaConfig = container ? container.meta.config : {};
-  const defaultWidth = metaConfig.editor ?
-    metaConfig.editor.width || `50%` :
-    `50%`;
   const resizableOptions = {
     width: '100%', // disabled current resize feature.
     height: '100%',

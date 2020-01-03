@@ -17,7 +17,6 @@ export default class Meta {
         .toISOString()
     this.deletedAt = deletedAt || null
     this.owner = owner || 'Anonymous'
-    // TODO(cloverhearts): need to history feature in future.
     this.history = history || []
     this._eventBroadcaster = new EventBroadcaster()
     this.channel = {

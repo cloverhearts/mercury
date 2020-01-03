@@ -31,11 +31,11 @@ module.exports = async note => {
       .assign(note)
       .write();
 
-    await AppendNoteInList({ db, user: fixedUser, noteId: savedNote.id, noteTitle: savedNote.title });
+    await AppendNoteInList({ db, user: fixedUser, noteId: savedNote.id, noteTitle: savedNote.title, noteDescription: savedNote.description });
 
     return savedNote;
   } catch (error) {
-    console.log("ERROR ", error);
+    console.error("ERROR ", error);
     return error;
   }
 };

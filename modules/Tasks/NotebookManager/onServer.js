@@ -2,7 +2,8 @@ const meta = require("./meta");
 const Create = require("./Actions/Note/Create");
 const Save = require("./Actions/Note/Save");
 const Load = require("./Actions/Note/Load");
-const importNote = require('./Actions/Note/Import')
+const Remove = require('./Actions/Note/Remove');
+const importNote = require('./Actions/Note/Import');
 const ListNote = require("./Actions/Note/List");
 
 // { container: {}, noteId: 'noteid', type: 'save' }
@@ -11,7 +12,7 @@ async function onServer(request) {
     const { type, noteId } = request;
     let result = {};
 
-    console.log("Notebook manager ", request);
+    console.debug("Notebook manager ", request);
     switch (type) {
       case "list.note":
         result = await ListNote();
@@ -23,6 +24,9 @@ async function onServer(request) {
         const title = request.title || undefined;
         const description = request.description || "";
         result = await Create({ title, description });
+        break;
+      case "remove.note":
+        result = await Remove(noteId);
         break;
       case "save.note":
         result = await Save(request.note);

@@ -4,8 +4,12 @@ const initializeState = {
       createNewNote: {
         isOpen: false,
         default: {
-          title: "New Note"
+          title: "New Note",
+          description: ''
         }
+      },
+      removeNote: {
+        isOpen: false,
       },
       exportNote: {
         isOpen: false,
@@ -14,6 +18,9 @@ const initializeState = {
         }
       },
       importNote: {
+        isOpen: false,
+      },
+      configNote: {
         isOpen: false,
       }
     }

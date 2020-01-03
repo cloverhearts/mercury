@@ -1,8 +1,12 @@
 .mercury-suggestion-save-note-button {
-  transform: 0;
-
+  transform: 0deg;
+  transition: all 0.5s;
   &.suggest {
-    transition: all 0.3s;
+    transition: all 0.1s;
     transform: rotate(-360deg);
+    border-radius: 50px;
+    span[icon] {
+      color: #48AFF0;
+    }
   }
 }

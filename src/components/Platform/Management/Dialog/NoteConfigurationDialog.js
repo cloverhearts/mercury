@@ -2,17 +2,19 @@ import React, { Fragment, useState, useCallback, useEffect, createRef } from "re
 import { Button, Dialog, Classes, FormGroup, InputGroup, Intent } from "@blueprintjs/core";
 import { useSelector, useDispatch } from "react-redux";
 import PlatformActions from "../../../../store/Platform/actions";
-import "./NoteCreateDialog.scss";
+import NoteAction from "../../../../store/Note/actions";
+
+import "./NoteConfigurationDialog.scss";
 
 export default props => {
   const titleInput = createRef();
-  const isOpen = useSelector(state => state.platform.note.dialog.createNewNote.isOpen);
-  const defaultTitle = useSelector(state => state.platform.note.dialog.createNewNote.default.title);
-  const defaultDescription = useSelector(state => state.platform.note.dialog.createNewNote.default.description);
+  const isOpen = useSelector(state => state.platform.note.dialog.configNote.isOpen);
+  const currentNote = useSelector(state => state.note.current.note);
+  const defaultTitle = useSelector(state => state.note.current.note.title);
+  const defaultDescription = useSelector(state => state.note.current.note.description);
   const dispatch = useDispatch();
-  const [disabledCreateButton, setDisabledCreateButton] = useState(false)
-  const [title, setTitle] = useState(defaultTitle);
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const options = {
     autoFocus: true,
     canEscapeKeyClose: false,
@@ -22,25 +24,30 @@ export default props => {
     usePortal: true
   };
 
-  useEffect(() => {
-    setDisabledCreateButton(false);
-    setTitle(defaultTitle);
-    setDescription(defaultDescription);
-  }, [isOpen])
+  useEffect(function onChangeCurrentNote() {
+    setTitle(currentNote.title || defaultTitle || '')
+    setDescription(currentNote.description || defaultDescription || '')
+  }, [currentNote])
 
   const onClose = useCallback(
     e => {
       e.preventDefault();
-      dispatch(PlatformActions.closeCreateNewNoteDialog());
+      dispatch(PlatformActions.closeNoteConfigDialog())
+      setTitle(defaultTitle)
+      setDescription(defaultDescription)
     },
     [isOpen]
   );
 
-  const onCreate = useCallback(
+  const onReplace = useCallback(
     e => {
       e.preventDefault();
-      setDisabledCreateButton(true);
-      dispatch(PlatformActions.closeCreateNewNoteDialog({ title, description }));
+      if (title && currentNote) {
+        currentNote.title = title
+        currentNote.description = description
+        dispatch(NoteAction.saveNote(currentNote));
+        dispatch(PlatformActions.closeNoteConfigDialog())
+      }
     },
     [title, description]
   );
@@ -59,12 +66,12 @@ export default props => {
     <Fragment>
       <Dialog
         onClose={onClose}
-        title={`Create New Note`}
-        className={`mercury-create-note-dialog ${Classes.DIALOG} `}
+        title={`Note Configuration`}
+        className={`mercury-config-note-dialog ${Classes.DIALOG} `}
         {...options}
         isOpen={isOpen}
       >
-        <div className={`mercury-create-note-dialog-content ${Classes.DIALOG_BODY} `}>
+        <div className={`mercury-config-note-dialog-content ${Classes.DIALOG_BODY} `}>
           <FormGroup label="Note Title" labelFor="title-input" labelInfo="(required)">
             <InputGroup
               id="title-input"
@@ -86,8 +93,8 @@ export default props => {
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
             <Button onClick={onClose}>Close</Button>
-            <Button onClick={onCreate} intent={Intent.PRIMARY} disabled={!title || disabledCreateButton}>
-              Create Note
+            <Button onClick={onReplace} intent={Intent.PRIMARY} disabled={!title}>
+              Apply Configuration
             </Button>
           </div>
         </div>

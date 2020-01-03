@@ -24,6 +24,8 @@ export default function MercuryLogger({Container}) {
           case 'error':
             window._mercury.notification.error(event.data.data)
             break;
+          case 'clear':
+            window._mercury.notification.warn(event.data.data)
           default:
             break;
         }

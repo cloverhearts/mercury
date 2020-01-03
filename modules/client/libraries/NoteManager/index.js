@@ -25,6 +25,13 @@ module.exports = () => {
         type
       }).send();
     },
+    remove: (data, _jobID = UUID()) => {
+      const type = "remove.note";
+      return NoteManager.build(_jobID, {
+        ...data,
+        type
+      }).send();
+    },
     list: (_jobID = UUID()) => {
       const type = "list.note";
       return NoteManager.build(_jobID, {

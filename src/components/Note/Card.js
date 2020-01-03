@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Card } from "@blueprintjs/core";
+import { Card } from "@blueprintjs/core";
 import moment from "moment";
 
 import "./Card.scss";

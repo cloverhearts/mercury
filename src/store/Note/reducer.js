@@ -1,7 +1,6 @@
 import ACTION_TYPES from "./types";
 import initializeState from "./state";
 import MercuryCore from "mercury-core";
-import {exportNote} from "./actions";
 
 const Note = MercuryCore.NoteContainer.Note;
 
@@ -15,6 +14,8 @@ function managementForNote(_state = initializeState, action) {
       return state;
     case ACTION_TYPES.RESPONSE_SAVE_NOTE:
       state.current.suggestForSaveNote = false;
+      state.current.note.title = action.note.title
+      state.current.note.description = action.note.description
       return state;
     case ACTION_TYPES.RESPONSE_REMOVE_NOTE:
       return state;
