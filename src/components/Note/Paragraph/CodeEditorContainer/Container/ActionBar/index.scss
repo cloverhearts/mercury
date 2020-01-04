@@ -1,5 +1,19 @@
 .editor-controller-box {
+  position: relative;
   text-align: right;
+  .code-container-title {
+    position: absolute;
+    width: 60%;
+    top: 0;
+    left: 0;
+    .bp3-input-group {
+      input {
+        font-size: 15px;
+        font-weight: 600;
+        box-shadow: none;
+      }
+    }
+  }
   .bp3-button-group {
     .run-code-button {
       min-width: 130px;

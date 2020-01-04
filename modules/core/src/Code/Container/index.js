@@ -5,7 +5,6 @@ import Logger from './Logger'
 import { loader } from './Renderer'
 import Template, { JAVASCRIPT_DEFAULT_CODE } from './ExecuteTemplates'
 import Meta from '../Meta'
-const serialize = require('serialize-javascript')
 const esprima = require('esprima')
 
 export default class {
@@ -15,6 +14,7 @@ export default class {
     this.language = containerObject && containerObject.language ? containerObject.language : LANGUAGE.JAVASCRIPT
     this.code = containerObject && containerObject.code ? containerObject.code : JAVASCRIPT_DEFAULT_CODE
     this.logs = containerObject && containerObject.logs ? containerObject.logs : []
+    this.title = containerObject && containerObject.title ? containerObject.title : `NEW ${this.language} code`
     this.logger = new Logger(this.logs)
     this._eventBroadcaster = new EventBroadcaster()
     this.channel = {
@@ -31,10 +31,7 @@ export default class {
     this._esprima = esprima
     this.meta = containerObject ? new Meta(containerObject.meta || {}) : new Meta()
     this.render = containerObject ? containerObject.render : {}
-    try {
-      // eslint-disable-next-line no-eval
-      this.storage = containerObject && containerObject.storage ? eval(`(${containerObject.storage})`) : {}
-    } catch {}
+    this.storage = containerObject && containerObject.storage ? containerObject.storage : {}
   }
 
   addEventListener (event, listener) {
@@ -94,15 +91,11 @@ export default class {
     serializedObject.id = this.id
     serializedObject.language = this.language
     serializedObject.code = this.code
+    serializedObject.title = this.title
     serializedObject.logs = this.logs
     serializedObject.meta = this.meta.toSerialize()
     serializedObject.render = this.render
-    try {
-      serializedObject.storage = serialize(this.storage)
-    } catch (error) {
-      serializedObject.storage = {}
-      console.error(`cannot serialize storage in note ${this.id} `, error)
-    }
+    serializedObject.storage = this.storage || {}
     return serializedObject
   }
 }

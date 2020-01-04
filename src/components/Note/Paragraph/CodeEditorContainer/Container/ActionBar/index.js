@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Button, ButtonGroup, Popover, Position } from "@blueprintjs/core";
+import React, { useState, useEffect, createRef } from "react";
+import { Button, ButtonGroup, Popover, Position, InputGroup } from "@blueprintjs/core";
 import { useDispatch } from "react-redux";
 import NoteActions from "../../../../../../store/Note/actions";
 import "./index.scss";
@@ -10,6 +10,7 @@ export default function ActionBar(props) {
   const dispatch = useDispatch();
   const [isRunning, setIsRunning] = useState(false);
   const [executeCount, setExecuteCount] = useState(0);
+  const titleRef = createRef()
 
   async function onClickRunButton() {
     dispatch(NoteActions.executeCodeContainer(Container));
@@ -33,8 +34,19 @@ export default function ActionBar(props) {
     };
   }, [Container.id]);
 
+  const onChangeTitle = (e) => {
+    e.preventDefault()
+    if (titleRef) {
+      const ele = titleRef.current
+      Container.title = ele.value
+    }
+  }
+
   return (
     <div className={`editor-controller-box`}>
+      <div className={`code-container-title`}>
+        <InputGroup inputRef={titleRef} defaultValue={Container.title} onChange={onChangeTitle}  />
+      </div>
       <ButtonGroup>
         <Button
           icon={`walk`}
