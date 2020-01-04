@@ -22,6 +22,9 @@ const initializeState = {
       },
       configNote: {
         isOpen: false,
+      },
+      missingSaveNote: {
+        targetNote: {}
       }
     }
   }

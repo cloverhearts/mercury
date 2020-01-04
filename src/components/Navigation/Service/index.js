@@ -14,6 +14,8 @@ import NoteCreateDialog from "../../Platform/Management/Dialog/NoteCreateDialog"
 import NoteExportDialog from "../../Platform/Management/Dialog/NoteExportDialog";
 import NoteImportDialog from "../../Platform/Management/Dialog/NoteImportDialog";
 import NoteRemoveDialog from "../../Platform/Management/Dialog/NoteRemoveDialog";
+import NoteLeaveSuggestionSaveDialog
+  from '../../Platform/Management/Dialog/NoteLeaveSuggestionSaveDialog';
 import NoteConfigurationDialog from "../../Platform/Management/Dialog/NoteConfigurationDialog";
 import SuggestionSaveNoteButton from "./Partials/SuggestionForSaveNoteButton";
 import ExportNoteButton from "./Partials/ExportNoteButton";
@@ -58,6 +60,7 @@ export default props => {
       <NoteExportDialog />
       <NoteImportDialog />
       <NoteRemoveDialog />
+      <NoteLeaveSuggestionSaveDialog />
       <NoteConfigurationDialog />
     </>
   );
