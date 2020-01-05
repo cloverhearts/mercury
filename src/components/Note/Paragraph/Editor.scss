@@ -20,8 +20,11 @@
     font-weight: inherit;
 
     .ql-editor {
+      width: calc(100% - 30%);
       height: calc(100vh - 91px);
-      padding: 3% 20%;
+      background: #fff;
+      padding: 5% 10%;
+      margin: 0 auto;
       iframe {
         width: 100%;
         &.ql-video {

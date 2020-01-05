@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from "react";
-import { Button } from "@blueprintjs/core";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Alert } from "@blueprintjs/core";
 import { useSelector, useDispatch } from "react-redux";
 import NoteAction from "../../../../store/Note/actions";
 import './SuggestionForSaveNoteButton.scss'
 import debounce from 'lodash/debounce'
-import MercuryCore from "mercury-core";
+import PlatformAction from '../../../../store/Platform/actions';
 
 export default props => {
   const currentNote = useSelector(state => state.note.current.note);
@@ -16,16 +16,20 @@ export default props => {
   }, 500), [currentNote]);
 
   useEffect(() => {
-    return () => {
-      const Note = MercuryCore.NoteContainer.Note;
-      dispatch(NoteAction.saveNote(new Note({...currentNote})))
+    if (suggestSaveNote) {
+      dispatch(PlatformAction.setMissingSaveNote({ note: {...currentNote} }))
     }
-  }, [currentNote]);
-  return currentNote && currentNote.id ? (
-    <Button
-      className={`bp3-minimal mercury-save-note-button mercury-suggestion-save-note-button ${suggestSaveNote ? "suggest" : null}`}
-      icon="floppy-disk"
-      onClick={onClickSave}
-    />
-  ) : '';
+  }, [currentNote, suggestSaveNote]);
+
+  return <>
+    {currentNote && currentNote.id ? (
+      <>
+        <Button
+          className={`bp3-minimal mercury-save-note-button mercury-suggestion-save-note-button ${suggestSaveNote ? "suggest" : null}`}
+          icon="floppy-disk"
+          onClick={onClickSave}
+        />
+      </>
+    ) : ''}
+  </>
 };

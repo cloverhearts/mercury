@@ -1,20 +1,42 @@
 # Mercury
+<div style="text-align: center">
+  <img src="https://user-images.githubusercontent.com/10525473/71775435-88984f00-2fc4-11ea-91dc-49bc37e23160.png" />
+</div>
 
 ## What is Mercury?
 
 Mercury is note system. like is [Apache Zeppelin](https://zeppelin.apache.org/), [Jupyter](https://jupyter.org/).
 
-But, this project's focus on data discovery with javascript to easier.
+Mercury is a tool visualized by data retrieval through JavaScript.
 
-Basically, javascript can immediate execute anywhere and programming.
+Easy to implement and use as a web application.
 
-And we can look for our discovery result on javascript.
+The npm module can be downloaded and integrated directly, and the backend and frontend can be used together.
 
-if you need to more serious experience of data science,
+### Example of use
 
-**I sadly, not enough our features yet.**
+> Existing storage, including many big data tools, supports the REST API. Simple implementation and control of apps working through the REST API
 
-## How to use mercury?
+> Browse libraries such as Puppeteer can be used to create notes targeted for analytics, automation, and external domain sites.
+
+> It is possible to develop control app by integrating SQL and environment using npm packages.
+
+
+## Features screenshot
+
+### WYSIWYG Editor
+
+<div style="text-align: center">
+  <img src="https://user-images.githubusercontent.com/10525473/71775647-8daacd80-2fc7-11ea-8204-a9766a9f2153.gif" />
+</div>
+
+### running javascript with npm module ( [hello-mercury](https://www.npmjs.com/package/hello-mercury) )
+<div style="text-align: center">
+  <img src="https://user-images.githubusercontent.com/10525473/71775585-75867e80-2fc6-11ea-9abb-cca346059e30.png" />
+</div>
+
+## For Developer
+### How to use mercury?
 
 ```
 git clone https://github.com/cloverhearts/mercury.git
@@ -23,30 +45,25 @@ npm install
 npm run start && npm run dev
 ```
 
-## How to build mercury?
+### How to build mercury?
 
-### ALL Platform
+#### ALL Platform
 
 ```
 npm run build
 ```
 
-### Windows 32bit and 64bit
+##### Windows 32bit and 64bit
 
 ```
 npm run build:win
 ```
 
-### OSX
+##### OSX
 
 ```
 npm run build:osx
 ```
 
-### Linux
-
-```
-npm run build:linux
-```
 
 And, You can find out mercury installation file in dist directory.

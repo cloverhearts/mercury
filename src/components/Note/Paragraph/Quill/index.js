@@ -8,6 +8,7 @@ export default async function initializeQuill(editorRef, context, store) {
     window.Quill = QuillJS;
   }
   const Quill = window.Quill;
+  const imports = Object.keys(Quill.imports)
   const ImageDropModule = await import('quill-image-drop-module');
   const Font = Quill.import('formats/font');
   Font.whitelist = [
@@ -32,13 +33,17 @@ export default async function initializeQuill(editorRef, context, store) {
     '48px',
     '72px'];
 
-  Quill.register('modules/imageDrop', ImageDropModule.ImageDrop);
   Quill.register(Size, true);
-  Quill.register(CodeEditorContainer(context, store));
+
   Quill.register(Font, true);
+  if (!imports.includes('modules/imageDrop')) {
+    Quill.register('modules/imageDrop', ImageDropModule.ImageDrop);
+  }
+
+  Quill.register(CodeEditorContainer(context, store));
 
   const icons = Quill.import('ui/icons');
-  icons['code-editor-container'] = '<i class="fas fa-cube" style="color: purple;"></i>';
+  icons['code-editor-container'] = '<i class="fab fa-js-square"></i>';
 
   const options = {
     theme: 'snow',

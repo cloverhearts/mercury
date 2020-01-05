@@ -41,6 +41,9 @@ function reducer(_state = initializeState, action) {
     case ACTION_TYPES.RESPONSE_CLOSE_NOTE_CONFIG_DIALOG:
       state.note.dialog.configNote.isOpen = false;
       return state;
+    case ACTION_TYPES.RESPONSE_SET_MISSING_SAVE_NOTE:
+      state.note.dialog.missingSaveNote.targetNote = action.note;
+      return state;
     default:
       return state;
   }

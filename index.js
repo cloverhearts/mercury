@@ -35,7 +35,8 @@ async function createWindow() {
       title: "Mercury",
       nodeIntegration: false,
       preload: __dirname + `/preload.js`,
-      webSecurity: false
+      webSecurity: false,
+      icon: path.join(__dirname, 'assets/icons/png/icon_128x128.png')
     }
   });
   mainWindow.setMenu(null)
@@ -60,19 +61,20 @@ async function createWindow() {
   mainWindow.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(resourcePath, "build", "index.html")}`);
 
   if (isDev) {
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   }
+
   mainWindow.on("closed", () => (mainWindow = null));
+
+  mainWindow.on("window-all-closed", () => {
+    if (process.platform !== "darwin") {
+      app.quit();
+    }
+  });
 }
 
 app.on("ready", server.initializeServer);
 app.on("ready", createWindow);
-
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
 
 app.on("activate", () => {
   if (mainWindow === null) {

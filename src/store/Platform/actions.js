@@ -42,6 +42,10 @@ export function closeNoteConfigDialog() {
   return { type: ACTION_TYPES.REQUEST_CLOSE_NOTE_CONFIG_DIALOG }
 }
 
+export function setMissingSaveNote({ note }) {
+  return { type: ACTION_TYPES.REQUEST_SET_MISSING_SAVE_NOTE, note}
+}
+
 export default {
   openCreateNewNoteDialog,
   closeCreateNewNoteDialog,
@@ -52,5 +56,6 @@ export default {
   openImportNoteDialog,
   closeImportNoteDialog,
   openNoteConfigDialog,
-  closeNoteConfigDialog
+  closeNoteConfigDialog,
+  setMissingSaveNote
 };

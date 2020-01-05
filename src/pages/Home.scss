@@ -30,6 +30,17 @@
     }
   }
 
+  .mercury-big-logo {
+    svg {
+      z-index: 9;
+      display: block;
+      position: absolute;
+      top: 50px;
+      left: calc(50% - 112px);
+      opacity: 0.5;
+    }
+  }
+
   .mercury-recently-notes {
     text-align: center;
     .list {
@@ -51,6 +62,7 @@
     .person-card {
       display: inline-block;
       width: 320px;
+      background: #fff;
       box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.15), 0 0 0 rgba(16, 22, 26, 0), 0 0 0 rgba(16, 22, 26, 0);
       border-radius: 3px;
       word-break: break-all;

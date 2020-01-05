@@ -1,10 +1,12 @@
 .mercury-note-list-container {
   padding: 60px 0 50px 0;
   .note-list {
+    text-align: center;
     div {
     }
   }
-  .mercury-note-loading {
-    background: red;
+  .empty-notes {
+    height: 80vh;
+    text-align: center;
   }
 }
