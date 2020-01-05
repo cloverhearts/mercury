@@ -22,6 +22,8 @@ Easy to implement and use as a web application.
 
 The npm module can be downloaded and integrated directly, and the backend and frontend can be used together.
 
+[APP Download](https://github.com/cloverhearts/mercury/releases)
+
 ### Example of use
 
 > Existing storage, including many big data tools, supports the REST API. Simple implementation and control of apps working through the REST API
