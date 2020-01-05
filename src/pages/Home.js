@@ -59,6 +59,9 @@ export default () => {
         </svg>
       </div>
     </div>
+    <div className={`mercury-external-notification`}>
+      <iframe src={`https://cloverhearts.github.io/mercury/app-notification.html`} style={{width: `100%`, height: `50px`, border: `none`}}></iframe>
+    </div>
     <div className={`mercury-recently-notes`}>
       <div className={`list`}>
         { notes && notes.length > 0 ? <div className={`note-list`}>

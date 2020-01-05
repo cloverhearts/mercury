@@ -5,6 +5,15 @@
 
 ## What is Mercury?
 
+``` javascript
+const axios = await npmModule('axios')
+const response = axios.get('https://some.web.site.or.resource.api.domain')
+const remoteData = response.data
+
+const content = HTML`web data is ${remoteData}`
+RENDER(content)
+```
+
 Mercury is note system. like is [Apache Zeppelin](https://zeppelin.apache.org/), [Jupyter](https://jupyter.org/).
 
 Mercury is a tool visualized by data retrieval through JavaScript.
