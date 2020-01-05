@@ -51,7 +51,9 @@ export default function MercuryCodeEditor(props) {
   );
   const editorOption = {
     value: codeContainer.code,
-    language: codeContainer.language,
+    language: codeContainer.language || 'javascript',
+    autoIndent: "full",
+    mouseWheelZoom: true,
     automaticLayout: true,
     minimap: { enabled: false },
     scrollbar: {
