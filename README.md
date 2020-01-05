@@ -1,6 +1,6 @@
 # Mercury
-<div style="text-align: center">
-  <img src="https://user-images.githubusercontent.com/10525473/71775435-88984f00-2fc4-11ea-91dc-49bc37e23160.png" />
+<div style="text-align: center;">
+  <img src="https://user-images.githubusercontent.com/10525473/71775435-88984f00-2fc4-11ea-91dc-49bc37e23160.png" style="height: 100px;" />
 </div>
 
 ## What is Mercury?
@@ -30,9 +30,16 @@ The npm module can be downloaded and integrated directly, and the backend and fr
   <img src="https://user-images.githubusercontent.com/10525473/71775647-8daacd80-2fc7-11ea-8204-a9766a9f2153.gif" />
 </div>
 
-### running javascript with npm module ( [hello-mercury](https://www.npmjs.com/package/hello-mercury) )
+### Running javascript with npm module ( [hello-mercury](https://www.npmjs.com/package/hello-mercury) )
 <div style="text-align: center">
   <img src="https://user-images.githubusercontent.com/10525473/71775585-75867e80-2fc6-11ea-9abb-cca346059e30.png" />
+</div>
+
+### Screenshot other website with npm Puppeteer
+
+<div style="text-align: center">
+  <img src="https://user-images.githubusercontent.com/10525473/71775732-1e35dd80-2fc9-11ea-817e-ee6a10690270.png" />
+  <img src="https://user-images.githubusercontent.com/10525473/71775736-30178080-2fc9-11ea-9d00-4d0fb027a722.png" />
 </div>
 
 ## For Developer
