@@ -1,3 +1,4 @@
+const os = require('os');
 const path = require('path');
 const npm = require('./npm-programmatic');
 
@@ -8,7 +9,7 @@ module.exports = (packageName) => {
       module.default ? resolve(module.default) : resolve(module);
     } catch (cannotFoundModule) {
       npm.install([packageName], {
-        cwd: path.join(__dirname, `../../../../`),
+        cwd: os.platform().match('win') ? path.join(__dirname, `../../../../`) : __dirname,
         save: true,
       }).then(function() {
         try {
