@@ -1,26 +1,30 @@
-const npm = require('npm-programmatic')
+const path = require('path');
+const npm = require('./npm-programmatic');
 
 module.exports = (packageName) => {
   return new Promise((resolve, reject) => {
     try {
-      const module = require(packageName)
-      module.default ? resolve(module.default) : resolve(module)
+      const module = require(packageName);
+      module.default ? resolve(module.default) : resolve(module);
     } catch (cannotFoundModule) {
       npm.install([packageName], {
-        cwd: __dirname,
-        save: true
-      })
-      .then(function(){
+        cwd: path.join(__dirname, `../../../../`),
+        save: true,
+      }).then(function() {
         try {
-          const module = require(packageName)
-          module.default ? resolve(module.default) : resolve(module)
+          const module = require(packageName);
+          module.default ? resolve(module.default) : resolve(module);
         } catch (moduleError) {
-          reject(moduleError)
+          reject(moduleError);
         }
-      })
-      .catch(function(e){
-        reject(e)
+      }).catch(function(e) {
+        if (typeof window !== 'undefined' && window._mercury &&
+          window._mercury.notification) {
+          window._mercury.notification.warn(
+            'Please install NodeJS\n(https://nodejs.org/en/download/)');
+        }
+        reject(e);
       });
     }
-  })
-}
+  });
+};

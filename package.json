@@ -14,7 +14,7 @@
     "build:linux": "cross-env MERCURY_ENV=production npm-run-all build-script build:linux:*",
     "build:linux:32": "electron-builder --linux --ia32",
     "build:linux:64": "electron-builder --linux --x64",
-    "build:win": "cross-env MERCURY_ENV=production npm-run-all build-script build:win:*",
+    "build:win": "cross-env MERCURY_ENV=production npm-run-all build:win:*",
     "build:win:32": "electron-builder --win --ia32",
     "build:win:64": "electron-builder --win --x64"
   },
@@ -46,6 +46,7 @@
     "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.5",
     "babel-preset-react-app": "^9.1.0",
+    "bluebird": "^3.7.2",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "css-loader": "2.1.1",
@@ -72,6 +73,7 @@
     "jest-resolve": "24.8.0",
     "jest-watch-typeahead": "0.3.1",
     "jsdom": "^15.2.1",
+    "libnpm": "^3.0.1",
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
     "mercury-core": "file:modules/core",
@@ -81,7 +83,6 @@
     "monaco-editor-webpack-plugin": "^1.8.1",
     "node-sass": "^4.13.0",
     "notosans-fontface": "^1.1.0",
-    "npm": "^6.13.4",
     "npm-programmatic": "0.0.12",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.5.0",
@@ -194,9 +195,9 @@
     ]
   },
   "build": {
-    "productName": "mercury",
+    "productName": "Mercury",
     "appId": "com.cloverhearts.mercury",
-    "asar": true,
+    "asar": false,
     "extraResources": [
       "./build/**",
       "./database/**"
@@ -222,7 +223,7 @@
         "zip",
         "nsis"
       ],
-      "icon": "assets/icons/win/icon.icns"
+      "icon": "./assets/icons/win/icon.ico"
     },
     "linux": {
       "target": [
@@ -232,7 +233,7 @@
         "zip",
         "tar.gz"
       ],
-      "icon": "assets/icons/png/icon_32x32.png"
+      "icon": "./assets/icons/png/icon_32x32.png"
     },
     "nsis": {
       "oneClick": false,
