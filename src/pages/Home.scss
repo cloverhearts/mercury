@@ -30,6 +30,17 @@
     }
   }
 
+  .mercury-big-logo {
+    svg {
+      z-index: 9;
+      display: block;
+      position: absolute;
+      top: 50px;
+      left: calc(50% - 112px);
+      opacity: 0.5;
+    }
+  }
+
   .mercury-recently-notes {
     text-align: center;
     .list {

@@ -35,7 +35,8 @@ async function createWindow() {
       title: "Mercury",
       nodeIntegration: false,
       preload: __dirname + `/preload.js`,
-      webSecurity: false
+      webSecurity: false,
+      icon: path.join(__dirname, 'assets/icons/png/icon_128x128.png')
     }
   });
   mainWindow.setMenu(null)

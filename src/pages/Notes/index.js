@@ -12,7 +12,7 @@ export default () => {
         {notes.map(note => (
           <Note key={note.id} {...note} />
         ))}
-      </div> : <div>Does not found any note</div>}
+      </div> : <div className={`empty-notes`}>Cannot found any note</div>}
 
     </div>
   );
