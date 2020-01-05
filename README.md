@@ -1,7 +1,7 @@
 # Mercury
 
 <p align="center">
-  <img width="300" src="https://user-images.githubusercontent.com/10525473/71775435-88984f00-2fc4-11ea-91dc-49bc37e23160.png">
+  <img src="https://user-images.githubusercontent.com/10525473/71776948-dc169700-2fdc-11ea-8e78-987f2df1c098.png">
 </p>
 
 ## What is Mercury?
