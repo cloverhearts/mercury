@@ -2,8 +2,9 @@ const prompt = require('electron-prompt');
 const jsdom = require('jsdom');
 const NoteManager = require('./modules/client/libraries/NoteManager');
 const Fetch = require('./modules/client/libraries/Fetch');
+const exec = require('./modules/client/libraries/exec');
 const npmModule = require('./modules/client/libraries/RequireModule');
-const lodash = require('lodash')
+const lodash = require('lodash');
 window.prompt = prompt;
 
 window._ = lodash
@@ -12,7 +13,8 @@ window._mercury = {
   utils: {
     lodash: lodash,
     jsdom,
-    npmModule
+    npmModule,
+    exec
   },
   system: {},
   appRender: {}

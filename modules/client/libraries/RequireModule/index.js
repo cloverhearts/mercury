@@ -8,6 +8,7 @@ module.exports = (packageName) => {
       const module = require(packageName);
       module.default ? resolve(module.default) : resolve(module);
     } catch (cannotFoundModule) {
+      console.log('module path ', os.platform().match('win') ? path.join(__dirname, `../../../../`) : __dirname)
       npm.install([packageName], {
         cwd: os.platform().match('win') ? path.join(__dirname, `../../../../`) : __dirname,
         save: true,
@@ -21,8 +22,7 @@ module.exports = (packageName) => {
       }).catch(function(e) {
         if (typeof window !== 'undefined' && window._mercury &&
           window._mercury.notification) {
-          window._mercury.notification.warn(
-            'Please install NodeJS\n(https://nodejs.org/en/download/)');
+          window._mercury.notification.warn(e);
         }
         reject(e);
       });

@@ -15,24 +15,27 @@ const content = HTML`web data is ${remoteData}`
 RENDER(content)
 ```
 
-Mercury is note system. like is [Apache Zeppelin](https://zeppelin.apache.org/), [Jupyter](https://jupyter.org/).
+Mercury is note system such as [Apache Zeppelin](https://zeppelin.apache.org/), [Jupyter](https://jupyter.org/).
 
-Mercury is a tool visualized by data retrieval through JavaScript.
+Mercury can visualize data through JavaScript
 
-Easy to implement and use as a web application.
+Easy to implement web app by discovery data and Share to other people mercury note through mercury exported note.
 
-The npm module can be downloaded and integrated directly, and the backend and frontend can be used together.
+And Mercury support npm module(browser/backend) install to use.
+
+If you will use to puppeteer(or other backend side library) and make a small web app,
+
+mercury is good way for your needs.
 
 [APP Download](https://github.com/cloverhearts/mercury/releases)
 
 ### Example of use
 
-> Existing storage, including many big data tools, supports the REST API. Simple implementation and control of apps working through the REST API
+> Many big data tools has REST API, Mercury can make visualization as good as use through that.
 
-> Browse libraries such as Puppeteer can be used to create notes targeted for analytics, automation, and external domain sites.
+> Mercury has integrated backend-side and frontend-side. so, if you need to make a front visualization from backend-side data. mercury make will super easy. 
 
-> It is possible to develop control app by integrating SQL and environment using npm packages.
-
+> official npm repository has many library and echo system. mercury can use any library.
 
 ## Features screenshot
 
