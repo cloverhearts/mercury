@@ -1,26 +1,57 @@
-const { exec } = require('child_process');
+const { exec, spawn } = require('child_process');
 
-module.exports = (command, options = {}) => {
-  return new Promise((resolve, reject) => {
-    try {
-      exec(command, options, (error, stdout, stderr) => {
-        if (error) {
-          console.error(error)
+module.exports = {
+  exec: (command, options = {}) => {
+    return new Promise((resolve, reject) => {
+      try {
+        exec(command, options, (error, stdout, stderr) => {
+          if (error) {
+            console.error(error)
+            if (typeof window !== 'undefined' && window._mercury &&
+              window._mercury.notification) {
+              window._mercury.notification.error(error);
+            }
+            reject(error)
+          }
+          console.log(stdout)
           if (typeof window !== 'undefined' && window._mercury &&
             window._mercury.notification) {
-            window._mercury.notification.error(error);
+            window._mercury.notification.log(stdout);
           }
-          reject(error)
-        }
-        console.log(stdout)
-        if (typeof window !== 'undefined' && window._mercury &&
-          window._mercury.notification) {
-          window._mercury.notification.log(stdout);
-        }
-        resolve(stdout)
-      })
-    } catch (error) {
-      reject(error)
-    }
-  });
-};
+          resolve(stdout)
+        })
+      } catch (error) {
+        reject(error)
+      }
+    });
+  },
+  spawn: (command, args = [], options = {}) => {
+    return new Promise((resolve, reject) => {
+      try {
+        const response = spawn(command, args, options);
+
+        response.stdout.on('data', (data) => {
+          console.log(`stdout: ${data}`);
+          if (typeof window !== 'undefined'&& window._mercury.notification) {
+            window._mercury.notification.log(data);
+          }
+        });
+
+        response.stderr.on('data', (data) => {
+          console.error(data);
+          if (typeof window !== 'undefined' && window._mercury &&
+            window._mercury.notification) {
+            window._mercury.notification.error(data);
+            reject(data)
+          }
+        });
+
+        response.on('close', (code) => {
+          resolve(true)
+        })
+      } catch (error) {
+        reject(error)
+      }
+    });
+  }
+}
