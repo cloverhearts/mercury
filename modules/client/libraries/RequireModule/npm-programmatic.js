@@ -9,16 +9,11 @@ module.exports = {
         reject('No packages found');
       }
 
-      exec(npmCommand, {
+      exec(`${npmCommand} -v`, {
         shell: true,
         cwd: opts.cwd ? opts.cwd : null
       }, (error) => {
         if (error) {
-          if (typeof window !== 'undefined' && window._mercury &&
-            window._mercury.notification) {
-            window._mercury.notification.warn(
-              'Please install NodeJS\n(https://nodejs.org/en/download/), ' + npmCommand + ' not found');
-          }
           reject('Please install NodeJS\n(https://nodejs.org/en/download/), ' + npmCommand + ' not found');
         }
 

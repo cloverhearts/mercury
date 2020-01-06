@@ -10,8 +10,14 @@ module.exports = (packageName) => {
       npm.install([packageName], {
         cwd: path.join(__dirname, `../../../../`),
         save: true,
-      }).then(function() {
+      }).then(function(msg) {
         try {
+
+          if (typeof window !== 'undefined' && window._mercury &&
+            window._mercury.notification) {
+            window._mercury.notification.log(msg);
+          }
+
           const module = require(packageName);
           module.default ? resolve(module.default) : resolve(module);
         } catch (moduleError) {
@@ -20,7 +26,7 @@ module.exports = (packageName) => {
       }).catch(function(e) {
         if (typeof window !== 'undefined' && window._mercury &&
           window._mercury.notification) {
-          window._mercury.notification.warn(e);
+          window._mercury.notification.error(e);
         }
         reject(e);
       });
