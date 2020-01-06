@@ -34,7 +34,15 @@ module.exports = {
             window._mercury.notification) {
             window._mercury.notification.log(stdout);
           }
-          resolve(stdout)
+          exec(`${npmCommand} link ${packages.join(' ')}`, {
+            shell: true,
+            cwd: opts.cwd ? opts.cwd : null
+          }, (error) => {
+            if (error) {
+              reject(error)
+            }
+            resolve(stdout)
+          })
         })
       })
     });
