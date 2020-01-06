@@ -2,10 +2,12 @@ const { app, BrowserWindow, protocol } = require("electron");
 const contextMenu = require('electron-context-menu');
 const path = require("path");
 const basepath = app.getAppPath();
+const fixPath = require('fix-path');
 // const isDev = require("electron-is-dev");
 const server = require("./modules/server");
 let mainWindow;
 
+fixPath();
 const isDev = process.env.MERCURY_ENV === "development";
 const resourcePath = isDev ? basepath : process.resourcesPath;
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = true;

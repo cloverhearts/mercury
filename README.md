@@ -50,7 +50,7 @@ mercury is good way for your needs.
   <img src="https://user-images.githubusercontent.com/10525473/71775585-75867e80-2fc6-11ea-9abb-cca346059e30.png" />
 </div>
 
-### Screenshot other website with npm Puppeteer
+### Take a screenshot from other website with npm Puppeteer
 
 <div style="text-align: center">
   <img src="https://user-images.githubusercontent.com/10525473/71775732-1e35dd80-2fc9-11ea-817e-ee6a10690270.png" />

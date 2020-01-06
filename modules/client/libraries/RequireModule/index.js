@@ -10,7 +10,7 @@ module.exports = (packageName) => {
     } catch (cannotFoundModule) {
       console.log('module path ', os.platform().match('win') ? path.join(__dirname, `../../../../`) : __dirname)
       npm.install([packageName], {
-        cwd: os.platform().match('win') ? path.join(__dirname, `../../../../`) : __dirname,
+        cwd: path.join(__dirname, `../../../../`),
         save: true,
       }).then(function() {
         try {
