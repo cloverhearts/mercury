@@ -1,6 +1,6 @@
 const os = require('os');
 const {spawn} = require('child_process');
-const npmCommand = os.platform().match('win') ? 'npm.cmd' : 'npm';
+const npmCommand = os.platform() === 'win32' ? 'npm.cmd' : 'npm';
 
 module.exports = {
   install: function(packages, opts) {
