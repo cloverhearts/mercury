@@ -18,7 +18,7 @@ window._mercury = {
     jsdom,
     npmModule,
     exec: exec.exec,
-    builder: exec.spawn
+    spawn: exec.spawn
   },
   system: {},
   appRender: {}
