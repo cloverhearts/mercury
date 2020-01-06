@@ -19,7 +19,7 @@ module.exports = {
 
         console.log(`execute command ${npmCommand} install --save ${packages.join(' ')}`)
 
-        exec(`${npmCommand} install --save ${packages.join(' ')}`, {
+        exec(`${npmCommand} install -g ${packages.join(' ')}`, {
           shell: true,
           cwd: opts.cwd ? opts.cwd : null
         }, (error, stdout, stderr) => {
