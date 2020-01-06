@@ -3,11 +3,16 @@ const {spawn} = require('child_process');
 const npmCommand = os.platform() === 'win32' ? 'npm.cmd' : 'npm';
 
 module.exports = {
-  install: function(packages, opts) {
+  install: function (packages, opts) {
     return new Promise((resolve, reject) => {
       if (!packages || packages.length <= 0) {
         reject('No packages found');
       }
+
+      console.log(npmCommand, [
+        'install',
+        '--save',
+        ...packages].join(''))
 
       const testForNpmCommand = spawn(npmCommand, [], {
         shell: true,
@@ -19,11 +24,11 @@ module.exports = {
         if (typeof window !== 'undefined' && window._mercury &&
           window._mercury.notification) {
           window._mercury.notification.warn(
-            'Please install NodeJS\n(https://nodejs.org/en/download/)');
+            'Please install NodeJS\n(https://nodejs.org/en/download/), ' + npmCommand + ' not found');
         }
         reject(data);
       });
-
+      
       const executeNpm = spawn(npmCommand, [
         'install',
         '--save',

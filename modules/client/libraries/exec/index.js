@@ -29,12 +29,13 @@ module.exports = {
     return new Promise((resolve, reject) => {
       try {
         const response = spawn(command, args, options);
-
+        let result = '';
         response.stdout.on('data', (data) => {
           console.log(`stdout: ${data}`);
           if (typeof window !== 'undefined'&& window._mercury.notification) {
             window._mercury.notification.log(data);
           }
+          result += data
         });
 
         response.stderr.on('data', (data) => {
@@ -47,7 +48,7 @@ module.exports = {
         });
 
         response.on('close', (code) => {
-          resolve(true)
+          resolve(result)
         })
       } catch (error) {
         reject(error)
