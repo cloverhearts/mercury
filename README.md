@@ -66,6 +66,7 @@ cd mercury/modules/core
 npm install
 npm run build
 cd ../..
+npm install
 npm run start && npm run dev
 ```
 
