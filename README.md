@@ -58,12 +58,11 @@ mercury is good way for your needs.
 </div>
 
 ## For Developer
-### How to mercury start?
+### How to start mercury?
 
 ```
 git clone https://github.com/cloverhearts/mercury.git
-cd mercury
-cd ./modules/core 
+cd mercury/modules/core 
 npm install
 npm run build
 cd ../..
